@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Civista Bank</title>
+    <link rel="stylesheet" href="../../css/jquery-ui.css" media="screen" title="no title">
+    <link rel="stylesheet" href="../../css/jquery-ui.theme.min.css" media="screen" title="no title">
+    <link rel="stylesheet" href="../../css/skeleton.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../../css/animate.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../../css/css.css" media="screen" title="no title" charset="utf-8">
+</head>
+
+<body>
+
+    <div class="detail-page calculator">
+        <header></header>
+
+        <div class="background-grey-gradient">
+            <div class="container">
+                <div class="row">
+                    <div class="header">
+                        <div class="title">
+                            <h1>Savings Calculator</h1>
+                            <div class="info">
+                                <p>Use this savings calculator to determine your savings over time. Simply enter the initial deposit, interest rate, and term (in months) to calculate your savings. Get started today to watch your savings and interest grow over time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content">
+
+                    <div class="row">
+                        <div class="columns six">
+                            <div class="calc-form">
+                                <h2>Loan Information</h2>
+                                <hr>
+                                <form class="auto">
+                                    <div class="input">
+                                        <div class="row">
+                                            <div class="columns six">
+                                                <label>Initial Deposit</label>
+                                            </div>
+                                            <div class="columns two">
+                                                <span class="add-on">$</span>
+                                            </div>
+                                            <div class="columns four">
+                                                <input id="dividend-principal" value="3000" min="0" type="number" pattern="[0-9]*">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input">
+                                        <div class="row">
+                                            <div class="columns six">
+                                                <label>Interest Rate:</label>
+                                            </div>
+                                            <div class="columns two">
+                                                <span class="add-on">%</span>
+                                            </div>
+                                            <div class="columns four">
+                                                <input type="number" id="dividend-rate" value="2.00" min="0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input">
+                                        <div class="row">
+                                            <div class="columns six">
+                                                <label>Certificate Term:</label>
+                                            </div>
+                                            <div class="columns two">
+                                                <span class="add-on">Months</span>
+
+                                            </div>
+                                            <div class="columns four">
+                                                <input type="number" id="dividend-term" value="60" min="1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <hr>
+                                <div class="output">
+                                    <h3>Total Savings:</h3>
+                                    <span><div id="total"></div></span>
+                                </div>
+
+                                <div class="output">
+                                    <h3>Interest:</h3>
+                                    <span><div id="dividends"></div></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="columns six">
+                            <div id="area-chart" class="pie-chart animated fadeIn"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end conainer-->
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../js/fastclick.js"></script>
+<script type="text/javascript" src="../../js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../../js/TweenMax.min.js"></script>
+<script type="text/javascript" src="../../js/jquery-ui.min.js"></script>
+<!-- for the calculator -->
+<script type="text/javascript" src="../../js/highcharts.js"></script>
+<script type="text/javascript" src="../../js/data-highcharts.js"></script>
+<script type="text/javascript" src="../../js/calculators.js"></script>
+
+<script type="text/javascript" src="../../js/app.js"></script>
+
+
+<script>
+    calculate_dividend();
+</script>
+
+</html>

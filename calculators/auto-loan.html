@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Kiosk Seed Project</title>
+    <link rel="stylesheet" href="../../css/jquery-ui.css" media="screen" title="no title">
+    <link rel="stylesheet" href="../../css/jquery-ui.theme.min.css" media="screen" title="no title">
+    <link rel="stylesheet" href="../../css/skeleton.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../../css/animate.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../../css/css.css" media="screen" title="no title" charset="utf-8">
+</head>
+
+<body>
+
+    <div class="detail-page calculator">
+        <header></header>
+        <!-- Required for scroll to top functionality -->
+        <div class="background-grey-gradient">
+            <div class="container">
+                <div class="row">
+                    <div class="header">
+                        <div class="title">
+                            <h1>Auto Loan Calculator</h1>
+                            <div class="info">
+                                <p>Use this car payment calculator to estimate monthly payments on your next new or used auto loan. Simply enter the loan amount, term and interest rate to calculate your monthly auto loan payments. This calculator will help you determine how much car you can afford.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content">
+                    <div class="row">
+                        <div class="columns six">
+                            <div class="calc-form">
+                                <h2>Loan Information</h2>
+                                <hr>
+                                <form class="auto">
+                                    <input id="loan-type" type="hidden" value="auto" />
+                                    <input id="month" type="hidden" value="" />
+                                    <input id="year" type="hidden" value="" />
+                                    <div class="input">
+                                        <div class="row">
+                                            <div class="columns six">
+                                                <label>Loan Amount:</label>
+                                            </div>
+                                            <div class="columns two">
+                                                <span class="add-on">$</span>
+                                            </div>
+                                            <div class="columns four">
+                                                <input id="amount" type="number" placeholder="Loan Amount">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input">
+                                        <div class="row">
+                                            <div class="columns six">
+                                                <label>Annual Interest Rate:</label>
+                                            </div>
+                                            <div class="columns two">
+                                                <span class="add-on">%</span>
+                                            </div>
+                                            <div class="columns four">
+                                                <input id="interest" type="number" placeholder="Interest Rate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <input id="monthly-yearly" type="hidden" value="months" />
+                                    <div class="input">
+                                        <div class="row">
+                                            <div class="columns six">
+                                                <label>Terms of the Loan:</label>
+                                            </div>
+                                            <div class="columns two">
+                                                <span class="add-on">Months</span>
+
+                                            </div>
+                                            <div class="columns four">
+                                                <input id="term-months" type="number" placeholder="Term">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input" style="display:none">
+                                        <div class="row">
+                                            <div class="columns six">
+                                                <label>Include Payment Protection:</label>
+                                            </div>
+                                            <div class="columns two">
+                                            </div>
+                                            <div class="columns four">
+                                                <select id="protection">
+                                                    <option value="Yes">Yes</option>
+                                                    <option value="No" selected>No</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="input radio" id="protection-coverage" style="display:none;">
+                                        <!--<label class="heading">Payment Protection Coverage:</label> -->
+                                        <div class="column first">
+                                            <input id="coverage" name="option" type="radio" value=".80">
+                                            <label for="option">
+                                                <p>Single Life</p>
+                                            </label>
+                                            <br>
+                                            <input id="coverage" name="option" type="radio" value="1.20">
+                                            <label for="option">
+                                                <p>Joint Life</p>
+                                            </label>
+                                            <br>
+                                            <input id="coverage" name="option" type="radio" value="3.10">
+                                            <label for="option">
+                                                <p>Single Disability</p>
+                                            </label>
+                                            <br>
+                                            <input id="coverage" name="option" type="radio" value="4.65">
+                                            <label for="option">
+                                                <p>Joint Disability</p>
+                                            </label>
+                                            <br>
+                                        </div>
+                                        <div class="column second">
+                                            <input id="coverage" name="option" type="radio" value="3.90" checked>
+                                            <label for="option">
+                                                <p>Single Life & Single Disability</p>
+                                            </label>
+                                            <br>
+                                            <input id="coverage" name="option" type="radio" value="5.45">
+                                            <label for="option">
+                                                <p>Single Life & Joint Disability</p>
+                                            </label>
+                                            <br>
+                                            <input id="coverage" name="option" type="radio" value="4.30">
+                                            <label for="option">
+                                                <p>Joint Life & Single Disability</p>
+                                            </label>
+                                            <br>
+                                            <input id="coverage" name="option" type="radio" value="5.85">
+                                            <label for="option">
+                                                <p>Joint Life & Joint Disability</p>
+                                            </label>
+                                            <br>
+                                        </div>
+                                    </div>
+
+
+
+                                </form>
+                                <hr>
+                                <div class="output">
+                                    <h3>Monthly Payment: </h3>
+                                    <span><div id="total"></div></span>
+                                  </div>
+                                <div class="output">
+                                    <h3>Total Interest Paid: </h3>
+                                    <span><div id="total_interest"></div></span>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="columns six">
+                            <div id="pie-chart" class="pie-chart animated fadeIn"></div>
+  <div id="results-more"></div>
+                        </div>
+                    </div>
+                    <div class="more-info">
+                        <div class="row">
+                            <div class="columns twelve">
+
+                                <div id="results">
+
+                                    <div class="auto" id="results-table">
+                                        <h2 id="amortization-header"></h2>
+                                        <hr>
+                                        <div id="column-chart" class="column-chart animated fadeIn"></div>
+                                        <table id="amortization"></table>
+                                        <a href="#top">
+                                            <div class="btn-orange">
+                                                <h3>Back to Top</h3></div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- end conainer-->
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../js/fastclick.js"></script>
+<script type="text/javascript" src="../../js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../../js/TweenMax.min.js"></script>
+<script type="text/javascript" src="../../js/jquery-ui.min.js"></script>
+<!-- for the calculator -->
+<script type="text/javascript" src="../../js/highcharts.js"></script>
+<script type="text/javascript" src="../../js/data-highcharts.js"></script>
+<script type="text/javascript" src="../../js/calculators.js"></script>
+
+<script type="text/javascript" src="../../js/app.js"></script>
+
+<script type="text/javascript">
+</script>
+
+<script>
+    calculate_monthly_payment();
+</script>
+
+</html>

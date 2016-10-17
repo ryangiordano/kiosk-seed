@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Kiosk Seed Project</title>
+    <link rel="stylesheet" href="../css/skeleton.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../css/animate.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../css/css.css" media="screen" title="no title" charset="utf-8">
+</head>
+<body>
+    <div class="sub-page">
+                    <h1>Schedule an Appointment</h1>
+
+                    <p> Let us know the best way to contact you.</p>
+
+                <form class="" id="form" action="http://www.gocodigo.com/customers/civista/kiosk/schedule.php" method="POST">
+                    <div class="row">
+                        <div class="six columns">
+                            <label for="branch">Branch</label>
+                            <select type="text" name="branch" value="" id="branch">
+                                <!-- <option disabled selected>Select a Branch</option> -->
+
+                            </select>
+
+                        </div>
+                        <div class="six columns">
+                            <label for="service">Service</label>
+                            <select type="text" name="service" value="" id="service">
+                                <option disabled selected value="null">Select a Service</option>
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="twelve columns">
+                            <label for="name">Name</label>
+                            <input type="text" name="name" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="six columns">
+                            <label for="email">Email</label>
+                            <input type="text" name="email" value="">
+                        </div>
+                        <div class="six columns">
+                            <label for="phone">Phone</label>
+                            <input type="text" name="phone" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="six columns">
+                            <label for="time">Convenient Time</label>
+                            <select type="text" name="time" value="">
+                                <option disabled selected>Select a Time</option>
+                                <option value="Morning">Morning</option>
+                                <option value="Noon">Noon</option>
+                                <option value="Afternoon">Afternoon</option>
+                                <option value="Afternoon">Evening</option>
+                            </select>
+                        </div>
+                        <div class="six columns">
+                            <button class="submit-button" id="submit-button" type="button" name="button">Submit</button>
+                        </div>
+                    </div>
+                    <!-- hidden inputs  -->
+                    <input id="repName" type="text" name="repName" hidden>
+                    <input id="repEmail" type="text" name="repEmail" hidden>
+                    <input id="serviceEmail" type="text" name="serviceEmail" hidden>
+                    <input id="serviceName" type="text" name="serviceName" hidden>
+                    <input id="repPhone" type="text" name="repPhone" hidden>
+                    <input id="repPictureLink" type="text" name="repPictureLink" hidden>
+                    <input id="repMessage" type="text" name="repMessage" hidden>
+                    <input id="repTitle" type="text" name="repTitle" hidden>
+                    <input id="repCredentials" type="text" name="repCredentials" hidden>
+                    <input id="showDisclosures" type="text" name="showDisclosures" hidden>
+                </form>
+
+            </div>
+        </div>
+        <div class="disclosure">
+          <img src="../img/fdic-purple.svg" alt="" />
+          <img src="../img/equalhousing-purple.svg" alt="" />
+        </div>
+</body>
+<script type="text/javascript" src="../js/fastclick.js">
+</script>
+<script type="text/javascript" src="../js/jquery-1.11.2.min.js">
+</script>
+<script type="text/javascript" src="../js/TweenMax.min.js">
+</script>
+<script type="text/javascript" src="../js/jquery.validate.min.js">
+</script>
+<script type="text/javascript" src="../js/data.js">
+</script>
+<script type="text/javascript" src="../js/branch-data.js">
+</script>
+<script type="text/javascript" src="../js/app.js">
+</script>
+<script type="text/javascript">
+    (function() {
+        $("#form").validate({
+            rules: {
+                name: 'required',
+                email: {
+                    required: true,
+                    email: true
+                },
+                branch: 'required',
+                service: 'required',
+                phone: 'required',
+                time: 'required'
+            }
+        })
+        $.extend(jQuery.validator.messages, {
+            required: "Please fill in your information"
+        })
+
+    })();
+</script>
+</html>

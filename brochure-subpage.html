@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Kiosk Seed Project</title>
+    <link rel="stylesheet" href="css/jquery-ui.css" media="screen" title="no title">
+    <link rel="stylesheet" href="css/jquery-ui.theme.min.css" media="screen" title="no title">
+    <link rel="stylesheet" href="css/skeleton.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/animate.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="css/css.css" media="screen" title="no title" charset="utf-8">
+</head>
+
+<body>
+
+    <div class="detail-page">
+        <a href="#"id="open">
+            Mail the PDF
+        </a>
+        <div class="background-grey-gradient">
+            <div class="content ">
+                <div class="container">
+                    <div class="row">
+                        <div class="header">
+                            <div class="title">
+                                <h1 id="titleHere"></h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="columns five">
+                            <a href="#" id="pdfLink">
+                              <div class="pdf-wrapper">
+                                <div id="pdfImg">
+                                    <img src="">
+                                </div>
+                              </div>
+                            </a>
+                            <div class="message">
+                                <div class="arrow">
+                                    <img id="up-arrow" src="img/orange-arrow.svg" alt="" />
+                                </div>
+                                <div class="text">
+                                    <p>Tap to View</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="columns seven copy information-box">
+                          <div class="row">
+                            <div class="columns twelve">
+                              <p id="copy">
+                              </p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="columns twelve list-array">
+                              <ul id="pdfUl">
+
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="columns twelve additionalPdfInfo">
+
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="columns twelve disclosures">
+
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="dialog" class="dialog">
+        <div class="row">
+            <div class="two columns">
+                <img class="modal-image" src="img/email.svg">
+            </div>
+            <div class="ten columns">
+                <form id="form" class="" action="URL TO pdf-request.php" method="POST" name="form">
+                  <input id="input-pdf-name" type="text" name="pdf" value="" hidden>
+                  <input id="input-pdf-link" type="text" name="pdf-link" value="" hidden>
+                    <h1>Details <span class="light">by e-mail</span></h1>
+                    <p>Enter your e-mail address below to mail yourself the PDF about <span id="pdf-name-modal"></span> </p>
+                    <div class="form-element" style="margin-top:15px">
+                        <div class="row">
+                            <div class="columns two">
+                                <label><span class="dialog-label">NAME</span></label>
+                            </div>
+                            <div class="columns ten">
+                                <input type="text" name="name" placeholder="NAME">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-element">
+                        <div class="row">
+                            <div class="columns two">
+                                <label><span class="dialog-label">EMAIL</span></label>
+                            </div>
+                            <div class="columns ten">
+                                <input type="email" name="email" placeholder="EMAIL">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-element">
+                        <div class="row">
+                            <div class="columns twelve">
+                                <a href="#" id="submit-button" class="send-brochure" type="submit" name="submit">
+                                    <div>Send me the PDF</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="js/fastclick.js"></script>
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="js/TweenMax.min.js"></script>
+<script type="text/javascript" src="js/app.js"></script>
+<script type="text/javascript" src="js/data.js"></script>
+<script type="text/javascript" src="js/pdf-data.js"></script>
+
+<script type="text/javascript">
+  (function(){
+    $("#form").validate({
+      rules:{
+        name: 'required',
+        email:{required: true,email: true}
+      }
+    })
+    $.extend(jQuery.validator.messages,{
+      required:"Please fill in your information"
+    })
+  })();
+</script>
+</html>

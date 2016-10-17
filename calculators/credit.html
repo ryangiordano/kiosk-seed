@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Kiosk Seed Project</title>
+    <link rel="stylesheet" href="../../css/jquery-ui.css" media="screen" title="no title">
+    <link rel="stylesheet" href="../../css/jquery-ui.theme.min.css" media="screen" title="no title">
+    <link rel="stylesheet" href="../../css/skeleton.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../../css/animate.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../../css/css.css" media="screen" title="no title" charset="utf-8">
+</head>
+
+<body>
+
+    <div class="detail-page calculator">
+        <header></header>
+
+        <div class="background-grey-gradient">
+            <div class="container">
+                <div class="row">
+                    <div class="header">
+                        <div class="title">
+                            <h1>Credit Card Calculator</h1>
+                            <div class="info">
+                                <p>What will it take to pay off your credit card? Use this credit card calculator to determine how long it will take to pay off your debt. Simply enter the credit amount owed, interest rate, and monthly payment or (percent
+                                    of balance) to calculate the months until it's paid off.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content">
+
+                    <div class="row">
+                        <div class="columns six">
+                            <div class="calc-form">
+                                <h2>Credit Information</h2>
+                                <hr>
+                                <form class="auto">
+                                    <input id="month" type="hidden" value="" />
+                                    <input id="year" type="hidden" value="" />
+
+                                    <div class="input">
+                                        <div class="row">
+                                            <div class="columns six">
+                                                <label>Credit Card Balance:</label>
+                                            </div>
+                                            <div class="columns two">
+                                                <span class="add-on">$</span>
+                                            </div>
+                                            <div class="columns four">
+                                                <input id="creditBalance" type="number" placeholder="Credit Balance" maxlength="5">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input">
+                                        <div class="row">
+                                            <div class="columns six">
+                                                <label>Interest Rate:</label>
+                                            </div>
+                                            <div class="columns two">
+                                                <span class="add-on">%</span>
+                                            </div>
+                                            <div class="columns four">
+                                                <input id="creditRate" type="number" placeholder="Interest Rate">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="input">
+                                        <div class="row">
+                                            <div class="columns six">
+                                                <label>Monthly Payment:</label>
+                                            </div>
+                                            <div class="columns two">
+                                                <span class="add-on">%</span>
+                                            </div>
+                                            <div class="columns four">
+                                                <input id="creditMonthlyAmount" type="number" placeholder="Monthly Payment">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="input">
+                        							<label>OR Months Until Paid Off:</label>
+                        							<span class="add-on"></span>
+                        							<input id="creditDesiredMonths" type="text" placeholder="Months Until Paid Off">
+                        						</div>-->
+                                </form>
+                                <div id="credit-info">
+                                    <p class="red"><em>Minimum payment must be 2.5% of balance ($<span id="min-payment"></span>) or $25,<br>whichever is greater.</em></p>
+                                </div>
+                                <hr>
+                                <div class="output">
+                                    <h3>Months Until Paid Off:</h3>
+                                    <span><div id="credit-result"></div></span>
+                                </div>
+
+                                <div class="output">
+                                    <h3>Total Interest Paid:</h3>
+                                    <span><div id="credit-interest"></div></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="columns six">
+                            <div id="pie-chart" class="pie-chart animated fadeIn"></div>
+                            <div id="results-more"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript" src="../../js/fastclick.js"></script>
+<script type="text/javascript" src="../../js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../../js/TweenMax.min.js"></script>
+<script type="text/javascript" src="../../js/jquery-ui.min.js"></script>
+<!-- for the calculator -->
+<script type="text/javascript" src="../../js/highcharts.js"></script>
+<script type="text/javascript" src="../../js/data-highcharts.js"></script>
+<script type="text/javascript" src="../../js/calculators.js"></script>
+
+<script type="text/javascript" src="../../js/app.js"></script>
+
+<script>
+    creditCalc();
+</script>
+
+</html>
