@@ -1,0 +1,847 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>kioskSettings</key>
+	<array>
+
+	<!--Compatible with Kiosk Pro Plus 6.0, updated January 30, 2015, more information available at http://www.kioskproapp.com -->
+
+	<!--Before making changes to this .xml file please note the following:
+		1. Do not add spaces or line breaks before <?xml version="1.0" encoding="UTF-8"?> at the top of the file.
+		2. Any values with the tags <integer> or <real> cannot be left blank; they must have an entry.
+		3. If you do not wish to control a specific setting remotely, you can delete the entire entry from (and including) the opening <dict> tag to (and including) the closing </dict> tag.
+		4. Ampersands ('&') are a reserved character in XML. If your url uses one, you will need to instead use the unit code "&amp;" -->
+
+
+	<!--Settings Menu-->
+
+
+		<!--Show Settings In-App: 0 = On App Launch, 1 = Never, 2 = On Touch Gesture and Passcode-->
+		<dict>
+			<key>Key</key><string>settingsShowingOption</string>
+			<key>Value</key><integer>2</integer>
+		</dict>
+		<!--Passcode-->
+		<dict>
+			<key>Key</key><string>settingsPassCode</string>
+			<key>Value</key><string>8981</string>
+		</dict>
+
+
+		<!--General-->
+
+		<!-- This section is for updating multiple kiosks that each need a different Unique iPad ID.
+			 Be sure to remove the comments surrounding these sets of <dict> tags for the update to work.
+			 For more information, visit: http://support.kioskproapp.com/knowledgebase/articles/432239 -->
+
+		<!--
+		<dict>
+			<key>Key</key><string>kp_setting_command_generateKioskID</string>
+			<key>Value</key><string></string>
+		</dict>
+		<dict>
+			<key>Key</key><string>kp_setting_command_sendContextInfo</string>
+			<key>Value</key><string></string>
+		</dict>
+		-->
+
+		<!--Homepage-->
+		<!-- This section determines the different presentations by changing the homepage. -->
+		<dict>
+		    <key>Key</key><string>homePage</string>
+		    <key>Value</key><string>index.html</string>
+		</dict>
+
+		<!--Display-->
+		<!--Show Top iPad Information Bar-->
+		<dict>
+			<key>Key</key><string>showStatusBar</string>
+			<key>Value</key><false/>
+		</dict>
+		<!--Show Address Bar-->
+		<dict>
+			<key>Key</key><string>showAddressBar</string>
+			<key>Value</key><false/>
+		</dict>
+		<!--Show Bottom Navigation Bar With-->
+				<dict>
+					<key>Key</key><string>showWebBrowserNavigationBar</string>
+					<key>Value</key><true/>
+				</dict>
+				<dict>
+					<key>Key</key><string>showPdfFilesNavigationBar</string>
+					<key>Value</key><true/>
+				</dict>
+				<dict>
+					<key>Key</key><string>showPresentationFilesNavigationBar</string>
+					<key>Value</key><true/>
+				</dict>
+				<dict>
+					<key>Key</key><string>showDocumentFilesNavigationBar</string>
+					<key>Value</key><true/>
+				</dict>
+				<dict>
+					<key>Key</key><string>showMultimediaFilesNavigationBar</string>
+					<key>Value</key><true/>
+				</dict>
+		<!--Show Progress Indicator-->
+		<dict>
+			<key>Key</key><string>showLoadingProgress</string>
+			<key>Value</key><false/>
+		</dict>
+		<!--Page Loading Background Color (RGB Format)-->
+		<dict>
+			<key>Key</key><string>pageReloadBackgroundColor</string>
+			<key>Value</key><string>255,255,255</string>
+		</dict>
+		<!--Site Version-->
+				<!--Custom User Agent String-->
+				<dict>
+					<key>Key</key><string>customUserAgentString</string>
+					<key>Value</key><string></string>
+				</dict>
+
+
+		<!--Interaction-->
+		<!--Disable Zoom-->
+		<dict>
+			<key>Key</key><string>zoomDisabled</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--Disable Touch-->
+		<dict>
+			<key>Key</key><string>viewOnly</string>
+			<key>Value</key><false/>
+		</dict>
+		<!-- Fix Window to Viewport -->
+		<dict>
+			<key>Key</key><string>disableWebViewBouncing</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--Allow Text Selection for Accessibility-->
+		<dict>
+			<key>Key</key><string>textSelection</string>
+			<key>Value</key><false/>
+		</dict>
+
+
+		<!--Navigation-->
+		<!--Allowed Domains-->
+		<dict>
+			<key>Key</key><string>whiteList</string>
+			<key>Value</key><string></string>
+		</dict>
+		<!--Restricted Domains-->
+		<dict>
+			<key>Key</key><string>blackList</string>
+			<key>Value</key><string>facebook.com; twitter.com;google.com;pinterest.com;imgur.com;tumblr.com;linkedin.com</string>
+		</dict>
+		<!--Apply Restrictions to Embedded Content-->
+		<dict>
+			<key>Key</key><string>kp_applyRestrictionsToEmbeddedContent</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--Allowed Link Path Depth from Homepage -->
+		<dict>
+			<key>Key</key><string>linksDepth</string>
+			<key>Value</key><string></string>
+		</dict>
+		<!-- Allowed External App URL Handlers -->
+		<dict>
+			<key>Key</key><string>listOfAllowedAppURLHandlers</string>
+			<key>Value</key><string></string>
+		</dict>
+		<!--Show Off-Domain Alert-->
+		<dict>
+			<key>Key</key><string>showSiteMessage</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--Off-Domain Alert Text-->
+		<dict>
+			<key>Key</key><string>offDomainMessage</string>
+			<key>Value</key><string>Sorry, this site is not allowed.</string>
+		</dict>
+
+
+		<!--API Access-->
+		<!--Access JavaScript API: 0 = By Injection, 1 = By Import, 2 = Never -->
+		<dict>
+			<key>Key</key><string>accessJS_API</string>
+			<key>Value</key><integer>2</integer>
+		</dict>
+
+
+		<!--Timer Settings-->
+		<!--Idle Time Limit (seconds)-->
+		<dict>
+			<key>Key</key><string>idleTime</string>
+			<key>Value</key><integer>90</integer>
+		</dict>
+		<!--Show Idle Time Reset Alert-->
+		<dict>
+			<key>Key</key><string>idleTimeoutWarning</string>
+			<key>Value</key><false/>
+		</dict>
+		<!--Idle Time Reset Alert Text-->
+		<dict>
+			<key>Key</key><string>idleTimeoutWarningString</string>
+			<key>Value</key><string>Please touch the screen to continue your session.</string>
+		</dict>
+		<!--Refresh Homepage Every (minutes) -->
+		<dict>
+			<key>Key</key><string>refreshTime</string>
+			<key>Value</key><string>0</string>
+		</dict>
+		<!--Page Loading Time Limit-->
+		<dict>
+			<key>Key</key><string>pageLoadTime</string>
+			<key>Value</key><string>40</string>
+		</dict>
+
+
+		<!--Visitor Management-->
+		<!--Activation Mode-->
+		<dict>
+			<key>Key</key><string>activationMode</string>
+			<key>Value</key><false/>
+		</dict>
+		<!--Browsing Time Limit: -1 = Forever, 5 = 5 min, 10 = 10 min, etc.-->
+		<dict>
+			<key>Key</key><string>browseTime</string>
+			<key>Value</key><integer>-1</integer>
+		</dict>
+		<!--Good-Bye Page-->
+		<dict>
+			<key>Key</key><string>goodByePage</string>
+			<key>Value</key><string></string>
+		</dict>
+
+
+		<!--Screensaver Video Loop-->
+		<!--Enable-->
+		<dict>
+			<key>Key</key><string>sv_screenVideoEnabled</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--Video File Location-->
+		<dict>
+			<key>Key</key><string>sv_url2MovieFile</string>
+			<key>Value</key><string>loop.mp4</string>
+		</dict>
+
+		<!--Fade Duration (seconds)-->
+		<dict>
+			<key>Key</key><string>kp_fadeDurationOfScreenSaverSlideShow</string>
+			<key>Value</key><string>0</string>
+		</dict>
+
+		<!--Custom Bottom Navigation Bar-->
+		<!--Standard Icon Color (0 = Red, 1 = Yellow, 2 = Green, 3 = Blue, 4 = Light Grey, 5 = Dark Grey, 6 = Black, 7 = White)-->
+		<dict>
+			<key>Key</key><string>navBarIconsColorScheme</string>
+			<key>Value</key><string>4</string>
+		</dict>
+		<!--Standard Bar Background (must be in RGB format)-->
+		<dict>
+			<key>Key</key><string>navBarBackgroundColor</string>
+			<key>Value</key><string>84,84,84</string>
+		</dict>
+		<!--Enable Links on Standard Navigation Bar-->
+		<dict>
+			<key>Key</key><string>customLinksEnabled</string>
+			<key>Value</key><false/>
+		</dict>
+		<!--Link Settings-->
+				<!--RGB Button Background Color-->
+				<dict>
+					<key>Key</key><string>clButtonBackgroundColor</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--RGB Text Color-->
+				<dict>
+					<key>Key</key><string>clButtonTextColor</string>
+					<key>Value</key><string>255,255,255</string>
+				</dict>
+				<!--Label 1-->
+				<dict>
+					<key>Key</key><string>clLabel1</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Link 1-->
+				<dict>
+					<key>Key</key><string>clLink1</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Label 2-->
+				<dict>
+					<key>Key</key><string>clLabel2</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Link 2-->
+				<dict>
+					<key>Key</key><string>clLink2</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Label 3-->
+				<dict>
+					<key>Key</key><string>clLabel3</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Link 3-->
+				<dict>
+					<key>Key</key><string>clLink3</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Label 4-->
+				<dict>
+					<key>Key</key><string>clLabel4</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Link 4-->
+				<dict>
+					<key>Key</key><string>clLink4</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Label 5-->
+				<dict>
+					<key>Key</key><string>clLabel5</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Link 5-->
+				<dict>
+					<key>Key</key><string>clLink5</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Label 6-->
+				<dict>
+					<key>Key</key><string>clLabel6</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Link 6-->
+				<dict>
+					<key>Key</key><string>clLink6</string>
+					<key>Value</key><string></string>
+				</dict>
+
+
+		<!--PDF Display-->
+		<!--Show Thumbnails-->
+		<dict>
+			<key>Key</key><string>pdfShowThumbs</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--Show Page Numbers-->
+		<dict>
+			<key>Key</key><string>pdfShowPageNumbers</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--Disable Zoom for PDFs-->
+		<dict>
+			<key>Key</key><string>pdfDisableZoom</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--Page Transition Style: 0 = Scroll, 1 = Page Turn, 2 = Hyperlink Only-->
+		<dict>
+			<key>Key</key><string>pdfScrollingType</string>
+			<key>Value</key><integer>0</integer>
+		</dict>
+		<!--Scroll Orientation: 0 = Horizontal, 1 = Vertical -->
+		<dict>
+			<key>Key</key><string>pdfInfiniteScrollOrientation</string>
+			<key>Value</key><integer>0</integer>
+		</dict>
+		<!--Size to Fit: 0 = Horizontally, 1 = Vertically -->
+		<dict>
+			<key>Key</key><string>pdfSizeToFitOption</string>
+			<key>Value</key><integer>1</integer>
+		</dict>
+		<!--Background Image-->
+		<dict>
+			<key>Key</key><string>pdfBackgroundImageFile</string>
+			<key>Value</key><string>blue-gray.png</string>
+		</dict>
+
+
+		<!--Internet Access-->
+		<!--Detect Connection Errors-->
+        <dict>
+			<key>Key</key><string>showConnectionProblemPage</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--Custom Connection Problem Page-->
+		<dict>
+		    <key>Key</key><string>customConnectionProblemPage</string>
+		    <key>Value</key><string>connection.html</string>
+		</dict>
+
+
+		<!--Memory and Privacy Settings-->
+		<!--Cache Source (requires app restart to apply)
+			0 = Kiosk Pro Cache, 1 = Native UIWebView Cache (may not clear fully), 2 = Never Cache (may result in slower performance) -->
+		<dict>
+			<key>Key</key><string>kp_cacheSource</string>
+			<key>Value</key><integer>1</integer>
+		</dict>
+		<!--Clear Cache on Homepage-->
+		<dict>
+			<key>Key</key><string>clearCache</string>
+			<key>Value</key><false/>
+		</dict>
+		<!-- Accept cookies: 0 = Never, 1 = From Visited, 2 = Always -->
+		<dict>
+			<key>Key</key><string>cookieAcceptPolicy</string>
+			<key>Value</key><integer>1</integer>
+		</dict>
+		<!--Clear Cookies on Homepage-->
+		<dict>
+			<key>Key</key><string>clearCookies</string>
+			<key>Value</key><false/>
+		</dict>
+
+
+		<!--Printing-->
+		<!--AirPrint-->
+		<dict>
+			<key>Key</key><string>printEnabled</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--Show AirPrint Icon-->
+		<dict>
+			<key>Key</key><string>showPrintIcon</string>
+			<key>Value</key><false/>
+		</dict>
+		<!--Allow Visitor to Set Page Range-->
+		<dict>
+			<key>Key</key><string>airPrint_pageRangeOption</string>
+			<key>Value</key><false/>
+		</dict>
+		<!--Print Quality: Standard = 0.0, Photo = 1, Greyscale = 2-->
+		<dict>
+			<key>Key</key><string>airPrint_PrintInfoOutputType</string>
+			<key>Value</key><real>0.0</real>
+		</dict>
+
+
+		<!--Remote Settings Control-->
+		<!--Enable-->
+		<dict>
+			<key>Key</key><string>remoteSettingsEnabled</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--XML File Location-->
+		<dict>
+			<key>Key</key><string>externalSettingsFile</string>
+			<key>Value</key><string>http://www.gocodigo.com/customers/---------/settings.xml</string>
+		</dict>
+		<!--Update Indicator Text-->
+		<dict>
+			<key>Key</key><string>kp_remoteSettingsUpdatingMessage</string>
+			<key>Value</key><string>Updating. . .</string>
+		</dict>
+		<!--Update Period (minutes)-->
+		<dict>
+			<key>Key</key><string>localSettingsUpdatePeriod</string>
+			<key>Value</key><string>15</string>
+		</dict>
+
+
+		<!--Remote Update of Local Files-->
+		<!--Enable-->
+		<dict>
+			<key>Key</key><string>updateOfLocalFilesEnabled</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--XML File Location-->
+		<dict>
+			<key>Key</key><string>localContentUpdateUrl</string>
+			<key>Value</key><string>http://www.gocodigo.com/customers/---------/kioskfiles.xml</string>
+		</dict>
+		<!--Update Period (minutes)-->
+		<dict>
+			<key>Key</key><string>localContentUpdatePeriod</string>
+			<key>Value</key><string>15</string>
+		</dict>
+		<!--Server Request Timeout Period (seconds)-->
+		<dict>
+			<key>Key</key><string>kp_serverRequestTimeoutPeriodForUpdateOfLocalFiles</string>
+			<key>Value</key><string>30000</string>
+		</dict>
+
+
+
+		<!--Dropbox Synchronization (Note: Dropbox accounts cannot be linked to Kiosk Pro remotely. This must be done physically from the iPad)-->
+		<!--Enable Dropbox-->
+		<dict>
+			<key>Key</key><string>dropboxSyncEnabled</string>
+			<key>Value</key><false/>
+		</dict>
+		<!--Shared Content Folder Settings-->
+				<!--Shared Content Folder-->
+				<dict>
+					<key>Key</key><string>dropboxSharedContentFolderPath</string>
+					<key>Value</key><string>SharedContent</string>
+				</dict>
+				<!--Restricted Sync List-->
+				<dict>
+					<key>Key</key><string>dropboxRestrictedListOfPaths</string>
+					<key>Value</key><string></string>
+				</dict>
+		<!--Log Sync Sessions-->
+		<dict>
+			<key>Key</key><string>dropboxLogSyncSessions</string>
+			<key>Value</key><false/>
+		</dict>
+		<!--Clear Sync History-->
+		<dict>
+			<key>Key</key><string>kp_setting_command_clearDropboxLocalHistory</string>
+			<key>Value</key><false/>
+		</dict>
+
+
+		<!--Email Notifications-->
+		<!--SMTP Server Settings-->
+		<!--From Email-->
+		<dict>
+			<key>Key</key><string>smtpFromEmail</string>
+			<key>Value</key><string>codigo@gocodigo.com</string>
+		</dict>
+		<!--To Email-->
+		<dict>
+			<key>Key</key><string>smtpToEmail</string>
+			<key>Value</key><string>shellee@gocodigo.com; ryan@gocodigo.com; projects@gocodigo.com</string>
+		</dict>
+		<!--SMTP Server-->
+		<dict>
+			<key>Key</key><string>smtpServer</string>
+			<key>Value</key><string>mail.securembox.com</string>
+		</dict>
+		<!--SMTP Ports (added in version 3.0)-->
+		<dict>
+			<key>Key</key><string>smtpPorts</string>
+			<key>Value</key><string>587; 25; 465; 110</string>
+		</dict>
+		<!--Requires Authorization-->
+		<dict>
+			<key>Key</key><string>smtpRequiresAuth</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--User Name-->
+		<dict>
+			<key>Key</key><string>smtpUserName</string>
+			<key>Value</key><string>codigo@gocodigo.com</string>
+		</dict>
+		<!--Password-->
+		<dict>
+			<key>Key</key><string>smtpPassword</string>
+			<key>Value</key><string>C0d1g0!@#</string>
+       </dict>
+		<!--Enable SSL-->
+		<dict>
+			<key>Key</key><string>smtpEnableSSL</string>
+			<key>Value</key><false/>
+		</dict>
+		<!--Email on Power Supply Change-->
+		<dict>
+			<key>Key</key><string>emailOnPower</string>
+			<key>Value</key><false/>
+		</dict>
+		<!--Email on Battery Level Change-->
+				<!--Email on Battery Discharge to Lower Zone-->
+				<dict>
+					<key>Key</key><string>emailOnBatteryDischargeToLowerZone</string>
+					<key>Value</key><false/>
+				</dict>
+				<!--Email on Battery Charge to Higher Zone-->
+				<dict>
+					<key>Key</key><string>emailOnBatteryChargeToHigherZone</string>
+					<key>Value</key><false/>
+				</dict>
+				<!--Low %: undefined = -1, '10%' = 10, '50%' = 50 -->
+				<dict>
+					<key>Key</key><string>lowZoneLevel</string>
+					<key>Value</key><integer>-1</integer>
+				</dict>
+				<!--Email when Unplugged (Normal Zone)-->
+				<dict>
+					<key>Key</key><string>emailWhenUnpluggedInNormalZone</string>
+					<key>Value</key><false/>
+				</dict>
+				<!--Email when Charging (Normal Zone)-->
+				<dict>
+					<key>Key</key><string>emailWhenChargingInNormalZone</string>
+					<key>Value</key><false/>
+				</dict>
+				<!--Critical %: undefined = -1, '10%' = 10, '50%' = 50 -->
+				<dict>
+					<key>Key</key><string>criticalZoneLevel</string>
+					<key>Value</key><integer>-1</integer>
+				</dict>
+				<!--Email when Unplugged (Low Zone)-->
+				<dict>
+					<key>Key</key><string>emailWhenUnpluggedInLowZone</string>
+					<key>Value</key><false/>
+				</dict>
+				<!--Email when Charging (Low Zone)-->
+				<dict>
+					<key>Key</key><string>emailWhenChargingInLowZone</string>
+					<key>Value</key><false/>
+				</dict>
+				<!--Email when Unplugged (Critical Zone)-->
+				<dict>
+					<key>Key</key><string>emailWhenUnpluggedInCriticalZone</string>
+					<key>Value</key><false/>
+				</dict>
+				<!--Email when Charging (Critical Zone)-->
+				<dict>
+					<key>Key</key><string>emailWhenChargingInCriticalZone</string>
+					<key>Value</key><false/>
+				</dict>
+		<!--Email on Remote Update of Settings-->
+		<dict>
+			<key>Key</key><string>emailOnRemoteSettingsChange</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--Email on Update of Local Files-->
+		<dict>
+			<key>Key</key><string>emailOnContentUpdate</string>
+			<key>Value</key><true/>
+		</dict>
+		<!--Email on Motion Detection-->
+		<dict>
+			<key>Key</key><string>emailOnAccelTrigger</string>
+			<key>Value</key><false/>
+		</dict>
+
+
+		<!--Motion Detection-->
+		<!--Sensitivity: 0.06 = Very High, 0.1 = High, 0.2 = Medium, 0.4 = Low, 0.6 = Very Low, please note tags <real></real> must be used with this setting-->
+		<dict>
+			<key>Key</key><string>shakeSensibility</string>
+			<key>Value</key><real>0.4</real>
+		</dict>
+		<!--Motion Detection Reset Period-->
+		<dict>
+			<key>Key</key><string>motionResetPeriod</string>
+			<key>Value</key><integer>1</integer>
+		</dict>
+		<!--Define GPS Coordinates as JavaScript Variable: 0.0 = Never, 1 = On App Launch, 2 = Continuously (added in version 3.1)-->
+		<dict>
+			<key>Key</key><string>locationUpdateFrequency</string>
+			<key>Value</key><real>0.0</real>
+		</dict>
+
+
+		<!--Power Management-->
+		<!--Please note that in this version, you must specify whether you want the iPad to dim or to sleep; for more information, please see http://www.kioskproapp.com/help.html#night_mode -->
+		<!--Enable Night Mode-->
+		<dict>
+			<key>Key</key><string>sleepSchedullerEnabled</string>
+		 	<key>Value</key><false/>
+		</dict>
+		<!--Schedule Night Mode-->
+				<!--Sleep Pair 1: time_even number = wake, time_odd number = dim or sleep. -->
+				<dict>
+					<key>Key</key><string>time_0</string>
+					<key>Value</key><string>Daily 7:00</string>
+				</dict>
+				<dict>
+					<key>Key</key><string>time_1</string>
+					<key>Value</key><string>Daily 19:00</string>
+				</dict>
+				<!--Sleep Pair 2 -->
+				<dict>
+					<key>Key</key><string>time_2</string>
+					<key>Value</key><string></string>
+				</dict>
+				<dict>
+					<key>Key</key><string>time_3</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Sleep Pair 3 -->
+				<dict>
+					<key>Key</key><string>time_4</string>
+					<key>Value</key><string></string>
+				</dict>
+				<dict>
+					<key>Key</key><string>time_5</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Sleep Pair 4 -->
+				<dict>
+					<key>Key</key><string>time_6</string>
+					<key>Value</key><string></string>
+				</dict>
+				<dict>
+					<key>Key</key><string>time_7</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Sleep Pair 5 -->
+				<dict>
+					<key>Key</key><string>time_8</string>
+					<key>Value</key><string></string>
+				</dict>
+				<dict>
+					<key>Key</key><string>time_9</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Sleep Pair 6 -->
+				<dict>
+					<key>Key</key><string>time_10</string>
+					<key>Value</key><string></string>
+				</dict>
+				<dict>
+					<key>Key</key><string>time_11</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Sleep Pair 7 -->
+				<dict>
+					<key>Key</key><string>time_12</string>
+					<key>Value</key><string></string>
+				</dict>
+				<dict>
+					<key>Key</key><string>time_13</string>
+					<key>Value</key><string></string>
+				</dict>
+				<!--Sleep Pair 8 -->
+				<dict>
+					<key>Key</key><string>time_14</string>
+					<key>Value</key><string></string>
+				</dict>
+				<dict>
+					<key>Key</key><string>time_15</string>
+					<key>Value</key><string></string>
+				</dict>
+		<!--Reduce Brightness on Home Screen: 0 = Never, 30 = 30 sec, 60 = 1 min, 300 = 5 min, etc.-->
+		<dict>
+			<key>Key</key><string>reduceBrightnessTimeInterval</string>
+			<key>Value</key><string>0</string>
+		</dict>
+		<!--Enable Auto-Lock -->
+		<dict>
+			<key>Key</key><string>allowAutoLock</string>
+			<key>Value</key><false/>
+		</dict>
+
+
+		<!--Screen Brightness: maximum screen brightness = 1, minimum = 0; setting must be between 1 and 0
+		<dict>
+			<key>Key</key><string>manualControlOfBrightness</string>
+			<key>Value</key><real>1</real>
+		</dict>-->
+
+
+	<!-- Advanced Settings (Not Included In Main Menu) -->
+	<!-- You will need to remove the comment tags surrounding the <dict> tags of the setting you want to use -->
+
+		<!--Advanced Options-->
+		<!--Screen & Disable Tel: Links-->
+		<!--
+		<dict>
+			<key>Key</key><string>_kp_disableTelLinks_</string>
+			<key>Value</key><true/>
+		</dict>
+		-->
+		<!--Disable Touch Callouts-->
+		<!--
+		<dict>
+			<key>Key</key><string>_kp_disableDefaultCalloutShownWhenTouchAndHoldTarget_</string>
+			<key>Value</key><true/>
+		</dict>
+		-->
+		<!--Preload Homepage Behind Screensaver-->
+		<!--
+		<dict>
+			<key>Key</key><string>kp_preloadHomepageBehindScreensaver</string>
+			<key>Value</key><true/>
+		</dict>
+		-->
+		<!--Show Keyboard Automatically on Focus Event-->
+		<!--
+		<dict>
+			<key>Key</key><string>kp_showKeyboardAutomaticallyOnFocusEvent</string>
+			<key>Value</key><false/>
+		</dict>
+		-->
+
+
+		<!--Temporary Beta Settings-->
+		<!--Enable Automatic Reload on Homepage-->
+		<!--
+		<dict>
+			<key>Key</key><string>_kp_useDocumentLocationReload_</string>
+			<key>Value</key><false/>
+		</dict>
+		-->
+		<!--Disable New 'Allowed &amp; Restricted' Domain Algorithm-->
+		<!--
+		<dict>
+			<key>Key</key><string>_kp_disableNewFilterRequestsAlgorithm_</string>
+			<key>Value</key><false/>
+		</dict>
+		-->
+		<!--Enable Camera Rotation for iOS 8-->
+		<!--
+		<dict>
+			<key>Key</key><string>kp_compensateiOS8RotationIssue</string>
+			<key>Value</key><true/>
+		</dict>
+		-->
+		<!--Enable Drop-down Menus for iOS 8-->
+		<!--
+		<dict>
+			<key>Key</key><string>kp_enableDropdownsForiOS8</string>
+			<key>Value</key><false/>
+		</dict>
+		-->
+
+
+		<!--Remote Variable Monitoring-->
+		<!--Enable-->
+		<!--
+		<dict>
+			<key>Key</key><string>remoteMonitoringEnabled</string>
+			<key>Value</key><false/>
+		</dict>
+		-->
+		<!--Log File Location-->
+		<!--
+		<dict>
+			<key>Key</key><string>monitoringUrl</string>
+			<key>Value</key><string></string>
+		</dict>
+		-->
+		<!--JavaScript Variables to Log-->
+		<!--
+		<dict>
+			<key>Key</key><string>monitoringDataToSent</string>
+			<key>Value</key><string></string>
+		</dict>
+		-->
+		<!--Time Period (seconds)-->
+		<!--
+		<dict>
+			<key>Key</key><string>monitoringPeriod</string>
+			<key>Value</key><string></string>
+		</dict>
+		-->
+
+		<!--Troubleshooting-->
+		<!--Log App Events-->
+		<!--
+		<dict>
+			<key>Key</key><string>kp_logMode</string>
+			<key>Value</key><false/>
+		</dict>
+		-->
+		<!--Log WebKit Requests-->
+		<!--
+		<dict>
+			<key>Key</key><string>kp_logAllWebKitRequests</string>
+			<key>Value</key><false/>
+		</dict>
+		-->
+
+	</array>
+</dict>
+</plist>
