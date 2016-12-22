@@ -1,0 +1,562 @@
+@charset "utf-8"; //variables
+//brand colors
+$darkOrange: rgba(240, 137, 33, 1);
+$orange: rgba(250, 175, 64, 1);
+$darkPurple: rgba(28, 22, 102, 1);
+$purple: rgba(101, 66, 89, 1);
+$yellow: rgba(244,195,0,1);
+$grey: rgba(119,119,121,1);
+/* CSS Document */
+/* Website Produced by Codigo |  gocodigo.com */
+/* --------------------------------------------------
+CSS Table of Contents // Primary CSS Doc
+-----------------------------------------------------
+1.CSS Reset
+2. General
+3. Main Menus
+4. Sub Menus
+5. Sub Pages
+6. Email Send - Dialog Modal Box
+7. Email Confirmation - Alert Modal
+8. Animations
+
+/* 1. CSS Reset */
+@import "./modules/reset";
+/* ************ */
+/* Fonts */
+@import "./modules/fonts";
+/* 2. General */
+html {
+    background: white;
+    background-size: cover;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+body {
+    position: absolute;
+    width: 1024px;
+    height: 724px;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    font-family: 'Gotham-Book', Arial, Tahoma, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+}
+h1,
+h2,
+h3,
+h4 {
+    font-weight: bold;
+}
+h1 {
+    font-size: 40px;
+}
+h2 {
+    font-size: 25px;
+}
+h3 {
+    font-size: 20px;
+}
+h4 {
+    font-size: 10px;
+}
+p {
+    font-size: 15px;
+    font-weight: normal;
+    color: #4d4d4d;
+    line-height: 20px;
+}
+a {
+    font-size: 12px;
+    font-weight: normal;
+    color: #0063a4;
+}
+sup {
+    vertical-align: super;
+    font-size: 7px;
+    margin-top: -10px;
+}
+strong {
+    font-weight: bold;
+}
+em {
+    font-style: italic;
+}
+ul {
+    list-style: outside;
+    list-style-type: circle;
+    margin-left: 20px;
+}
+li {
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 14px;
+}
+th {
+    background-color: #FFFFFF;
+    color: #000000;
+    padding: 10px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 10px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+td {
+    background-color: #CFCFCF;
+    padding: 5px;
+    text-align: left;
+    color: #000000;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 10px;
+    text-decoration: none;
+    vertical-align: middle;
+    border: 1px solid white;
+}
+/* 3. Main Menu */
+.main {
+    height: 100%;
+    width: 100%;
+
+}
+
+/* 4. Sub Pages */
+.sub-page {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+.superscript {
+    font-size: 14px;
+    vertical-align: super;
+}
+/* Sub page Contact form*/
+.form {
+    position: absolute;
+    top: 11em;
+    left: 3.5em;
+}
+.form form {
+    width: 550px;
+}
+.form input,
+.form select {
+    width: 100%;
+}
+.form label {
+    font-weight: bold;
+    font-size: 20px;
+    color: rgba(60, 77, 158, 1);
+    margin-bottom: 10px;
+}
+.form .submit-button {
+    margin: 30px 0;
+    font-weight: 400;
+    width: 100%;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+    background-color: rgba(250, 175, 64, 1);
+    color: white;
+}
+.contact label.error {
+    color: #9B2743;
+    font-weight: 500;
+    position: absolute;
+    right: 3px;
+    bottom: -30px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .7);
+    padding: 10px;
+    z-index: 10;
+    -webkit-animation: fadein 0.5s;
+    /* Safari, Chrome and Opera > 12.1 */
+    -moz-animation: fadein 0.5s;
+    /* Firefox < 16 */
+    -ms-animation: fadein 0.5s;
+    /* Internet Explorer */
+    -o-animation: fadein 0.5s;
+    /* Opera < 12.1 */
+    animation: fadein 0.5s;
+}
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+/* 5. Detail Page */
+.detail-page {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+/* Calculators */
+.calc-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 150px;
+    width: 100%;
+    background-color: rgba(60, 77, 158, .5);
+    margin: 20px 0;
+    color: rgba(60, 77, 158, 1);
+    text-align: center;
+    p {
+        color: #ffffff;
+        font-size: 24px;
+        line-height: 1.2;
+    }
+}
+
+.detail-page.calculator .content {
+    overflow-y: scroll;
+    height: 600px;
+}
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border-width: 0;
+    border-top: 1px solid #E1E1E1;
+}
+.calculator .info p {
+    font-size: 18px;
+}
+.more-info {
+    padding: 0 0 10px;
+}
+.calculator input {
+    width: 100%;
+}
+.red {
+    color: rgba(269, 69, 69, 1);
+    margin: 20px 30px;
+}
+.output {
+    width: 450px;
+    height: 60px;
+    text-align: right;
+}
+.output:first-of-type {
+    padding-top: 10px;
+}
+.output h3,
+.output span {
+    display: inline-block;
+    text-align: center;
+    line-height: 28px;
+}
+.output span {
+    font-family: 'Calibri', Helvetica-Neue, Helvetica, sans-serif;
+    font-weight: 700;
+    color: rgba(240, 137, 33, 1);
+}
+.output span #calc-result,
+.output span #credit-result,
+.output span #dividends,
+.output span #total {
+    font-size: 38px;
+}
+.output span #credit-interest,
+.output span #credit-result {
+    padding-top: 0;
+}
+.output span #credit-interest,
+.output span #total_interest {
+    font-size: 27px;
+}
+#scroll-title {
+    opacity: 0;
+    margin-top: 28px;
+    text-align: center;
+}
+#amortization {
+    width: 100%;
+    margin: 0 auto 20px;
+}
+#results-table {
+    display: none;
+    /*position: absolute;*/
+    top: 415px;
+    margin-bottom: 100px;
+    width: 934px;
+}
+#results-more .btn-orange {
+    margin: 20px 16% 40px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    color: #ffffff;
+    font-size: 21px;
+    background-color: rgba(250, 175, 64, 1);
+    -webkit-transition: all 1s;
+    transition: all 1s;
+}
+#results .btn-orange {
+    margin: 0 33% 40px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    text-align: center;
+    width: 250px;
+    height: 35px;
+    padding: 20px;
+    color: #ffffff;
+    font-size: 21px;
+    background-color: rgba(250, 175, 64, 1);
+    -webkit-transition: all 1s;
+    transition: all 1s;
+}
+#results-more .btn-orange h3 {
+    color: #fff;
+    font-size: 30px;
+}
+#results-table .btn-orange h3 {
+    color: #fff;
+    font-size: 18px;
+    line-height: 20px;
+}
+#amortization-header {
+    padding-bottom: 0;
+}
+input:invalid {
+    box-shadow: none;
+}
+
+/* 6. Footer*/
+/* 7. Nav */
+/* 7. Email Send - Dialog Modal Box */
+.dialog {
+    display: none;
+    background-color: #000000;
+    p {
+        font-size: 14px;
+        line-height: 15px;
+        font-weight: normal;
+        margin-left: 80px;
+        margin-right: 20px;
+        margin-top: 2px;
+        &.info {
+            font-size: 11px;
+            margin-left: 100px;
+            line-height: 12px;
+            margin-top: -7px;
+            color: #000000;
+            &.small {
+                font-size: 8px;
+                line-height: 9px;
+                margin-top: 8px;
+            }
+        }
+    }
+    h1 {
+        font-family: 'Avenir', Arial, Tahoma, sans-serif;
+        color: #002d5b;
+        font-weight: normal;
+        font-size: 34px;
+        line-height: 45px;
+        text-align: left;
+        padding: 0;
+        margin-bottom:15px;
+    }
+    .email-icon {
+        position: absolute;
+        top: 5px;
+        left: 0;
+    }
+    .submit {
+        position: absolute;
+        top: 160px;
+        left: 155px;
+    }
+    .email-input,
+    .name-input {
+        margin: 20px 40px 10px 60px;
+        font-family: 'Avenir', Arial, Tahoma, sans-serif;
+        color: #002d5b;
+        font-weight: normal;
+        font-size: 20px;
+        float: right;
+    }
+    .email-input {
+        margin: 0 40px 10px 60px;
+    }
+    .checkbox-input {
+        margin: 0 30px 10px 80px;
+        float: right;
+    }
+    .checkbox {
+        float: left;
+        margin-left: 75px;
+        margin-top: 7px;
+    }
+    input.webpage {
+        display: none;
+    }
+    input[type="email"],
+    input[type="text"] {
+        outline: none;
+        border: solid 1px gray;
+        width: 330px;
+        padding-left: 5px;
+        margin-bottom: 20px;
+    }
+    input[type="text"]:focus,
+    textarea:focus {
+        box-shadow: 0 0 8px rgba(58, 176, 200, 1);
+    }
+}
+.ui-dialog {
+    padding: 0;
+    .ui-dialog-content {
+        overflow: hidden;
+    }
+    label {
+        margin-top: 10px;
+    }
+    .ui-dialog-title {
+        font-family: 'Avenir', Arial, Tahoma, sans-serif;
+        color: #002d5b;
+        font-weight: normal;
+        font-size: 25px;
+    }
+    .ui-dialog-titlebar {
+        height: 16px;
+        padding: 0;
+        overflow: visible !important;
+        margin-bottom: 5px;
+    }
+    .ui-dialog-titlebar-close {
+        right: 0;
+        top: 10px;
+    }
+}
+.ui-widget-header {
+    background: none !important;
+    border: none !important;
+    .ui-icon:hover {
+        background-image: url("images/ui-icons_222222_256x240.png") !important;
+    }
+}
+.ui-widget-overlay {
+    opacity: 0.75 !important;
+    background: #000 !important;
+}
+.kiosk-modal {
+    .submit-modal {
+        div {
+            // margin: 0 92px;
+            // width: 300px;
+            font:$GothamBook;
+            text-align: center;
+            text-decoration: none;
+            position: relative;
+            font-size: 20px;
+            background-color: $purple;
+            color: #ffffff;
+            padding: 20px 15px;
+            border:2px solid $yellow;
+        }
+    }
+    label {
+        margin-top: 10px;
+        font-family: 'Calibri', Arial, Tahoma, sans-serif;
+        &.error {
+            color: #9B2743;
+            font-weight: 500;
+            position: absolute;
+            left: 18em;
+            top: 0;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, .7);
+            padding: 10px;
+            z-index: 1;
+        }
+    }
+}
+/* ************ */
+/* 8. Email Confirmation - Alert Modal Box*/
+.ui-widget-content {
+    border: 1px solid #aaa;
+    background: #ffffff;
+    color: #333;
+    &.alert {
+        color: #414042;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        padding: 10px 20px;
+        position: absolute;
+        height: 160px !important;
+        background: #F9F9F9;
+        .ui-widget-header {
+            background: none;
+            border: none;
+        }
+        .ui-dialog-title {
+            position: relative;
+            color: #002d5b;
+            font-weight: normal;
+            font-size: 25px;
+        }
+        h1 {
+            margin: 5px 0 25px;
+            font-size: 45px;
+            padding: 0;
+        }
+    }
+}
+/* 10. Animations */
+.small-arrow {
+    height: auto;
+    position: relative;
+}
+.small-arrow {
+    &.animate {
+        animation: clickMe 1.5s infinite ease-in-out;
+    }
+}
+@keyframes clickMe {
+    0% {
+        transform: scale(1);
+        top: 0;
+    }
+    35% {
+        transform: scale(.8);
+        top: 10px;
+    }
+    70% {
+        transform: scale(1);
+        top: 0;
+    }
+    100% {
+        transform: scale(1);
+        top: 0;
+    }
+}

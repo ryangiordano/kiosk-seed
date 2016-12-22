@@ -2,7 +2,8 @@
 
 This is a seed project for developing microsites for iPad using kiosk-pro.
 
-### Out of the box
+### To get started with sass
+npm install, then npm run to start the gulp process.  Write your .scss in the sass directory.  It is automatically compiled and placed in the css directory as a .css file.
 
 #### skeleton.css
 [skeleton.css]('http://getskeleton.com/') for super-lightweight responsive scaffolding, in case we need to update our kiosk to large format devices and screens.

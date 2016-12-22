@@ -1,0 +1,40 @@
+$GothamMedium:'Gotham-Medium','serif' ;
+$GothamBold: 'Gotham-Bold', 'serif';
+$GothamBook: 'Gotham-Book', 'serif';
+
+$FactoriaDemi: 'Factoria-Demi', 'serif';
+$FactoriaMedium:'Factoria-Medium', 'serif';
+
+@font-face {
+    font-family: 'Gotham-Medium';
+    src: url('fonts/Gotham-Medium.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Gotham-Bold';
+    src: url('fonts/Gotham-Bold.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Gotham-Book';
+    src: url('fonts/Gotham-Book.eot');
+    src: url('fonts/Gotham-Book.woff2') format('woff2'), url('fonts/Gotham-Book.woff') format('woff'), url('fonts/Gotham-Book.ttf') format('truetype'), url('fonts/Gotham-Book.svg#Gotham-Book') format('svg'), url('fonts/Gotham-Book.eot?#iefix') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Factoria-Demi';
+    src: url('fonts/Factoria-Demi.eot');
+    src: url('fonts/Factoria-Demi.woff2') format('woff2'), url('fonts/Factoria-Demi.woff') format('woff'), url('fonts/Factoria-Demi.ttf') format('truetype'), url('fonts/Factoria-Demi.svg#Factoria-Demi') format('svg'), url('fonts/Factoria-Demi.eot?#iefix') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Factoria-Medium';
+    src: url('fonts/Factoria-Medium.eot');
+    src: url('fonts/Factoria-Medium.woff2') format('woff2'), url('fonts/Factoria-Medium.woff') format('woff'), url('fonts/Factoria-Medium.ttf') format('truetype'), url('fonts/Factoria-Medium.svg#Factoria-Medium') format('svg'), url('fonts/Factoria-Medium.eot?#iefix') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+}
