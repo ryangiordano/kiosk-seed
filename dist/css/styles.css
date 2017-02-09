@@ -1,0 +1,748 @@
+/* CSS Document */
+/* Website Produced by Codigo |  gocodigo.com */
+/* --------------------------------------------------
+CSS Table of Contents // Primary CSS Doc
+-----------------------------------------------------
+1.CSS Reset
+2. General
+3. Main Menus
+4. Sub Menus
+5. Sub Pages
+6. Footer
+7. Nav
+8. Email Send - Dialog Modal Box
+9. Email Confirmation - Alert Modal
+10. Animations
+
+/* 1. CSS Reset */
+::-webkit-scrollbar {
+  display: none;
+}
+
+a,
+button,
+input,
+label,
+li,
+select,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a,
+abbr,
+acronym,
+address,
+applet,
+article,
+aside,
+audio,
+b,
+big,
+blockquote,
+body,
+canvas,
+caption,
+center,
+cite,
+code,
+dd,
+del,
+details,
+dfn,
+div,
+dl,
+dt,
+em,
+embed,
+fieldset,
+figcaption,
+figure,
+footer,
+form,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+header,
+hgroup,
+html,
+i,
+iframe,
+img,
+ins,
+kbd,
+label,
+legend,
+li,
+mark,
+menu,
+nav,
+object,
+ol,
+output,
+p,
+pre,
+q,
+ruby,
+s,
+samp,
+section,
+small,
+span,
+strike,
+strong,
+sub,
+summary,
+sup,
+table,
+tbody,
+td,
+tfoot,
+th,
+thead,
+time,
+tr,
+tt,
+u,
+ul,
+var,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+  overflow: hidden;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:after,
+blockquote:before,
+q:after,
+q:before {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ************ */
+/* Fonts */
+@font-face {
+  font-family: 'Gotham-Medium';
+  src: url("fonts/Gotham-Medium.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham-Bold';
+  src: url("fonts/Gotham-Bold.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Gotham-Book';
+  src: url("fonts/Gotham-Book.eot");
+  src: url("fonts/Gotham-Book.woff2") format("woff2"), url("fonts/Gotham-Book.woff") format("woff"), url("fonts/Gotham-Book.ttf") format("truetype"), url("fonts/Gotham-Book.svg#Gotham-Book") format("svg"), url("fonts/Gotham-Book.eot?#iefix") format("embedded-opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Factoria-Demi';
+  src: url("fonts/Factoria-Demi.eot");
+  src: url("fonts/Factoria-Demi.woff2") format("woff2"), url("fonts/Factoria-Demi.woff") format("woff"), url("fonts/Factoria-Demi.ttf") format("truetype"), url("fonts/Factoria-Demi.svg#Factoria-Demi") format("svg"), url("fonts/Factoria-Demi.eot?#iefix") format("embedded-opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Factoria-Medium';
+  src: url("fonts/Factoria-Medium.eot");
+  src: url("fonts/Factoria-Medium.woff2") format("woff2"), url("fonts/Factoria-Medium.woff") format("woff"), url("fonts/Factoria-Medium.ttf") format("truetype"), url("fonts/Factoria-Medium.svg#Factoria-Medium") format("svg"), url("fonts/Factoria-Medium.eot?#iefix") format("embedded-opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* 2. General */
+html {
+  background: white;
+  background-size: cover;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+body {
+  position: absolute;
+  width: 1024px;
+  height: 724px;
+  overflow: hidden;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  font-family: 'Gotham-Book', Arial, Tahoma, sans-serif;
+  font-weight: normal;
+  font-style: normal;
+}
+
+th {
+  background-color: #FFFFFF;
+  color: #000000;
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 10px;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+td {
+  background-color: #CFCFCF;
+  padding: 5px;
+  text-align: left;
+  color: #000000;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 10px;
+  text-decoration: none;
+  vertical-align: middle;
+  border: 1px solid white;
+}
+
+/* 3. Main Menu */
+.main {
+  height: 100%;
+  width: 100%;
+}
+
+/* 4. Sub Pages */
+.sub-page {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.superscript {
+  font-size: 14px;
+  vertical-align: super;
+}
+
+/* Sub page Contact form*/
+.form {
+  position: absolute;
+  top: 11em;
+  left: 3.5em;
+}
+
+.form form {
+  width: 550px;
+}
+
+.form input,
+.form select {
+  width: 100%;
+}
+
+.form label {
+  font-weight: bold;
+  font-size: 20px;
+  color: #3c4d9e;
+  margin-bottom: 10px;
+}
+
+.form .submit-button {
+  margin: 30px 0;
+  font-weight: 400;
+  width: 100%;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 0.25rem;
+  background-color: #faaf40;
+  color: white;
+}
+
+.contact label.error {
+  color: #9B2743;
+  font-weight: 500;
+  position: absolute;
+  right: 3px;
+  bottom: -30px;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  z-index: 10;
+  -webkit-animation: fadein 0.5s;
+  /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 0.5s;
+  /* Firefox < 16 */
+  -ms-animation: fadein 0.5s;
+  /* Internet Explorer */
+  -o-animation: fadein 0.5s;
+  /* Opera < 12.1 */
+  animation: fadein 0.5s;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* 5. Detail Page */
+.detail-page {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+/* Calculators */
+.calc-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  width: 100%;
+  background-color: rgba(60, 77, 158, 0.5);
+  margin: 20px 0;
+  color: #3c4d9e;
+  text-align: center;
+}
+
+.calc-button p {
+  color: #ffffff;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.detail-page.calculator .content {
+  overflow-y: scroll;
+  height: 600px;
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-width: 0;
+  border-top: 1px solid #E1E1E1;
+}
+
+.calculator .info p {
+  font-size: 18px;
+}
+
+.more-info {
+  padding: 0 0 10px;
+}
+
+.calculator input {
+  width: 100%;
+}
+
+.red {
+  color: #ff4545;
+  margin: 20px 30px;
+}
+
+.output {
+  width: 450px;
+  height: 60px;
+  text-align: right;
+}
+
+.output:first-of-type {
+  padding-top: 10px;
+}
+
+.output h3,
+.output span {
+  display: inline-block;
+  text-align: center;
+  line-height: 28px;
+}
+
+.output span {
+  font-family: 'Calibri', Helvetica-Neue, Helvetica, sans-serif;
+  font-weight: 700;
+  color: #f08921;
+}
+
+.output span #calc-result,
+.output span #credit-result,
+.output span #dividends,
+.output span #total {
+  font-size: 38px;
+}
+
+.output span #credit-interest,
+.output span #credit-result {
+  padding-top: 0;
+}
+
+.output span #credit-interest,
+.output span #total_interest {
+  font-size: 27px;
+}
+
+#scroll-title {
+  opacity: 0;
+  margin-top: 28px;
+  text-align: center;
+}
+
+#amortization {
+  width: 100%;
+  margin: 0 auto 20px;
+}
+
+#results-table {
+  display: none;
+  /*position: absolute;*/
+  top: 415px;
+  margin-bottom: 100px;
+  width: 934px;
+}
+
+#results-more .btn-orange {
+  margin: 20px 16% 40px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  color: #ffffff;
+  font-size: 21px;
+  background-color: #faaf40;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+#results .btn-orange {
+  margin: 0 33% 40px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  text-align: center;
+  width: 250px;
+  height: 35px;
+  padding: 20px;
+  color: #ffffff;
+  font-size: 21px;
+  background-color: #faaf40;
+  -webkit-transition: all 1s;
+  transition: all 1s;
+}
+
+#results-more .btn-orange h3 {
+  color: #fff;
+  font-size: 30px;
+}
+
+#results-table .btn-orange h3 {
+  color: #fff;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+#amortization-header {
+  padding-bottom: 0;
+}
+
+input:invalid {
+  box-shadow: none;
+}
+
+/* 6. Footer*/
+/* 7. Nav */
+/* 8. Email Send - Dialog Modal Box */
+.dialog {
+  display: none;
+  background-color: #000000;
+}
+
+.dialog p {
+  font-size: 14px;
+  line-height: 15px;
+  font-weight: normal;
+  margin-left: 80px;
+  margin-right: 20px;
+  margin-top: 2px;
+}
+
+.dialog p.info {
+  font-size: 11px;
+  margin-left: 100px;
+  line-height: 12px;
+  margin-top: -7px;
+  color: #000000;
+}
+
+.dialog p.info.small {
+  font-size: 8px;
+  line-height: 9px;
+  margin-top: 8px;
+}
+
+.dialog h1 {
+  font-family: 'Avenir', Arial, Tahoma, sans-serif;
+  color: #002d5b;
+  font-weight: normal;
+  font-size: 34px;
+  line-height: 45px;
+  text-align: left;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+.dialog .email-icon {
+  position: absolute;
+  top: 5px;
+  left: 0;
+}
+
+.dialog .submit {
+  position: absolute;
+  top: 160px;
+  left: 155px;
+}
+
+.dialog .email-input,
+.dialog .name-input {
+  margin: 20px 40px 10px 60px;
+  font-family: 'Avenir', Arial, Tahoma, sans-serif;
+  color: #002d5b;
+  font-weight: normal;
+  font-size: 20px;
+  float: right;
+}
+
+.dialog .email-input {
+  margin: 0 40px 10px 60px;
+}
+
+.dialog .checkbox-input {
+  margin: 0 30px 10px 80px;
+  float: right;
+}
+
+.dialog .checkbox {
+  float: left;
+  margin-left: 75px;
+  margin-top: 7px;
+}
+
+.dialog input.webpage {
+  display: none;
+}
+
+.dialog input[type="email"],
+.dialog input[type="text"] {
+  outline: none;
+  border: solid 1px gray;
+  width: 330px;
+  padding-left: 5px;
+  margin-bottom: 20px;
+}
+
+.dialog input[type="text"]:focus,
+.dialog textarea:focus {
+  box-shadow: 0 0 8px #3ab0c8;
+}
+
+.ui-dialog {
+  padding: 0;
+}
+
+.ui-dialog .ui-dialog-content {
+  overflow: hidden;
+}
+
+.ui-dialog label {
+  margin-top: 10px;
+}
+
+.ui-dialog .ui-dialog-title {
+  font-family: 'Avenir', Arial, Tahoma, sans-serif;
+  color: #002d5b;
+  font-weight: normal;
+  font-size: 25px;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+  height: 16px;
+  padding: 0;
+  overflow: visible !important;
+  margin-bottom: 5px;
+}
+
+.ui-dialog .ui-dialog-titlebar-close {
+  right: 0;
+  top: 10px;
+}
+
+.ui-widget-header {
+  background: none !important;
+  border: none !important;
+}
+
+.ui-widget-header .ui-icon:hover {
+  background-image: url("images/ui-icons_222222_256x240.png") !important;
+}
+
+.ui-widget-overlay {
+  opacity: 0.75 !important;
+  background: #000 !important;
+}
+
+.kiosk-modal .submit-modal div {
+  text-align: center;
+  text-decoration: none;
+  position: relative;
+  font-size: 20px;
+  color: #ffffff;
+  padding: 20px 15px;
+}
+
+.kiosk-modal label {
+  margin-top: 10px;
+  font-family: 'Calibri', Arial, Tahoma, sans-serif;
+}
+
+.kiosk-modal label.error {
+  color: #9B2743;
+  font-weight: 500;
+  position: absolute;
+  left: 18em;
+  top: 0;
+  background: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+  padding: 10px;
+  z-index: 1;
+}
+
+/* ************ */
+/* 9. Email Confirmation - Alert Modal Box*/
+.ui-widget-content {
+  border: 1px solid #aaa;
+  background: #ffffff;
+  color: #333;
+}
+
+.ui-widget-content.alert {
+  color: #414042;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 20px;
+  padding: 10px 20px;
+  position: absolute;
+  height: 160px !important;
+  background: #F9F9F9;
+}
+
+.ui-widget-content.alert .ui-widget-header {
+  background: none;
+  border: none;
+}
+
+.ui-widget-content.alert .ui-dialog-title {
+  position: relative;
+  color: #002d5b;
+  font-weight: normal;
+  font-size: 25px;
+}
+
+.ui-widget-content.alert h1 {
+  margin: 5px 0 25px;
+  font-size: 45px;
+  padding: 0;
+}
+
+/* 10. Animations */
+.small-arrow {
+  height: auto;
+  position: relative;
+}
+
+.small-arrow.animate {
+  animation: clickMe 1.5s infinite ease-in-out;
+}
+
+@keyframes clickMe {
+  0% {
+    transform: scale(1);
+    top: 0;
+  }
+  35% {
+    transform: scale(0.8);
+    top: 10px;
+  }
+  70% {
+    transform: scale(1);
+    top: 0;
+  }
+  100% {
+    transform: scale(1);
+    top: 0;
+  }
+}

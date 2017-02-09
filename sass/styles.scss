@@ -1,11 +1,11 @@
 @charset "utf-8"; //variables
 //brand colors
-$darkOrange: rgba(240, 137, 33, 1);
-$orange: rgba(250, 175, 64, 1);
-$darkPurple: rgba(28, 22, 102, 1);
-$purple: rgba(101, 66, 89, 1);
-$yellow: rgba(244,195,0,1);
-$grey: rgba(119,119,121,1);
+$darkGrey: #3B3B3B;
+$green: #A6C64C;
+$darkGreen: #73A35B;
+$lightBlue: #7DC1D8;
+$purple: #AB8BC4;
+$yellow: #FFE342;
 /* CSS Document */
 /* Website Produced by Codigo |  gocodigo.com */
 /* --------------------------------------------------
@@ -16,9 +16,11 @@ CSS Table of Contents // Primary CSS Doc
 3. Main Menus
 4. Sub Menus
 5. Sub Pages
-6. Email Send - Dialog Modal Box
-7. Email Confirmation - Alert Modal
-8. Animations
+6. Footer
+7. Nav
+8. Email Send - Dialog Modal Box
+9. Email Confirmation - Alert Modal
+10. Animations
 
 /* 1. CSS Reset */
 @import "./modules/reset";
@@ -45,56 +47,6 @@ body {
     font-family: 'Gotham-Book', Arial, Tahoma, sans-serif;
     font-weight: normal;
     font-style: normal;
-}
-h1,
-h2,
-h3,
-h4 {
-    font-weight: bold;
-}
-h1 {
-    font-size: 40px;
-}
-h2 {
-    font-size: 25px;
-}
-h3 {
-    font-size: 20px;
-}
-h4 {
-    font-size: 10px;
-}
-p {
-    font-size: 15px;
-    font-weight: normal;
-    color: #4d4d4d;
-    line-height: 20px;
-}
-a {
-    font-size: 12px;
-    font-weight: normal;
-    color: #0063a4;
-}
-sup {
-    vertical-align: super;
-    font-size: 7px;
-    margin-top: -10px;
-}
-strong {
-    font-weight: bold;
-}
-em {
-    font-style: italic;
-}
-ul {
-    list-style: outside;
-    list-style-type: circle;
-    margin-left: 20px;
-}
-li {
-    font-size: 12px;
-    font-weight: normal;
-    line-height: 14px;
 }
 th {
     background-color: #FFFFFF;
@@ -123,9 +75,7 @@ td {
 .main {
     height: 100%;
     width: 100%;
-
 }
-
 /* 4. Sub Pages */
 .sub-page {
     height: 100%;
@@ -226,7 +176,6 @@ td {
         line-height: 1.2;
     }
 }
-
 .detail-page.calculator .content {
     overflow-y: scroll;
     height: 600px;
@@ -348,10 +297,9 @@ hr {
 input:invalid {
     box-shadow: none;
 }
-
 /* 6. Footer*/
 /* 7. Nav */
-/* 7. Email Send - Dialog Modal Box */
+/* 8. Email Send - Dialog Modal Box */
 .dialog {
     display: none;
     background-color: #000000;
@@ -383,7 +331,7 @@ input:invalid {
         line-height: 45px;
         text-align: left;
         padding: 0;
-        margin-bottom:15px;
+        margin-bottom: 15px;
     }
     .email-icon {
         position: absolute;
@@ -473,15 +421,15 @@ input:invalid {
         div {
             // margin: 0 92px;
             // width: 300px;
-            font:$GothamBook;
+            // font: $GothamBook;
             text-align: center;
             text-decoration: none;
             position: relative;
             font-size: 20px;
-            background-color: $purple;
+            // background-color: $purple;
             color: #ffffff;
             padding: 20px 15px;
-            border:2px solid $yellow;
+            // border: 2px solid $yellow;
         }
     }
     label {
@@ -501,7 +449,7 @@ input:invalid {
     }
 }
 /* ************ */
-/* 8. Email Confirmation - Alert Modal Box*/
+/* 9. Email Confirmation - Alert Modal Box*/
 .ui-widget-content {
     border: 1px solid #aaa;
     background: #ffffff;
