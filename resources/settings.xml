@@ -509,7 +509,7 @@
 		<!--To Email-->
 		<dict>
 			<key>Key</key><string>smtpToEmail</string>
-			<key>Value</key><string>shellee@gocodigo.com; ryan@gocodigo.com; projects@gocodigo.com</string>
+			<key>Value</key><string>shellee@gocodigo.com; ryan@gocodigo.com</string>
 		</dict>
 		<!--SMTP Server-->
 		<dict>
@@ -618,7 +618,7 @@
 		<!--Sensitivity: 0.06 = Very High, 0.1 = High, 0.2 = Medium, 0.4 = Low, 0.6 = Very Low, please note tags <real></real> must be used with this setting-->
 		<dict>
 			<key>Key</key><string>shakeSensibility</string>
-			<key>Value</key><real>0.4</real>
+			<key>Value</key><real>0.6</real>
 		</dict>
 		<!--Motion Detection Reset Period-->
 		<dict>
@@ -717,6 +717,14 @@
 			<key>Key</key><string>reduceBrightnessTimeInterval</string>
 			<key>Value</key><string>0</string>
 		</dict>
+
+		<!--Browser Engine-->
+		<!--Browser Engine: 0 = UIWebView, 1 = WKWebView -->
+		<dict>
+				<key>Key</key><string>kp_browserEngine</string>
+				<key>Value</key><integer>0</integer>
+		</dict>
+
 		<!--Enable Auto-Lock -->
 		<dict>
 			<key>Key</key><string>allowAutoLock</string>
