@@ -1,6 +1,5 @@
 "use strict";
 //Pull the key from the url.
-
 var key = getQueryVariable("key");
 //Find the corresponding pdf in the pdf-data.
 var pdf = {
@@ -34,20 +33,20 @@ function populatePage() {
     $('#input-pdf-name').attr('value', pdf.pdfName);
     $('#pdf-name-modal').html(pdf.pdfName);
     $('.message .text p').html(pdf.pdfSubCopy);
-    if (pdf.hideFDIC) {
-        $('.disclosure').hide();
+    if(pdf.hideFDIC){
+      $('.disclosure').hide();
     }
-    if (pdf.bullets.length) {
-        for (var i = 0; i < pdf.bullets.length; i++) {
-            var template = "<div class='row'><div class='column one left-arrow'><img src='img/orange-arrow.svg'></div><div class='columns eleven'><h3>" + pdf.bullets[i].heading + "</h3>" + pdf.bullets[i].copy + "</div></div>";
-            $(list).append(template);
-        }
+    if(pdf.bullets.length){
+          for(var i=0; i<pdf.bullets.length; i++){
+            var template = "<div class='row'><div class='column one left-arrow'><img src='img/orange-arrow.svg'></div><div class='columns eleven'><h3>"+pdf.bullets[i].heading+"</h3>"+pdf.bullets[i].copy+"</div></div>";
+            $(list).append(template)
+          }
     }
-    if (pdf.additionalPdfInfo) {
-        $('.additionalPdfInfo').html(pdf.additionalPdfInfo);
+    if(pdf.additionalPdfInfo){
+      $('.additionalPdfInfo').html(pdf.additionalPdfInfo);
     }
-    if (pdf.disclosures) {
-        $('.disclosures').html(pdf.disclosures);
+    if(pdf.disclosures){
+      $('.disclosures').html(pdf.disclosures);
     }
 }
 populatePage();

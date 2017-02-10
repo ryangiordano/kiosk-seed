@@ -1,5 +1,3 @@
-"use strict";
-
 //Establish the branches and what services are offered there.  Link the below reps to their services via their repId.
 var branchData = {
     "data": [{
@@ -42,16 +40,17 @@ var repData = {
         "credentials": "",
         "showDisclosures": "false"
     }]
-};
+}
 //For populating PDF pages.  Attach the "id" of the pdf to a query parameter when linking to the
 var pdfData = {
     "data": [{
-        "id": "0",
-        "pdfName": "Sample",
-        "pdfLink": "Sample",
-        "pdfImage": "Sample",
-        "pdfCopy": "Sample",
-        "pdfSubCopy": "TAP TO VIEW",
-        "bullets": []
-    }]
+            "id": "0",
+            "pdfName": "Sample",
+            "pdfLink": "Sample",
+            "pdfImage": "Sample",
+            "pdfCopy": "Sample",
+            "pdfSubCopy": "TAP TO VIEW",
+            "bullets": []
+        }
+    ]
 };

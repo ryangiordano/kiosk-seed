@@ -1,3 +1,9 @@
+"use strict";
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 /* JavaScript Document */
 
 /* Firefly Credit Union */
@@ -20,12 +26,60 @@ Javascript Table of Contents
 /* ******************************************** */
 /*1. Fast Click */
 //Attaches fastclick.js to the body //Helps with touch delay
-$(function() {
+$(function () {
     FastClick.attach(document.body);
 });
-(function() {
-    $(function() {
-        $("#dialog").dialog({
+
+var Kiosk = function () {
+    function Kiosk(pageIds) {
+        _classCallCheck(this, Kiosk);
+
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+            for (var _iterator = pageIds[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                var id = _step.value;
+
+                if (this.idScanner(id)) {
+                    this.id = id;
+                }
+            }
+        } catch (err) {
+            _didIteratorError = true;
+            _iteratorError = err;
+        } finally {
+            try {
+                if (!_iteratorNormalCompletion && _iterator.return) {
+                    _iterator.return();
+                }
+            } finally {
+                if (_didIteratorError) {
+                    throw _iteratorError;
+                }
+            }
+        }
+    }
+
+    _createClass(Kiosk, [{
+        key: "init",
+        value: function init() {}
+    }, {
+        key: "idScanner",
+        value: function idScanner(id) {
+            return $(id).length;
+        }
+    }]);
+
+    return Kiosk;
+}();
+
+var DialogBox = function () {
+    function DialogBox(options) {
+        _classCallCheck(this, DialogBox);
+
+        $(options.dialogId).dialog({
             title: "",
             closeOnEscape: true,
             resizable: false,
@@ -41,30 +95,41 @@ $(function() {
                 effect: "fade",
                 duration: 440
             },
-            height: 320,
-            width: 693,
+            height: options.height,
+            width: options.width,
             fluid: true, //new option
-            open: function(event, ui) {
+            open: function open(event, ui) {
                 fluidDialog();
             },
-            close: function() {}
+            close: function close() {}
         });
-        $("#open").click(function() {
-            $('#dialog').dialog("open");
-        })
-    });
+        $("body").on('click', '.ui-widget-overlay', function () {
+            if ($("div.ui-dialog").is(":visible")) {
+                var openDialogId = $(".ui-dialog").find(".ui-dialog-content:visible").attr("id");
+                if ($("#" + openDialogId).dialog("isOpen")) {
+                    $("#" + openDialogId).dialog('close');
+                }
+            }
+        });
+        this.addEventListener(options.listenerId, options.dialogId);
+    }
 
+    _createClass(DialogBox, [{
+        key: "addEventListener",
+        value: function addEventListener(clickedId, dialogId) {
+            $(clickedId).click(function () {
+                $(dialogId).dialog("open");
+            });
+        }
+    }]);
 
+    return DialogBox;
+}();
+
+(function () {
     /* ******************************************** */
     /* 3.Close Dialog Box When Clicked Outside */
-    $("body").on('click', '.ui-widget-overlay', function() {
-        if ($("div.ui-dialog").is(":visible")) {
-            var openDialogId = $(".ui-dialog").find(".ui-dialog-content:visible").attr("id");
-            if ($("#" + openDialogId).dialog("isOpen")) {
-                $("#" + openDialogId).dialog('close');
-            }
-        }
-    });
+
     /* ******************************************** */
     /* 4. Alert Dialog Box Email Form Success/Fail */
     /* ******************************************** */
@@ -101,8 +166,8 @@ $(function() {
             },
             dialogClass: 'alert',
             fluid: true, //new option
-            open: function(event, ui) {
-      
+            open: function open(event, ui) {
+
                 fluidDialog();
             }
         });
@@ -111,17 +176,17 @@ $(function() {
     /* ******************************************** */
     /*5. Responsive Dialog Boxes*/
     // run function on all dialog opens
-    $(document).on("dialogopen", ".ui-dialog", function(event, ui) {
+    $(document).on("dialogopen", ".ui-dialog", function (event, ui) {
         fluidDialog();
     });
     // remove window resize namespace
-    $(document).on("dialogclose", ".ui-dialog", function(event, ui) {
+    $(document).on("dialogclose", ".ui-dialog", function (event, ui) {
         $(window).off("resize.responsive");
     });
     function fluidDialog() {
         var $visible = $(".ui-dialog:visible");
         // each open dialog
-        $visible.each(function() {
+        $visible.each(function () {
             var $this = $(this);
             var dialog = $this.find(".ui-dialog-content").data("dialog");
             // if fluid option == true
@@ -134,24 +199,22 @@ $(function() {
 
             if (dialog.options.fluid) {
                 // namespace window resize
-                $(window).on("resize.responsive", function() {
+                $(window).on("resize.responsive", function () {
                     var wWidth = $(window).width();
                     // check window width against dialog width
                     if (wWidth < dialog.options.maxWidth + 50) {
                         // keep dialog from filling entire screen
                         $this.css("width", "90%");
-
                     }
                     //reposition dialog
                     dialog.option("position", dialog.options.position);
                 });
             }
-
         });
     }
 })();
 
-$("#submit-button").click(function() {
+$("#submit-button").click(function () {
     $("#form").submit();
     return false;
 });

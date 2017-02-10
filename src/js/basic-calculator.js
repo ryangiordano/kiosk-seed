@@ -1,6 +1,5 @@
-"use strict";
 
-window.onload = function () {
+window.onload = function() {
 
     var current,
         screen = document.getElementById("result"),
@@ -17,7 +16,7 @@ window.onload = function () {
 
     for (var i = 0; i < len; i++) {
 
-        elem[i].addEventListener("click", function () {
+        elem[i].addEventListener("click", function() {
 
             num = this.value;
 
@@ -25,12 +24,15 @@ window.onload = function () {
 
             if (limit >= 14) {
 
-                alert("Limit Reached");
+                alert("Limit Reached")
+
             }
+
         }, false);
+
     }
 
-    document.querySelector(".zero").addEventListener("click", function () {
+    document.querySelector(".zero").addEventListener("click", function() {
 
         zero = this.value;
 
@@ -40,23 +42,29 @@ window.onload = function () {
         } else if (screen.innerHTML === output) {
 
             output = screen.innerHTML += zero;
+
         }
+
     }, false);
 
-    document.querySelector(".period").addEventListener("click", function () {
+    document.querySelector(".period").addEventListener("click", function() {
 
         period = this.value;
 
         if (screen.innerHTML === "") {
 
             output = screen.innerHTML = screen.innerHTML.concat("0.");
+
         } else if (screen.innerHTML === output) {
 
             screen.innerHTML = screen.innerHTML.concat(".");
+
         }
+
     }, false);
 
-    document.querySelector("#eqn-bg").addEventListener("click", function () {
+
+    document.querySelector("#eqn-bg").addEventListener("click", function() {
 
         if (screen.innerHTML === output) {
 
@@ -64,15 +72,17 @@ window.onload = function () {
         } else {
             screen.innerHTML = "";
         }
+
     }, false);
 
-    document.querySelector("#clear").addEventListener("click", function () {
+    document.querySelector("#clear").addEventListener("click", function() {
 
         screen.innerHTML = "";
+
     }, false);
-    document.querySelector('#del').addEventListener("click", function () {
-        screen.innerHTML = screen.innerHTML.slice(0, -1);
-    }, false);
+    document.querySelector('#del').addEventListener("click",function(){
+      screen.innerHTML= screen.innerHTML.slice(0,-1);
+    },false);
 
     var elem1 = document.querySelectorAll(".operator");
 
@@ -80,17 +90,21 @@ window.onload = function () {
 
     for (var i = 0; i < len1; i++) {
 
-        elem1[i].addEventListener("click", function () {
+        elem1[i].addEventListener("click", function() {
 
             operator = this.value;
 
             if (screen.innerHTML === "") {
 
                 screen.innerHTML = screen.innerHTML.concat("");
+
             } else if (output) {
 
                 screen.innerHTML = output.concat(operator);
+
             }
+
         }, false);
+
     }
-};
+}

@@ -28,7 +28,6 @@
    $headers = 'From: Civista Bank <info@civistabank.com>'. "\r\n" .
     'Reply-To: info@civistabank.com' . "\r\n" .
     'X-Mailer: PHP/' . phpversion();
-
 //emails will display html styling along with text // formats email headers
    $semi_rand = md5(time());
    $mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";

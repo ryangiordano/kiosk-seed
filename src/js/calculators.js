@@ -1,11 +1,9 @@
-'use strict';
-
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
 }
 
 Highcharts.setOptions({
-    colors: ['#1b1565', '#f9af42', '#faaf40', '#3b4c9d'],
+    colors: ['#1b1565','#f9af42',  '#faaf40', '#3b4c9d'],
     chart: {
         fontFamily: 'Calibri, Helvetica, serif',
         backgroundColor: 'transparent'
@@ -13,7 +11,8 @@ Highcharts.setOptions({
     lang: {
         thousandsSep: ','
     }
-});
+})
+
 
 /* JavaScript Document */
 
@@ -40,9 +39,10 @@ Javascript Table of Contents
 /********************************************* */
 /*1. Fast Click */
 //Attaches fastclick.js to the body //Helps with touch delay
-$(function () {
+$(function() {
     FastClick.attach(document.body);
 });
+
 
 /********************************************* */
 /*2. Add Commas to Outputs */
@@ -52,17 +52,18 @@ function numberWithCommas(x) {
 
 /********************************************* */
 /*3. Disallow Comma on Number Inputs */
-$("input[type=number]").keypress(function (evt) {
-    if (String.fromCharCode(evt.which) == ",") return false;
+$("input[type=number]").keypress(function(evt) {
+    if (String.fromCharCode(evt.which) == ",")
+        return false;
 });
 
 /********************************************* */
 /*4. Mortgage & Loan Calculator*/
 //get current month and add to hidden input
-var currentMonth = new Date().getMonth() + 1;
+var currentMonth = (new Date).getMonth() + 1;
 $('#month').val(currentMonth);
 //get current year and add to hidden input
-var currentYear = new Date().getFullYear();
+var currentYear = (new Date).getFullYear();
 $('#year').val(currentYear);
 //set var for additional payment protection
 var protection = 0;
@@ -146,8 +147,8 @@ function calculate_monthly_payment() {
     };
     // begin the formula for calculate the fixed monthly payment
     // REFERENCE: P = L[c(1 + c)n]/[(1 + c)n - 1]
-    var top_val = monthly_interest_rate * Math.pow(1 + monthly_interest_rate, length_of_mortgage);
-    var bot_val = Math.pow(1 + monthly_interest_rate, length_of_mortgage) - 1;
+    var top_val = monthly_interest_rate * Math.pow((1 + monthly_interest_rate), length_of_mortgage);
+    var bot_val = Math.pow((1 + monthly_interest_rate), (length_of_mortgage)) - 1;
     var monthly_mortgage = parseFloat(loan_amount * (top_val / bot_val)).toFixed(2);
     if ($('input[id=loan-type]').val() == 'auto') {
         if ($('#protection').val() == "Yes") {
@@ -235,8 +236,8 @@ function calculate_amortization(loan_amount, monthly_mortgage, monthly_interest_
     $('table#amortization').html(tableData);
 
     //Build the Highchart
-    var principal_percent = total_principal / total_mortgage * 100;
-    var interest_percent = total_interest / total_mortgage * 100;
+    var principal_percent = (total_principal / total_mortgage) * 100;
+    var interest_percent = (total_interest / total_mortgage) * 100;
 
     // Build the pie chart
     $('#pie-chart').highcharts({
@@ -285,17 +286,17 @@ function calculate_amortization(loan_amount, monthly_mortgage, monthly_interest_
             data: [{
                 name: "Principal",
                 y: principal_percent,
-                payments: numberWithCommas((principal_percent * total_mortgage / 100).toFixed(2))
+                payments: numberWithCommas(((principal_percent * total_mortgage) / 100).toFixed(2))
             }, {
                 name: "Interest",
                 y: interest_percent,
-                payments: numberWithCommas((interest_percent * total_mortgage / 100).toFixed(2))
+                payments: numberWithCommas(((interest_percent * total_mortgage) / 100).toFixed(2))
             }]
         }]
     }); // End Highchart - Pie
 } //End Calc Amortization
 //used if allowing calculation based on year OR month
-$('select[id=monthly-yearly]').change(function () {
+$('select[id=monthly-yearly]').change(function() {
     //$("#term-months").val("");
     //$("#term-years").val("");
     if ($(this).val() == 'months') {
@@ -307,13 +308,13 @@ $('select[id=monthly-yearly]').change(function () {
     };
 });
 //show full amortization schedule on click
-$('#results-more').click(function () {
+$('#results-more').click(function() {
     $(this).css('display', 'none');
 
     $('#results-table').css('display', 'initial');
     $('#results-more').css('opacity', '0');
     $('.content').animate({
-        scrollTop: $('.output').offset().top
+        scrollTop: ($('.output').offset()).top
     }, 1000);
     var month = parseInt($('#month').val());
     convert_month(month);
@@ -323,8 +324,8 @@ $('#results-more').click(function () {
     $('#column-chart').highcharts({
         data: {
             table: document.getElementById('amortization'),
-            complete: function complete(options) {
-                options.series.splice(2, 1);
+            complete: function(options) {
+                options.series.splice(2, 1)
             },
             //table: 'amortization'
             //startColumn:0,
@@ -370,7 +371,7 @@ $('#results-more').click(function () {
             min: 0,
             max: loan_amount,
             labels: {
-                formatter: function formatter() {
+                formatter: function() {
                     return "$" + this.value;
                 }
             }
@@ -380,7 +381,7 @@ $('#results-more').click(function () {
             startOnTick: false,
             endOnTick: false,
             tickInterval: 12,
-            tickPositioner: function tickPositioner() {
+            tickPositioner: function() {
                 var positions = [],
                     tick = tickStart,
                     increment = 12;
@@ -390,22 +391,22 @@ $('#results-more').click(function () {
                 return positions;
             },
             labels: {
-                formatter: function formatter() {
+                formatter: function() {
                     return this.value.replace(/\D/g, '');
-                }
+                },
             }
         },
         series: [{
             yAxis: 0,
             tooltip: {
                 headerFormat: '<b>{point.key}</b><br>',
-                pointFormat: '<b>{series.name}: ${point.y:.2f}</b><br>Percent of Payments: {point.percentage:.1f}%'
+                pointFormat: '<b>{series.name}: ${point.y:.2f}</b><br>Percent of Payments: {point.percentage:.1f}%',
             }
         }, {
             yAxis: 0,
             tooltip: {
                 headerFormat: '<b>{point.key}</b><br>',
-                pointFormat: '<b>{series.name}: ${point.y:.2f}</b><br>Percent of Payments: {point.percentage:.1f}%'
+                pointFormat: '<b>{series.name}: ${point.y:.2f}</b><br>Percent of Payments: {point.percentage:.1f}%',
             }
         }, {
             yAxis: 1,
@@ -413,7 +414,7 @@ $('#results-more').click(function () {
             stacking: 'normal',
             tooltip: {
                 headerFormat: '<b>{point.key}</b><br>',
-                pointFormat: '<b>{series.name}: ${point.y:.2f}</b><br>'
+                pointFormat: '<b>{series.name}: ${point.y:.2f}</b><br>',
             }
         }]
     }); // End Highchart - Column
@@ -430,7 +431,7 @@ $('#start-date, #amount, #interest, #term-years, #term-months, #gap, #protection
 function calculate_dividend() {
     var dividend_principal = parseFloat($('#dividend-principal').val());
     var initial_deposit = parseFloat($('#dividend-principal').val());
-    var dividend_rate = parseFloat($('#dividend-rate').val() / 100) / 1;
+    var dividend_rate = parseFloat(($('#dividend-rate').val()) / 100) / 1;
     var dividend_term = parseInt($('#dividend-term').val());
     months = 0;
     savings_arr = [initial_deposit];
@@ -438,7 +439,7 @@ function calculate_dividend() {
     while (dividend_term > months) {
         months++;
         //dividend rate divided by 12, compounded monthly
-        dividend_principal = dividend_principal * Math.pow(1 + dividend_rate / 12, 1);
+        dividend_principal = (dividend_principal * Math.pow((1 + dividend_rate / 12), 1));
         savings_arr.push(dividend_principal);
     }
 
@@ -485,7 +486,7 @@ function calculate_dividend() {
             },
             allowDecimals: false,
             labels: {
-                formatter: function formatter() {
+                formatter: function() {
                     return this.value; // clean, unformatted number for year
                 }
             }
@@ -497,7 +498,7 @@ function calculate_dividend() {
             min: initial_deposit,
             max: dividend_principal,
             labels: {
-                formatter: function formatter() {
+                formatter: function() {
                     return "$" + this.value;
                 }
             }
@@ -513,6 +514,8 @@ function calculate_dividend() {
                             enabled: true
                         }
 
+
+
                     }
                 }
             }
@@ -524,7 +527,7 @@ function calculate_dividend() {
         },
         series: [{
             name: "Balance",
-            data: savings_arr
+            data: savings_arr,
         }]
     }); // End Highchart - Area*/
 }
@@ -542,7 +545,7 @@ $('#creditMonthlyAmount').val('30');
 function creditCalc() {
     var amountOwed = creditBalance.value;
     var remainingBalance = creditBalance.value;
-    var monthlyRate = creditRate.value / 100 / 12;
+    var monthlyRate = (creditRate.value / 100) / 12;
     var monthlyPayment = creditMonthlyAmount.value;
     var payments = 0;
     var months = 0;
@@ -562,7 +565,7 @@ function creditCalc() {
         payments++;
         months++;
         remainingBalance = remainingBalance * (1 + monthlyRate) - monthlyPayment;
-        interestPaid = remainingBalance - (amountOwed - monthlyPayment * payments);
+        interestPaid = remainingBalance - (amountOwed - (monthlyPayment * payments));
     }
 
     $('#credit-result').html(months + ' Months');
@@ -571,8 +574,8 @@ function creditCalc() {
 
     //Build the Highchart
     var total_paid = interestPaid + amountOwed;
-    var principal_percent = amountOwed / total_paid * 100;
-    var interest_percent = interestPaid / total_paid * 100;
+    var principal_percent = (amountOwed / total_paid) * 100;
+    var interest_percent = (interestPaid / total_paid) * 100;
 
     // Build the pie chart
     $('#pie-chart').highcharts({
@@ -621,27 +624,27 @@ function creditCalc() {
             data: [{
                 name: "Principal",
                 y: principal_percent,
-                payments: numberWithCommas((principal_percent * total_paid / 100).toFixed(2))
+                payments: numberWithCommas(((principal_percent * total_paid) / 100).toFixed(2))
             }, {
                 name: "Interest",
                 y: interest_percent,
-                payments: numberWithCommas((interest_percent * total_paid / 100).toFixed(2))
+                payments: numberWithCommas(((interest_percent * total_paid) / 100).toFixed(2))
             }]
         }]
     }); // End Highchart - Pie */
 }
 
-$(document).ready(function () {
-    $('#creditBalance, #creditRate, #creditMonthlyAmount').change(function () {
-        setTimeout(creditCalc, 1000);
-    });
-});
-//$('#creditBalance, #creditRate, #creditMonthlyAmount').keyup(creditCalc);
+$(document).ready(function() {
+        $('#creditBalance, #creditRate, #creditMonthlyAmount').change(function() {
+            setTimeout(creditCalc, 1000);
+        });
+    })
+    //$('#creditBalance, #creditRate, #creditMonthlyAmount').keyup(creditCalc);
 
 /********************************************* */
 /* 7. Dialog Boxes */
 
-$(function () {
+$(function() {
     $(".dialog").dialog({
         title: "",
         closeOnEscape: true,
@@ -660,14 +663,14 @@ $(function () {
         height: 370,
         width: 593,
         fluid: true, //new option
-        open: function open(event, ui) {
+        open: function(event, ui) {
             fluidDialog();
         },
-        close: function close() {}
+        close: function() {}
     });
 });
 
-$(function () {
+$(function() {
     $(".dialog.small").dialog({
         title: "",
         closeOnEscape: true,
@@ -686,26 +689,27 @@ $(function () {
         height: 150,
         width: 593,
         fluid: true, //new option
-        open: function open(event, ui) {
+        open: function(event, ui) {
             fluidDialog();
         },
-        close: function close() {}
+        close: function() {}
     });
 });
+
 
 /* ******************************************** */
 /*Back To Top Button*/
 
-$("a[href='#top']").click(function () {
+$("a[href='#top']").click(function() {
     $('.content').animate({
-        scrollTop: $('header').offset().top
+        scrollTop: ($('header').offset()).top
     }, 1000);
     return false;
 });
 
 /* ******************************************** */
 /*12. Hide Payment Protection Options If Not Selected */
-$("#protection").change(function () {
+$("#protection").change(function() {
     if ($('#protection').val() == 'Yes') {
         $('.input.radio').show();
         $('form.auto').css("padding-bottom", "10px");
@@ -716,12 +720,9 @@ $("#protection").change(function () {
 });
 
 //13. Scroll down get title in the nav bar
-var logoContainer = $('.corner-logo'),
-    disclosure = $('.disclosure'),
-    changeOkay = false,
-    table = $('#results');
+var logoContainer = $('.corner-logo'),disclosure = $('.disclosure'), changeOkay = false, table = $('#results');
 
-$('.content').scroll(function () {
+$('.content').scroll(function() {
     if ($(this).scrollTop() >= 80) {
         changeOkay = true;
         populateTitle();
@@ -733,12 +734,14 @@ $('.content').scroll(function () {
 
 function populateTitle() {
     if (changeOkay) {
-        TweenMax.to(logoContainer, .5, { opacity: 1, y: 200 });
-        TweenMax.to(disclosure, .5, { opacity: 0 });
-        TweenMax.to(table, .5, { opacity: 1 });
+      TweenMax.to(logoContainer,.5,{opacity:1,y:200});
+      TweenMax.to(disclosure,.5,{opacity:0});
+      TweenMax.to(table, .5,{opacity:1});
+
     } else {
-        TweenMax.to(logoContainer, .5, { opacity: 1, y: 0 });
-        TweenMax.to(disclosure, .5, { opacity: 1 });
-        TweenMax.to(table, .5, { opacity: 0 });
+      TweenMax.to(logoContainer,.5,{opacity:1,y:0});
+            TweenMax.to(disclosure,.5,{opacity:1});
+      TweenMax.to(table, .5,{opacity:0});
+
     }
 };

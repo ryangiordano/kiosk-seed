@@ -1,0 +1,17 @@
+{
+  "files":[
+    "src/main.ts"
+  ],
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "noImplicitAny": true,
+    "sourceMap": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
+  },
+  "exclude": [
+    "node_modules",
+    "public/js"
+  ]
+}

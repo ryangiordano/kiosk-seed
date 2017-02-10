@@ -55,8 +55,8 @@ function updateInputs() {
         if (service.id == selectedValue) {
           document.getElementById('serviceEmail').setAttribute('value', service.serviceEmail);
           document.getElementById('serviceName').setAttribute('value', service.serviceName);
-          repData.data.map(function (rep) {
-            if (rep.repId === service.repID) {
+          repData.data.map(function(rep){
+            if(rep.repId === service.repID){
               document.getElementById('repName').setAttribute('value', rep.repName);
               document.getElementById('repEmail').setAttribute('value', rep.repEmail);
               document.getElementById('repPhone').setAttribute('value', rep.repPhone);
@@ -67,6 +67,7 @@ function updateInputs() {
               document.getElementById('showDisclosures').setAttribute('value', rep.showDisclosures);
             }
           });
+
         }
       });
     }
