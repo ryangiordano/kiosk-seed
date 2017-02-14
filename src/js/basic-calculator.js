@@ -1,3 +1,32 @@
+class BasicCalculator {
+    constructor() {
+        this.current;
+        this.output;
+        this.limit;
+        this.zero;
+        this.period;
+        this.operator;
+        this.screen = $('#result');
+    }
+    init() {
+
+    }
+    numberButtonSetup() {
+        let numberButtons = $('.num'),
+            length = numberButtons.length;
+        for (let i = 0; i < length; i++) {
+            elem[i].addEventListener("click", function() {
+                num = this.value;
+                output = screen.innerHTML += num;
+                if (limit >= 14) {
+                    alert("Limit Reached")
+                }
+            }, false);
+        }
+    }
+
+}
+
 
 window.onload = function() {
 
@@ -80,9 +109,9 @@ window.onload = function() {
         screen.innerHTML = "";
 
     }, false);
-    document.querySelector('#del').addEventListener("click",function(){
-      screen.innerHTML= screen.innerHTML.slice(0,-1);
-    },false);
+    document.querySelector('#del').addEventListener("click", function() {
+        screen.innerHTML = screen.innerHTML.slice(0, -1);
+    }, false);
 
     var elem1 = document.querySelectorAll(".operator");
 
