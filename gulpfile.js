@@ -19,7 +19,11 @@ gulp.task('styles', function(){
 gulp.task('babel', function(){
   gulp.src('src/**/*.js')
       .pipe(babel())
-      .on('error', handleError)
+      .on('error', function(e) {
+        console.log('>>> ERROR', e);
+        // emit here
+        this.emit('end');
+      })
       .pipe(gulp.dest('dist'))
 
 });
