@@ -1,19 +1,117 @@
 'use strict';
 
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
-}
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-Highcharts.setOptions({
-    colors: ['#1b1565', '#f9af42', '#faaf40', '#3b4c9d'],
-    chart: {
-        fontFamily: 'Calibri, Helvetica, serif',
-        backgroundColor: 'transparent'
-    },
-    lang: {
-        thousandsSep: ','
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+//options:
+var options = {
+    paymentProtection: false,
+    elements: [{
+        month: '#month',
+        year: '#year',
+        loanAmount: '#amount',
+        interestAmount: '#interest',
+        termMonths: '#term-months',
+        resultsMore: '#results-more'
+    }],
+    loanType: 'auto'
+};
+
+var FinancialCalculator = function () {
+    function FinancialCalculator(options) {
+        _classCallCheck(this, FinancialCalculator);
+
+        for (var key in options) {
+            if (options.hasOwnProperty(key)) {
+                this[key] = options[key];
+            }
+        }
     }
-});
+
+    _createClass(FinancialCalculator, [{
+        key: 'init',
+        value: function init() {
+            //get current month and add to hidden input
+            var currentMonth = new Date().getMonth() + 1;
+            $('#month').val(currentMonth);
+            //get current year and add to hidden input
+            var currentYear = new Date().getFullYear();
+            $('#year').val(currentYear);
+            //Disallow Comma on Number Inputs
+            $("input[type=number]").keypress(function (evt) {
+                if (String.fromCharCode(evt.which) == ",") return false;
+            });
+            // Mortgage & Loan Calculator
+            if (loanType) {
+                this.setDefaultLoanValues(this.loanType);
+            }
+            //set default values
+            //takes in loan type string or flagged for custom.
+            //takes custom, an object:
+            // {
+            //   amount: "string",
+            //   interest: "string",
+            //   termMonths: "string"
+            // }
+        }
+    }, {
+        key: 'setDefaultLoanValues',
+        value: function setDefaultLoanValues(loanType, custom) {
+            if ((typeof custom === 'undefined' ? 'undefined' : _typeof(custom)) === "object") {
+                populateLoanValues({ amount: custom.amount, interest: custom.interest, termMonths: custom.termMonths });
+            } else {
+                switch (loanType) {
+                    case "auto":
+                        populateLoanValues({ amount: "9500", interest: "4", termMonths: "48" });
+                        break;
+                    case "mortgage":
+                        populateLoanValues({ amount: "155000", interest: "3.85", termMonths: "30" });
+                        break;
+                    case "personal":
+                        populateLoanValues({ amount: "5000", interest: "8.5", termMonths: "36" });
+                        break;
+                    case "boat":
+                        populateLoanValues({ amount: "15000", interest: "3.99", termMonths: "60" });
+                        break;
+                }
+            }
+
+            function populateLoanValues(options) {
+                $(this.elements.loanAmount).val(options.amount);
+                $(this.elements.interestAmount).val(options.interest);
+                $(this.elements.termMonths).val(options.termMonths);
+            }
+        }
+    }, {
+        key: 'numberWithCommas',
+        value: function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+        }
+        //colorsArray is an array of string hex colors.
+        //fontFamily is comma-spearated string of fonts,
+        //backgroundColor is a hex value or transparent
+
+    }, {
+        key: 'setHighchartsOptions',
+        value: function setHighchartsOptions(colorsArray, fontFamily, backgroundColor) {
+            Highcharts.setOptions({
+                colors: ['#1b1565', '#f9af42', '#faaf40', '#3b4c9d'],
+                chart: {
+                    fontFamily: 'Calibri, Helvetica, serif',
+                    backgroundColor: 'transparent'
+                },
+                lang: {
+                    thousandsSep: ','
+                }
+            });
+        }
+    }]);
+
+    return FinancialCalculator;
+}();
 
 /* JavaScript Document */
 
@@ -36,10 +134,11 @@ Javascript Table of Contents
 10. Highchart Options
 11. Back To Top Button
 12. Hide Payment Protection Options If Not Selected
-
-/********************************************* */
+  /********************************************* */
 /*1. Fast Click */
 //Attaches fastclick.js to the body //Helps with touch delay
+
+
 $(function () {
     FastClick.attach(document.body);
 });
@@ -733,12 +832,26 @@ $('.content').scroll(function () {
 
 function populateTitle() {
     if (changeOkay) {
-        TweenMax.to(logoContainer, .5, { opacity: 1, y: 200 });
-        TweenMax.to(disclosure, .5, { opacity: 0 });
-        TweenMax.to(table, .5, { opacity: 1 });
+        TweenMax.to(logoContainer, .5, {
+            opacity: 1,
+            y: 200
+        });
+        TweenMax.to(disclosure, .5, {
+            opacity: 0
+        });
+        TweenMax.to(table, .5, {
+            opacity: 1
+        });
     } else {
-        TweenMax.to(logoContainer, .5, { opacity: 1, y: 0 });
-        TweenMax.to(disclosure, .5, { opacity: 1 });
-        TweenMax.to(table, .5, { opacity: 0 });
+        TweenMax.to(logoContainer, .5, {
+            opacity: 1,
+            y: 0
+        });
+        TweenMax.to(disclosure, .5, {
+            opacity: 1
+        });
+        TweenMax.to(table, .5, {
+            opacity: 0
+        });
     }
 };

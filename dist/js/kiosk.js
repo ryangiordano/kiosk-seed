@@ -5,13 +5,21 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Kiosk = function () {
-    function Kiosk() {
+    function Kiosk(options) {
         _classCallCheck(this, Kiosk);
+
+        for (var key in options) {
+            if (options.hasOwnProperty(key)) {
+                this[key] = options[key];
+            }
+        }
     }
 
     _createClass(Kiosk, [{
         key: "init",
-        value: function init() {}
+        value: function init() {
+            $('title').html(this.project_name);
+        }
     }], [{
         key: "getQueryVariable",
         value: function getQueryVariable(variable) {
@@ -32,6 +40,36 @@ var Kiosk = function () {
         key: "test",
         value: function test() {
             console.log("This is the Kiosk test static method");
+        }
+    }, {
+        key: "convert_month",
+        value: function convert_month(month) {
+            if (month == 1) {
+                month = "January";
+            } else if (month == 2) {
+                month = "February";
+            } else if (month == 3) {
+                month = "March";
+            } else if (month == 4) {
+                month = "April";
+            } else if (month == 5) {
+                month = "May";
+            } else if (month == 6) {
+                month = "June";
+            } else if (month == 7) {
+                month = "July";
+            } else if (month == 8) {
+                month = "August";
+            } else if (month == 9) {
+                month = "September";
+            } else if (month == 10) {
+                month = "October";
+            } else if (month == 11) {
+                month = "November";
+            } else if (month == 12) {
+                month = "December";
+            }
+            return month;
         }
     }]);
 
@@ -132,7 +170,6 @@ var DialogBox = function () {
 
     return DialogBox;
 }();
-
 //Alert box receives an alert message:string,
 // alert box's id: string
 //the name of the trigger, as well as the result. ex: "status" (name) "success" (result)
@@ -243,6 +280,91 @@ var Animation = function () {
     }]);
 
     return Animation;
+}();
+
+var BasicCalculator = function () {
+    function BasicCalculator() {
+        _classCallCheck(this, BasicCalculator);
+
+        this.current;
+        this.output;
+        this.limit;
+        this.operator;
+        this.screen = document.getElementById('result');
+    }
+
+    _createClass(BasicCalculator, [{
+        key: "init",
+        value: function init() {
+            console.log("Calculator initialized");
+            this.numberButtonSetup();
+        }
+    }, {
+        key: "numberButtonSetup",
+        value: function numberButtonSetup() {
+            var that = this;
+            var numberButtons = $('.num'),
+                length = numberButtons.length;
+            for (var i = 0; i < length; i++) {
+                $(numberButtons[i]).on("click", function () {
+                    var num = this.value;
+                    console.log(that.screen.innerHTML);
+                    that.output = that.screen.innerHTML += num;
+                    if (that.limit >= 14) {
+                        alert("Limit Reached");
+                    }
+                });
+            }
+            $(".zero").on("click", function () {
+                var zero = this.value;
+                if (that.screen.innerHTML === "") {
+                    that.output = that.screen.innerHTML = zero;
+                } else if (that.screen.innerHTML === that.output) {
+                    that.output = that.screen.innerHTML += zero;
+                }
+            });
+            $(".period").on("click", function (e) {
+                e.preventDefault();
+                var period = this.value;
+                if (that.screen.innerHTML === "") {
+                    that.output = that.screen.innerHTML = that.screen.innerHTML.concat("0.");
+                } else if (that.screen.innerHTML === that.output) {
+                    that.screen.innerHTML = that.screen.innerHTML.concat(".");
+                }
+            });
+            $("#eqn-bg").on("click", function (e) {
+                e.preventDefault();
+                if (that.screen.innerHTML === that.output) {
+                    that.screen.innerHTML = eval(that.output);
+                } else {
+                    that.screen.innerHTML = "";
+                }
+            });
+            $("#clear").on("click", function (e) {
+                e.preventDefault();
+                that.screen.innerHTML = "";
+            });
+            $('#del').on("click", function (e) {
+                that.screen.innerHTML = that.screen.innerHTML.slice(0, -1);
+            });
+
+            var operator = $(".operator");
+            var operatorLength = operator.length;
+            for (var _i = 0; _i < operatorLength; _i++) {
+                operator[_i].addEventListener("click", function (e) {
+                    e.preventDefault();
+                    operator = this.value;
+                    if (that.screen.innerHTML === "") {
+                        that.screen.innerHTML = that.screen.innerHTML.concat("");
+                    } else if (that.output) {
+                        that.screen.innerHTML = that.output.concat(operator);
+                    }
+                }, false);
+            }
+        }
+    }]);
+
+    return BasicCalculator;
 }();
 
 var Form = function Form() {

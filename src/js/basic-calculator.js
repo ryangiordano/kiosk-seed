@@ -3,137 +3,72 @@ class BasicCalculator {
         this.current;
         this.output;
         this.limit;
-        this.zero;
-        this.period;
         this.operator;
-        this.screen = $('#result');
+        this.screen = document.getElementById('result');
     }
     init() {
-
+      console.log("Calculator initialized");
+      this.numberButtonSetup();
     }
     numberButtonSetup() {
+        let that = this;
         let numberButtons = $('.num'),
             length = numberButtons.length;
         for (let i = 0; i < length; i++) {
-            elem[i].addEventListener("click", function() {
-                num = this.value;
-                output = screen.innerHTML += num;
-                if (limit >= 14) {
+            $(numberButtons[i]).on("click", function() {
+                let num = this.value;
+                console.log(that.screen.innerHTML);
+                that.output = that.screen.innerHTML += num;
+                if (that.limit >= 14) {
                     alert("Limit Reached")
+                }
+            });
+        }
+        $(".zero").on("click", function() {
+            let zero = this.value;
+            if (that.screen.innerHTML === "") {
+                that.output = that.screen.innerHTML = zero;
+            } else if (that.screen.innerHTML === that.output) {
+                that.output = that.screen.innerHTML += zero;
+            }
+        });
+        $(".period").on("click", function(e) {
+            e.preventDefault();
+            let period = this.value;
+            if (that.screen.innerHTML === "") {
+                that.output = that.screen.innerHTML = that.screen.innerHTML.concat("0.");
+            } else if (that.screen.innerHTML === that.output) {
+                that.screen.innerHTML = that.screen.innerHTML.concat(".");
+            }
+        });
+        $("#eqn-bg").on("click", function(e) {
+            e.preventDefault();
+            if (that.screen.innerHTML === that.output) {
+                that.screen.innerHTML = eval(that.output);
+            } else {
+                that.screen.innerHTML = "";
+            }
+        });
+        $("#clear").on("click", function(e) {
+            e.preventDefault();
+            that.screen.innerHTML = "";
+        });
+        $('#del').on("click", function(e) {
+            that.screen.innerHTML = that.screen.innerHTML.slice(0, -1);
+        });
+
+        let operator = $(".operator");
+        let operatorLength = operator.length;
+        for (let i = 0; i < operatorLength; i++) {
+            operator[i].addEventListener("click", function(e) {
+              e.preventDefault();
+                operator = this.value;
+                if (that.screen.innerHTML === "") {
+                    that.screen.innerHTML = that.screen.innerHTML.concat("");
+                } else if (that.output) {
+                    that.screen.innerHTML = that.output.concat(operator);
                 }
             }, false);
         }
-    }
-
-}
-
-
-window.onload = function() {
-
-    var current,
-        screen = document.getElementById("result"),
-        output,
-        limit,
-        zero,
-        period,
-        operator;
-
-    //Add an event listener to each calculator button
-    var elem = document.querySelectorAll(".num");
-
-    var len = elem.length;
-
-    for (var i = 0; i < len; i++) {
-
-        elem[i].addEventListener("click", function() {
-
-            num = this.value;
-
-            output = screen.innerHTML += num;
-
-            if (limit >= 14) {
-
-                alert("Limit Reached")
-
-            }
-
-        }, false);
-
-    }
-
-    document.querySelector(".zero").addEventListener("click", function() {
-
-        zero = this.value;
-
-        if (screen.innerHTML === "") {
-
-            output = screen.innerHTML = zero;
-        } else if (screen.innerHTML === output) {
-
-            output = screen.innerHTML += zero;
-
-        }
-
-    }, false);
-
-    document.querySelector(".period").addEventListener("click", function() {
-
-        period = this.value;
-
-        if (screen.innerHTML === "") {
-
-            output = screen.innerHTML = screen.innerHTML.concat("0.");
-
-        } else if (screen.innerHTML === output) {
-
-            screen.innerHTML = screen.innerHTML.concat(".");
-
-        }
-
-    }, false);
-
-
-    document.querySelector("#eqn-bg").addEventListener("click", function() {
-
-        if (screen.innerHTML === output) {
-
-            screen.innerHTML = eval(output);
-        } else {
-            screen.innerHTML = "";
-        }
-
-    }, false);
-
-    document.querySelector("#clear").addEventListener("click", function() {
-
-        screen.innerHTML = "";
-
-    }, false);
-    document.querySelector('#del').addEventListener("click", function() {
-        screen.innerHTML = screen.innerHTML.slice(0, -1);
-    }, false);
-
-    var elem1 = document.querySelectorAll(".operator");
-
-    var len1 = elem1.length;
-
-    for (var i = 0; i < len1; i++) {
-
-        elem1[i].addEventListener("click", function() {
-
-            operator = this.value;
-
-            if (screen.innerHTML === "") {
-
-                screen.innerHTML = screen.innerHTML.concat("");
-
-            } else if (output) {
-
-                screen.innerHTML = output.concat(operator);
-
-            }
-
-        }, false);
-
     }
 }

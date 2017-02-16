@@ -1,96 +1,90 @@
-"use strict";
+'use strict';
 
-window.onload = function () {
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-    var current,
-        screen = document.getElementById("result"),
-        output,
-        limit,
-        zero,
-        period,
-        operator;
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-    //Add an event listener to each calculator button
-    var elem = document.querySelectorAll(".num");
+var BasicCalculator = function () {
+    function BasicCalculator() {
+        _classCallCheck(this, BasicCalculator);
 
-    var len = elem.length;
-
-    for (var i = 0; i < len; i++) {
-
-        elem[i].addEventListener("click", function () {
-
-            num = this.value;
-
-            output = screen.innerHTML += num;
-
-            if (limit >= 14) {
-
-                alert("Limit Reached");
-            }
-        }, false);
+        this.current;
+        this.output;
+        this.limit;
+        this.operator;
+        this.screen = document.getElementById('result');
     }
 
-    document.querySelector(".zero").addEventListener("click", function () {
-
-        zero = this.value;
-
-        if (screen.innerHTML === "") {
-
-            output = screen.innerHTML = zero;
-        } else if (screen.innerHTML === output) {
-
-            output = screen.innerHTML += zero;
+    _createClass(BasicCalculator, [{
+        key: 'init',
+        value: function init() {
+            console.log("Calculator initialized");
+            this.numberButtonSetup();
         }
-    }, false);
-
-    document.querySelector(".period").addEventListener("click", function () {
-
-        period = this.value;
-
-        if (screen.innerHTML === "") {
-
-            output = screen.innerHTML = screen.innerHTML.concat("0.");
-        } else if (screen.innerHTML === output) {
-
-            screen.innerHTML = screen.innerHTML.concat(".");
-        }
-    }, false);
-
-    document.querySelector("#eqn-bg").addEventListener("click", function () {
-
-        if (screen.innerHTML === output) {
-
-            screen.innerHTML = eval(output);
-        } else {
-            screen.innerHTML = "";
-        }
-    }, false);
-
-    document.querySelector("#clear").addEventListener("click", function () {
-
-        screen.innerHTML = "";
-    }, false);
-    document.querySelector('#del').addEventListener("click", function () {
-        screen.innerHTML = screen.innerHTML.slice(0, -1);
-    }, false);
-
-    var elem1 = document.querySelectorAll(".operator");
-
-    var len1 = elem1.length;
-
-    for (var i = 0; i < len1; i++) {
-
-        elem1[i].addEventListener("click", function () {
-
-            operator = this.value;
-
-            if (screen.innerHTML === "") {
-
-                screen.innerHTML = screen.innerHTML.concat("");
-            } else if (output) {
-
-                screen.innerHTML = output.concat(operator);
+    }, {
+        key: 'numberButtonSetup',
+        value: function numberButtonSetup() {
+            var that = this;
+            var numberButtons = $('.num'),
+                length = numberButtons.length;
+            for (var i = 0; i < length; i++) {
+                $(numberButtons[i]).on("click", function () {
+                    var num = this.value;
+                    console.log(that.screen.innerHTML);
+                    that.output = that.screen.innerHTML += num;
+                    if (that.limit >= 14) {
+                        alert("Limit Reached");
+                    }
+                });
             }
-        }, false);
-    }
-};
+            $(".zero").on("click", function () {
+                var zero = this.value;
+                if (that.screen.innerHTML === "") {
+                    that.output = that.screen.innerHTML = zero;
+                } else if (that.screen.innerHTML === that.output) {
+                    that.output = that.screen.innerHTML += zero;
+                }
+            });
+            $(".period").on("click", function (e) {
+                e.preventDefault();
+                var period = this.value;
+                if (that.screen.innerHTML === "") {
+                    that.output = that.screen.innerHTML = that.screen.innerHTML.concat("0.");
+                } else if (that.screen.innerHTML === that.output) {
+                    that.screen.innerHTML = that.screen.innerHTML.concat(".");
+                }
+            });
+            $("#eqn-bg").on("click", function (e) {
+                e.preventDefault();
+                if (that.screen.innerHTML === that.output) {
+                    that.screen.innerHTML = eval(that.output);
+                } else {
+                    that.screen.innerHTML = "";
+                }
+            });
+            $("#clear").on("click", function (e) {
+                e.preventDefault();
+                that.screen.innerHTML = "";
+            });
+            $('#del').on("click", function (e) {
+                that.screen.innerHTML = that.screen.innerHTML.slice(0, -1);
+            });
+
+            var operator = $(".operator");
+            var operatorLength = operator.length;
+            for (var _i = 0; _i < operatorLength; _i++) {
+                operator[_i].addEventListener("click", function (e) {
+                    e.preventDefault();
+                    operator = this.value;
+                    if (that.screen.innerHTML === "") {
+                        that.screen.innerHTML = that.screen.innerHTML.concat("");
+                    } else if (that.output) {
+                        that.screen.innerHTML = that.output.concat(operator);
+                    }
+                }, false);
+            }
+        }
+    }]);
+
+    return BasicCalculator;
+}();

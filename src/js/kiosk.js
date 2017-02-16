@@ -1,9 +1,13 @@
 class Kiosk {
-    constructor() {
-
+    constructor(options) {
+        for (let key in options) {
+            if (options.hasOwnProperty(key)) {
+                this[key] = options[key];
+            }
+        }
     }
     init() {
-
+        $('title').html(this.project_name);
     }
     static getQueryVariable(variable) {
         var query = window.location.search.substring(1);
@@ -22,8 +26,34 @@ class Kiosk {
     static test() {
         console.log("This is the Kiosk test static method");
     }
-
-
+    static convert_month(month) {
+        if (month == 1) {
+            month = "January";
+        } else if (month == 2) {
+            month = "February";
+        } else if (month == 3) {
+            month = "March";
+        } else if (month == 4) {
+            month = "April";
+        } else if (month == 5) {
+            month = "May";
+        } else if (month == 6) {
+            month = "June";
+        } else if (month == 7) {
+            month = "July";
+        } else if (month == 8) {
+            month = "August";
+        } else if (month == 9) {
+            month = "September";
+        } else if (month == 10) {
+            month = "October";
+        } else if (month == 11) {
+            month = "November";
+        } else if (month == 12) {
+            month = "December";
+        }
+        return month;
+    }
 }
 //requires dialogId
 //requires height, width
@@ -110,7 +140,6 @@ class DialogBox {
         });
     }
 }
-
 //Alert box receives an alert message:string,
 // alert box's id: string
 //the name of the trigger, as well as the result. ex: "status" (name) "success" (result)
@@ -199,6 +228,83 @@ class Animation {
     }
 
 }
+class BasicCalculator {
+    constructor() {
+        this.current;
+        this.output;
+        this.limit;
+        this.operator;
+        this.screen = document.getElementById('result');
+    }
+    init() {
+        console.log("Calculator initialized");
+        this.numberButtonSetup();
+    }
+    numberButtonSetup() {
+        let that = this;
+        let numberButtons = $('.num'),
+            length = numberButtons.length;
+        for (let i = 0; i < length; i++) {
+            $(numberButtons[i]).on("click", function() {
+                let num = this.value;
+                console.log(that.screen.innerHTML);
+                that.output = that.screen.innerHTML += num;
+                if (that.limit >= 14) {
+                    alert("Limit Reached")
+                }
+            });
+        }
+        $(".zero").on("click", function() {
+            let zero = this.value;
+            if (that.screen.innerHTML === "") {
+                that.output = that.screen.innerHTML = zero;
+            } else if (that.screen.innerHTML === that.output) {
+                that.output = that.screen.innerHTML += zero;
+            }
+        });
+        $(".period").on("click", function(e) {
+            e.preventDefault();
+            let period = this.value;
+            if (that.screen.innerHTML === "") {
+                that.output = that.screen.innerHTML = that.screen.innerHTML.concat("0.");
+            } else if (that.screen.innerHTML === that.output) {
+                that.screen.innerHTML = that.screen.innerHTML.concat(".");
+            }
+        });
+        $("#eqn-bg").on("click", function(e) {
+            e.preventDefault();
+            if (that.screen.innerHTML === that.output) {
+                that.screen.innerHTML = eval(that.output);
+            } else {
+                that.screen.innerHTML = "";
+            }
+        });
+        $("#clear").on("click", function(e) {
+            e.preventDefault();
+            that.screen.innerHTML = "";
+        });
+        $('#del').on("click", function(e) {
+            that.screen.innerHTML = that.screen.innerHTML.slice(0, -1);
+        });
+
+        let operator = $(".operator");
+        let operatorLength = operator.length;
+        for (let i = 0; i < operatorLength; i++) {
+            operator[i].addEventListener("click", function(e) {
+                e.preventDefault();
+                operator = this.value;
+                if (that.screen.innerHTML === "") {
+                    that.screen.innerHTML = that.screen.innerHTML.concat("");
+                } else if (that.output) {
+                    that.screen.innerHTML = that.output.concat(operator);
+                }
+            }, false);
+        }
+    }
+}
+
+
+
 
 class Form {
 

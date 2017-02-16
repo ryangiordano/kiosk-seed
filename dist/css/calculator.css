@@ -32,7 +32,7 @@ button:active{
     display: block;
     font-family: sans-serif;
     width: 226px;
-    height: 40px;
+    height: 60px;
     margin: 10px auto;
     text-align: right;
     border: 0;
@@ -55,9 +55,11 @@ button:active{
 #first-rows {
     position: relative;
     top: 10px;
+    margin-bottom:17px;
 }
 .rows {
     width: 300px;
+    margin-bottom: 6px;
 }
 #delete, #clear {
     width: 110px;
