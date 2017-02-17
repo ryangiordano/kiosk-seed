@@ -11,6 +11,7 @@ let options = {
         resultsMore: '#results-more',
         resultsTable: '#results-table',
         paymentProtection: '#protection',
+        protectionCoverage:'#protection-coverage',
         gap: '#gap',
         totalPayment: '#total',
         totalInterest: '#total_interest',
@@ -50,6 +51,23 @@ class FinancialCalculator {
             if (this.loanType) {
                 this.setDefaultLoanValues(this.loanType);
             }
+            //Back To Top Button
+            $("a[href='#top']").click(function() {
+                $('.content').animate({
+                    scrollTop: ($('header').offset()).top
+                }, 1000);
+                return false;
+            });
+            /*12. Hide Payment Protection Options If Not Selected */
+            $(this.elements.paymentProtection).change(function() {
+                if ($(this.elements.paymentProtection).val() == 'Yes') {
+                    $(this.elements.protectionCoverage).show();
+                    $('form.auto').css("padding-bottom", "10px");
+                } else {
+                    $(this.elements.protectionCoverage).hide();
+                    $('form.auto').css("padding-bottom", "30px");
+                }
+            });
             // //used if allowing calculation based on year OR month
             // $('select[id=monthly-yearly]').change(function() {
             //     //$("#term-months").val("");
@@ -950,83 +968,17 @@ $(document).ready(function() {
     })
     //$('#creditBalance, #creditRate, #creditMonthlyAmount').keyup(creditCalc);
 
-/********************************************* */
-/* 7. Dialog Boxes */
-
-$(function() {
-    $(".dialog").dialog({
-        title: "",
-        closeOnEscape: true,
-        resizable: false,
-        modal: true,
-        autoOpen: false,
-        draggable: false,
-        hide: {
-            effect: "fade",
-            duration: 440
-        },
-        show: {
-            effect: "fade",
-            duration: 440
-        },
-        height: 370,
-        width: 593,
-        fluid: true, //new option
-        open: function(event, ui) {
-            fluidDialog();
-        },
-        close: function() {}
-    });
-});
-
-$(function() {
-    $(".dialog.small").dialog({
-        title: "",
-        closeOnEscape: true,
-        resizable: false,
-        modal: true,
-        autoOpen: false,
-        draggable: false,
-        hide: {
-            effect: "fade",
-            duration: 440
-        },
-        show: {
-            effect: "fade",
-            duration: 440
-        },
-        height: 150,
-        width: 593,
-        fluid: true, //new option
-        open: function(event, ui) {
-            fluidDialog();
-        },
-        close: function() {}
-    });
-});
-
-
 /* ******************************************** */
-/*Back To Top Button*/
-
-$("a[href='#top']").click(function() {
-    $('.content').animate({
-        scrollTop: ($('header').offset()).top
-    }, 1000);
-    return false;
-});
-
-/* ******************************************** */
-/*12. Hide Payment Protection Options If Not Selected */
-$("#protection").change(function() {
-    if ($('#protection').val() == 'Yes') {
-        $('.input.radio').show();
-        $('form.auto').css("padding-bottom", "10px");
-    } else {
-        $('.input.radio').hide();
-        $('form.auto').css("padding-bottom", "30px");
-    }
-});
+// /*12. Hide Payment Protection Options If Not Selected */
+// $("#protection").change(function() {
+//     if ($('#protection').val() == 'Yes') {
+//         $('.input.radio').show();
+//         $('form.auto').css("padding-bottom", "10px");
+//     } else {
+//         $('.input.radio').hide();
+//         $('form.auto').css("padding-bottom", "30px");
+//     }
+// });
 
 //13. Scroll down get title in the nav bar
 var logoContainer = $('.corner-logo'),
