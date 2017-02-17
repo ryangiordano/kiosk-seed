@@ -8,16 +8,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 //options:
 var options = {
-    paymentProtection: false,
     elements: [{
         month: '#month',
         year: '#year',
         loanAmount: '#amount',
         interestAmount: '#interest',
         termMonths: '#term-months',
-        resultsMore: '#results-more'
+        termYears: '#term-years',
+        interest: '#interest',
+        resultsMore: '#results-more',
+        resultsTable: '#results-table',
+        paymentProtection: '#protection',
+        gap: '#gap',
+        totalPayment: '#total',
+        totalInterest: '#total_interest',
+        amortization: '#amortization',
+        amortizationHeader: '#amortization-header',
+        pieChart: '#pie-chart'
     }],
-    loanType: 'auto'
+    loanType: 'auto',
+    monthlyYearly: 'months'
+
 };
 
 var FinancialCalculator = function () {
@@ -34,55 +45,148 @@ var FinancialCalculator = function () {
     _createClass(FinancialCalculator, [{
         key: 'init',
         value: function init() {
+            //we set event listeners and other default things here:
+
             //get current month and add to hidden input
             var currentMonth = new Date().getMonth() + 1;
-            $('#month').val(currentMonth);
+            $(this.elements.month).val(currentMonth);
             //get current year and add to hidden input
             var currentYear = new Date().getFullYear();
-            $('#year').val(currentYear);
+            $(this.elements.year).val(currentYear);
             //Disallow Comma on Number Inputs
             $("input[type=number]").keypress(function (evt) {
                 if (String.fromCharCode(evt.which) == ",") return false;
             });
             // Mortgage & Loan Calculator
-            if (loanType) {
+            //if the loan type is set, then set the default values. If it's set to custom, make a custom calculator.
+            if (this.loanType) {
                 this.setDefaultLoanValues(this.loanType);
             }
-            //set default values
-            //takes in loan type string or flagged for custom.
-            //takes custom, an object:
-            // {
-            //   amount: "string",
-            //   interest: "string",
-            //   termMonths: "string"
-            // }
+            // //used if allowing calculation based on year OR month
+            // $('select[id=monthly-yearly]').change(function() {
+            //     //$("#term-months").val("");
+            //     //$("#term-years").val("");
+            //     if ($(this).val() == 'months') {
+            //         $('#years-field').hide();
+            //         $('#months-field').show();
+            //     } else {
+            //         $('#months-field').hide();
+            //         $('#years-field').show();
+            //     };
+            // });
         }
+        //set default values
+        //takes in loan type string or flagged for custom.
+        //takes custom, an object:
+        // {
+        //   amount: "string",
+        //   interest: "string",
+        //   termMonths: "string"
+        // }
+
     }, {
         key: 'setDefaultLoanValues',
         value: function setDefaultLoanValues(loanType, custom) {
             if ((typeof custom === 'undefined' ? 'undefined' : _typeof(custom)) === "object") {
-                populateLoanValues({ amount: custom.amount, interest: custom.interest, termMonths: custom.termMonths });
+                populateLoanValues({
+                    amount: custom.amount,
+                    interest: custom.interest,
+                    termMonths: custom.termMonths
+                });
             } else {
                 switch (loanType) {
                     case "auto":
-                        populateLoanValues({ amount: "9500", interest: "4", termMonths: "48" });
+                        populateLoanValues({
+                            amount: "9500",
+                            interest: "4",
+                            termMonths: "48"
+                        });
                         break;
                     case "mortgage":
-                        populateLoanValues({ amount: "155000", interest: "3.85", termMonths: "30" });
+                        populateLoanValues({
+                            amount: "155000",
+                            interest: "3.85",
+                            termMonths: "30"
+                        });
                         break;
                     case "personal":
-                        populateLoanValues({ amount: "5000", interest: "8.5", termMonths: "36" });
+                        populateLoanValues({
+                            amount: "5000",
+                            interest: "8.5",
+                            termMonths: "36"
+                        });
                         break;
                     case "boat":
-                        populateLoanValues({ amount: "15000", interest: "3.99", termMonths: "60" });
+                        populateLoanValues({
+                            amount: "15000",
+                            interest: "3.99",
+                            termMonths: "60"
+                        });
                         break;
                 }
             }
-
+            //helper function
             function populateLoanValues(options) {
                 $(this.elements.loanAmount).val(options.amount);
                 $(this.elements.interestAmount).val(options.interest);
                 $(this.elements.termMonths).val(options.termMonths);
+            }
+        }
+    }, {
+        key: 'calculateMonthlyPayment',
+        value: function calculateMonthlyPayment() {
+            //set the monthly interest depending on the years.
+            $(this.elements.resultsMore).css('display', 'flex');
+            if (this.loanType === 'mortgage') {
+                if ($(this.elements.termYears).val() == 30) {
+                    $(this.elements.interest).val('3.85');
+                }
+                if ($(this.elements.termYears).val() == 20) {
+                    $(this.elements.interest).val('3.75');
+                }
+                if ($(this.elements.termYears).val() == 15) {
+                    $(this.elements.interest).val('3.125');
+                }
+                if ($(this.elements.termYears).val() == 10) {
+                    $(this.elements.interest).val('3.00');
+                }
+            }
+            // setting these as local variables...easier to read vs huge parse float equations.
+            var loanamount = $(this.elements.loanAmount).val().replace(/,/g, "");
+            var loan_amount = parseFloat(loanamount);
+
+            if ($(this.elements.gap).val() == "Yes" && this.loanType == 'auto') {
+                loan_amount = loan_amount + 375;
+            }
+
+            var interest_rate = parseFloat($(this.elements.interest).val()) / 100;
+            var monthly_interest_rate = interest_rate / 12;
+            var length_of_mortgage = parseInt($(this.elements.termYears).val()) * 12;
+            if (this.monthlyYearly == 'months') {
+                length_of_mortgage = parseInt($(this.elements.termMonths).val());
+            };
+            // begin the formula for calculate the fixed monthly payment
+            // REFERENCE: P = L[c(1 + c)n]/[(1 + c)n - 1]
+            var protection = void 0;
+            var top_val = monthly_interest_rate * Math.pow(1 + monthly_interest_rate, length_of_mortgage);
+            var bot_val = Math.pow(1 + monthly_interest_rate, length_of_mortgage) - 1;
+            var monthly_mortgage = parseFloat(loan_amount * (top_val / bot_val)).toFixed(2);
+            if (this.loanType == 'auto') {
+                if ($(this.elements.paymentProtection).val() == "Yes") {
+                    protection = parseFloat($('#coverage:checked').val()).toFixed(2);
+                    protection = protection * (loanamount / 1000);
+                } else {
+                    protection = 0;
+                }
+            }
+            this.calculatAmortization(loan_amount, monthly_mortgage, monthly_interest_rate, length_of_mortgage);
+            //show total payment, with commas
+            $(this.elements.totalPayment).html('$' + numberWithCommas((parseFloat(monthly_mortgage) + parseFloat(protection)).toFixed(2)));
+            //if the payment is not a number (error in input), do not display the $NaN
+            if (isNaN(monthly_mortgage)) {
+                $(this.elements.totalPayment).css('opacity', '0');
+            } else {
+                $(this.elements.totalPayment).css('opacity', '1');
             }
         }
     }, {
@@ -98,15 +202,143 @@ var FinancialCalculator = function () {
         key: 'setHighchartsOptions',
         value: function setHighchartsOptions(colorsArray, fontFamily, backgroundColor) {
             Highcharts.setOptions({
-                colors: ['#1b1565', '#f9af42', '#faaf40', '#3b4c9d'],
+                colors: colorsArray,
                 chart: {
-                    fontFamily: 'Calibri, Helvetica, serif',
-                    backgroundColor: 'transparent'
+                    fontFamily: fontFamily,
+                    backgroundColor: backgroundColor
                 },
                 lang: {
                     thousandsSep: ','
                 }
             });
+        }
+    }, {
+        key: 'calculatAmortization',
+        value: function calculatAmortization(loanAmount, monthlyMortgage, monthlyInterestRate, lengthOfMortgage) {
+            var month = parseInt($(this.elements.month).val());
+            var year = parseInt($(this.elements.year).val());
+            var tableData = "<tr> \
+                  <th>Month</th> \
+                  <th>Principal</th> \
+                  <th>Interest</th> \
+                  <th>Payment</th> \
+                  <th>Balance</th> \
+                  </tr>";
+            // Initializing the empty totals
+            var total_mortgage = parseFloat(0);
+            var total_principal = parseFloat(0);
+            var total_interest = parseFloat(0);
+            for (var i = length_of_mortgage; i > 0; i--) {
+                var monthly_interest = parseFloat(loan_amount * monthly_interest_rate).toFixed(2);
+                if (isNaN(monthly_interest)) {
+                    $(this.elements.resultsMore).css('opacity', '0');
+                    $(this.elements.resultsTable).css('display', 'none');
+                } else {
+                    if ($(this.elements.resultsTable).css('display', 'none')) {
+                        $(this.elements.resultsMore).css('opacity', '1');
+                        $(this.elements.resultsMore).html('<div class="btn-orange">Show Amortization Schedule</div>');
+                    }
+                }
+                var monthly_principal = parseFloat(monthly_mortgage - monthly_interest).toFixed(2);
+                total_mortgage = parseFloat(total_mortgage) + parseFloat(monthly_mortgage) + parseFloat(protection);
+                total_principal = parseFloat(total_principal) + parseFloat(monthly_principal);
+                total_interest = parseFloat(total_interest) + parseFloat(monthly_interest);
+                var monthStr = convert_month(month);
+                var _tablerow = "<tr> \
+              <td>" + monthStr + " " + year + "</td> \
+              <td class='principal'>" + monthly_principal + "</td> \
+              <td class='interest'>" + monthly_interest + "</td> \
+              <td>$" + (parseFloat(monthly_mortgage) + parseFloat(protection)).toFixed(2) + "</td> \
+              <td class='mortgage'>" + parseFloat(loan_amount).toFixed(2) + "</td> \
+              </tr>";
+                tableData = tableData + _tablerow;
+                if (month == 12) {
+                    month = 1;
+                    year++;
+                } else {
+                    month++;
+                };
+                loan_amount = parseFloat(loan_amount - monthly_principal).toFixed(2);
+            };
+            tablerow = "<tr> \
+                    <td></td> \
+                    <td><strong>Principal<br>$" + this.numberWithCommas(parseFloat(total_principal).toFixed(2)) + "</strong></td> \
+                    <td><strong>Interest<br>$" + this.numberWithCommas(parseFloat(total_interest).toFixed(2)) + "</strong></td> \
+                    <td><strong>Total Payments<br>$" + this.numberWithCommas(parseFloat(total_mortgage).toFixed(2)) + "</strong></td> \
+                    <td></td> \
+                    </tr>";
+            tableData = tableData + tablerow;
+            $('h2#' + this.elements.amortizationHeader).html('Amortization Schedule');
+            var totalinterest = parseFloat(total_interest).toFixed(2);
+            //show total interest, with commas
+            $(this.elements.totalInterest).html('$' + this.numberWithCommas(totalinterest));
+            //if the payment is not a number (error in input), do not display the $NaN
+            if (isNaN(totalinterest)) {
+                $(this.elements.totalInterest).css('opacity', '0');
+            } else {
+                $(this.elements.totalInterest).css('opacity', '1');
+            }
+            $('table' + this.elements.amortization).html(tableData);
+
+            //Build the Highchart
+            var principal_percent = total_principal / total_mortgage * 100;
+            var interest_percent = total_interest / total_mortgage * 100;
+
+            // Build the pie chart
+            $(this.elements.pieChart).highcharts({
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'Breakdown of Payments',
+                    style: {
+                        fontWeight: 'bold'
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<b>Total {point.key} Paid:</b><br>',
+                    pointFormat: '<b>${point.payments}</b><br>Percent of Payments: {point.percentage:.1f}%',
+                    borderRadius: 10,
+                    style: {
+                        padding: 10,
+                        fontSize: '15px'
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                legend: {
+                    itemStyle: {
+                        fontSize: '16px'
+                    }
+                },
+                series: [{
+                    name: "Payments",
+                    colorByPoint: true,
+                    data: [{
+                        name: "Principal",
+                        y: principal_percent,
+                        payments: this.numberWithCommas((principal_percent * total_mortgage / 100).toFixed(2))
+                    }, {
+                        name: "Interest",
+                        y: interest_percent,
+                        payments: this.numberWithCommas((interest_percent * total_mortgage / 100).toFixed(2))
+                    }]
+                }]
+            }); // End Highchart - Pie
         }
     }]);
 
@@ -134,278 +366,281 @@ Javascript Table of Contents
 10. Highchart Options
 11. Back To Top Button
 12. Hide Payment Protection Options If Not Selected
-  /********************************************* */
+
+/********************************************* */
 /*1. Fast Click */
 //Attaches fastclick.js to the body //Helps with touch delay
+// $(function() {
+//     FastClick.attach(document.body);
+// });
+//
+//
+// /********************************************* */
+// /*2. Add Commas to Outputs */
+// function numberWithCommas(x) {
+//     return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+// }
+//
+// /********************************************* */
+// /*3. Disallow Comma on Number Inputs */
+// $("input[type=number]").keypress(function(evt) {
+//     if (String.fromCharCode(evt.which) == ",")
+//         return false;
+// });
+//
+// /********************************************* */
+// /*4. Mortgage & Loan Calculator*/
+// //get current month and add to hidden input
+// let currentMonth = (new Date).getMonth() + 1;
+// $('#month').val(currentMonth);
+// //get current year and add to hidden input
+// let currentYear = (new Date).getFullYear();
+// $('#year').val(currentYear);
+// //set var for additional payment protection
+// var protection = 0;
+// //set default values
+// if ($('input[id=loan-type]').val() == 'auto') {
+//     $('#amount').val('9500');
+//     $('#interest').val('4');
+//     $('#term-months').val('48');
+// } else if ($('input[id=loan-type]').val() == 'mortgage') {
+//     $('#amount').val('155000');
+//     $('#interest').val('3.85');
+//     $('#term-years').val('30');
+// } else if ($('input[id=loan-type]').val() == 'personal') {
+//     $('#amount').val('5000');
+//     $('#interest').val('8.5');
+//     $('#term-months').val('36');
+// } else if ($('input[id=loan-type]').val() == 'boat') {
+//     $('#amount').val('15000');
+//     $('#interest').val('3.99');
+//     $('#term-months').val('60');
+// }
+//
+// function convert_month(month) {
+//     if (month == 1) {
+//         month = "January";
+//     } else if (month == 2) {
+//         month = "February";
+//     } else if (month == 3) {
+//         month = "March";
+//     } else if (month == 4) {
+//         month = "April";
+//     } else if (month == 5) {
+//         month = "May";
+//     } else if (month == 6) {
+//         month = "June";
+//     } else if (month == 7) {
+//         month = "July";
+//     } else if (month == 8) {
+//         month = "August";
+//     } else if (month == 9) {
+//         month = "September";
+//     } else if (month == 10) {
+//         month = "October";
+//     } else if (month == 11) {
+//         month = "November";
+//     } else if (month == 12) {
+//         month = "December";
+//     }
+//     return month;
+// }
 
+// function calculate_monthly_payment() {
+//     $('#results-more').css('display', 'flex');
+//     if ($('input[id=loan-type]').val() == 'mortgage') {
+//         if ($('#term-years').val() == 30) {
+//             $('#interest').val('3.85');
+//         }
+//         if ($('#term-years').val() == 20) {
+//             $('#interest').val('3.75');
+//         }
+//         if ($('#term-years').val() == 15) {
+//             $('#interest').val('3.125');
+//         }
+//         if ($('#term-years').val() == 10) {
+//             $('#interest').val('3.00');
+//         }
+//     }
+//     // setting these as local variables...easier to read vs huge parse float equations.
+//     var loanamount = $('#amount').val().replace(/,/g, "");
+//     var loan_amount = parseFloat(loanamount);
+//     if ($('input[id=loan-type]').val() == 'auto') {
+//         if ($('#gap').val() == "Yes") {
+//             loan_amount = loan_amount + 375;
+//         }
+//     }
+//     var interest_rate = parseFloat($('#interest').val()) / 100;
+//     var monthly_interest_rate = interest_rate / 12;
+//     var length_of_mortgage = parseInt($('#term-years').val()) * 12;
+//     if ($('input[id=monthly-yearly]').val() == 'months') {
+//         length_of_mortgage = parseInt($('#term-months').val());
+//     };
+//     // begin the formula for calculate the fixed monthly payment
+//     // REFERENCE: P = L[c(1 + c)n]/[(1 + c)n - 1]
+//     var top_val = monthly_interest_rate * Math.pow((1 + monthly_interest_rate), length_of_mortgage);
+//     var bot_val = Math.pow((1 + monthly_interest_rate), (length_of_mortgage)) - 1;
+//     var monthly_mortgage = parseFloat(loan_amount * (top_val / bot_val)).toFixed(2);
+//     if ($('input[id=loan-type]').val() == 'auto') {
+//         if ($('#protection').val() == "Yes") {
+//             protection = parseFloat($('#coverage:checked').val()).toFixed(2);
+//             protection = protection * (loanamount / 1000);
+//         } else {
+//             protection = 0;
+//         }
+//     }
+//     calculate_amortization(loan_amount, monthly_mortgage, monthly_interest_rate, length_of_mortgage);
+//     //show total payment, with commas
+//     $('#total').html('$' + numberWithCommas((parseFloat(monthly_mortgage) + parseFloat(protection)).toFixed(2)));
+//     //if the payment is not a number (error in input), do not display the $NaN
+//     if (isNaN(monthly_mortgage)) {
+//         $('#total').css('opacity', '0');
+//     } else {
+//         $('#total').css('opacity', '1');
+//     }
+// } //End Calculate Monthly Payment
 
-$(function () {
-    FastClick.attach(document.body);
-});
-
-/********************************************* */
-/*2. Add Commas to Outputs */
-function numberWithCommas(x) {
-    return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
-}
-
-/********************************************* */
-/*3. Disallow Comma on Number Inputs */
-$("input[type=number]").keypress(function (evt) {
-    if (String.fromCharCode(evt.which) == ",") return false;
-});
-
-/********************************************* */
-/*4. Mortgage & Loan Calculator*/
-//get current month and add to hidden input
-var currentMonth = new Date().getMonth() + 1;
-$('#month').val(currentMonth);
-//get current year and add to hidden input
-var currentYear = new Date().getFullYear();
-$('#year').val(currentYear);
-//set var for additional payment protection
-var protection = 0;
-//set default values
-if ($('input[id=loan-type]').val() == 'auto') {
-    $('#amount').val('9500');
-    $('#interest').val('4');
-    $('#term-months').val('48');
-} else if ($('input[id=loan-type]').val() == 'mortgage') {
-    $('#amount').val('155000');
-    $('#interest').val('3.85');
-    $('#term-years').val('30');
-} else if ($('input[id=loan-type]').val() == 'personal') {
-    $('#amount').val('5000');
-    $('#interest').val('8.5');
-    $('#term-months').val('36');
-} else if ($('input[id=loan-type]').val() == 'boat') {
-    $('#amount').val('15000');
-    $('#interest').val('3.99');
-    $('#term-months').val('60');
-}
-
-function convert_month(month) {
-    if (month == 1) {
-        month = "January";
-    } else if (month == 2) {
-        month = "February";
-    } else if (month == 3) {
-        month = "March";
-    } else if (month == 4) {
-        month = "April";
-    } else if (month == 5) {
-        month = "May";
-    } else if (month == 6) {
-        month = "June";
-    } else if (month == 7) {
-        month = "July";
-    } else if (month == 8) {
-        month = "August";
-    } else if (month == 9) {
-        month = "September";
-    } else if (month == 10) {
-        month = "October";
-    } else if (month == 11) {
-        month = "November";
-    } else if (month == 12) {
-        month = "December";
-    }
-    return month;
-}
-
-function calculate_monthly_payment() {
-    $('#results-more').css('display', 'flex');
-    if ($('input[id=loan-type]').val() == 'mortgage') {
-        if ($('#term-years').val() == 30) {
-            $('#interest').val('3.85');
-        }
-        if ($('#term-years').val() == 20) {
-            $('#interest').val('3.75');
-        }
-        if ($('#term-years').val() == 15) {
-            $('#interest').val('3.125');
-        }
-        if ($('#term-years').val() == 10) {
-            $('#interest').val('3.00');
-        }
-    }
-    // setting these as local variables...easier to read vs huge parse float equations.
-    var loanamount = $('#amount').val().replace(/,/g, "");
-    var loan_amount = parseFloat(loanamount);
-    if ($('input[id=loan-type]').val() == 'auto') {
-        if ($('#gap').val() == "Yes") {
-            loan_amount = loan_amount + 375;
-        }
-    }
-    var interest_rate = parseFloat($('#interest').val()) / 100;
-    var monthly_interest_rate = interest_rate / 12;
-    var length_of_mortgage = parseInt($('#term-years').val()) * 12;
-    if ($('input[id=monthly-yearly]').val() == 'months') {
-        length_of_mortgage = parseInt($('#term-months').val());
-    };
-    // begin the formula for calculate the fixed monthly payment
-    // REFERENCE: P = L[c(1 + c)n]/[(1 + c)n - 1]
-    var top_val = monthly_interest_rate * Math.pow(1 + monthly_interest_rate, length_of_mortgage);
-    var bot_val = Math.pow(1 + monthly_interest_rate, length_of_mortgage) - 1;
-    var monthly_mortgage = parseFloat(loan_amount * (top_val / bot_val)).toFixed(2);
-    if ($('input[id=loan-type]').val() == 'auto') {
-        if ($('#protection').val() == "Yes") {
-            protection = parseFloat($('#coverage:checked').val()).toFixed(2);
-            protection = protection * (loanamount / 1000);
-        } else {
-            protection = 0;
-        }
-    }
-    calculate_amortization(loan_amount, monthly_mortgage, monthly_interest_rate, length_of_mortgage);
-    //show total payment, with commas
-    $('#total').html('$' + numberWithCommas((parseFloat(monthly_mortgage) + parseFloat(protection)).toFixed(2)));
-    //if the payment is not a number (error in input), do not display the $NaN
-    if (isNaN(monthly_mortgage)) {
-        $('#total').css('opacity', '0');
-    } else {
-        $('#total').css('opacity', '1');
-    }
-} //End Calculate Monthly Payment
-
-function calculate_amortization(loan_amount, monthly_mortgage, monthly_interest_rate, length_of_mortgage) {
-    var month = parseInt($('#month').val());
-    var year = parseInt($('#year').val());
-    var tableData = "<tr> \
-              <th>Month</th> \
-              <th>Principal</th> \
-              <th>Interest</th> \
-              <th>Payment</th> \
-              <th>Balance</th> \
-              </tr>";
-    // Initializing the empty totals
-    var total_mortgage = parseFloat(0);
-    var total_principal = parseFloat(0);
-    var total_interest = parseFloat(0);
-    for (i = length_of_mortgage; i > 0; i--) {
-        var monthly_interest = parseFloat(loan_amount * monthly_interest_rate).toFixed(2);
-        if (isNaN(monthly_interest)) {
-            $('#results-more').css('opacity', '0');
-            $('#results-table').css('display', 'none');
-        } else {
-            if ($('#results-table').css('display', 'none')) {
-                $('#results-more').css('opacity', '1');
-                $('#results-more').html('<div class="btn-orange">Show Amortization Schedule</div>');
-            }
-        }
-        var monthly_principal = parseFloat(monthly_mortgage - monthly_interest).toFixed(2);
-        total_mortgage = parseFloat(total_mortgage) + parseFloat(monthly_mortgage) + parseFloat(protection);
-        total_principal = parseFloat(total_principal) + parseFloat(monthly_principal);
-        total_interest = parseFloat(total_interest) + parseFloat(monthly_interest);
-        var monthStr = convert_month(month);
-        var tablerow = "<tr> \
-          <td>" + monthStr + " " + year + "</td> \
-          <td class='principal'>" + monthly_principal + "</td> \
-          <td class='interest'>" + monthly_interest + "</td> \
-          <td>$" + (parseFloat(monthly_mortgage) + parseFloat(protection)).toFixed(2) + "</td> \
-          <td class='mortgage'>" + parseFloat(loan_amount).toFixed(2) + "</td> \
-          </tr>";
-        tableData = tableData + tablerow;
-        if (month == 12) {
-            month = 1;
-            year++;
-        } else {
-            month++;
-        };
-        loan_amount = parseFloat(loan_amount - monthly_principal).toFixed(2);
-    };
-    tablerow = "<tr> \
-                <td></td> \
-                <td><strong>Principal<br>$" + numberWithCommas(parseFloat(total_principal).toFixed(2)) + "</strong></td> \
-                <td><strong>Interest<br>$" + numberWithCommas(parseFloat(total_interest).toFixed(2)) + "</strong></td> \
-                <td><strong>Total Payments<br>$" + numberWithCommas(parseFloat(total_mortgage).toFixed(2)) + "</strong></td> \
-                <td></td> \
-                </tr>";
-    tableData = tableData + tablerow;
-    $('h2#amortization-header').html('Amortization Schedule');
-    var totalinterest = parseFloat(total_interest).toFixed(2);
-    //show total interest, with commas
-    $('#total_interest').html('$' + numberWithCommas(totalinterest));
-    //if the payment is not a number (error in input), do not display the $NaN
-    if (isNaN(totalinterest)) {
-        $('#total_interest').css('opacity', '0');
-    } else {
-        $('#total_interest').css('opacity', '1');
-    }
-    $('table#amortization').html(tableData);
-
-    //Build the Highchart
-    var principal_percent = total_principal / total_mortgage * 100;
-    var interest_percent = total_interest / total_mortgage * 100;
-
-    // Build the pie chart
-    $('#pie-chart').highcharts({
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: 'Breakdown of Payments',
-            style: {
-                fontWeight: 'bold'
-            }
-        },
-        tooltip: {
-            headerFormat: '<b>Total {point.key} Paid:</b><br>',
-            pointFormat: '<b>${point.payments}</b><br>Percent of Payments: {point.percentage:.1f}%',
-            borderRadius: 10,
-            style: {
-                padding: 10,
-                fontSize: '15px'
-            }
-        },
-        credits: {
-            enabled: false
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
-            }
-        },
-        legend: {
-            itemStyle: {
-                fontSize: '16px'
-            }
-        },
-        series: [{
-            name: "Payments",
-            colorByPoint: true,
-            data: [{
-                name: "Principal",
-                y: principal_percent,
-                payments: numberWithCommas((principal_percent * total_mortgage / 100).toFixed(2))
-            }, {
-                name: "Interest",
-                y: interest_percent,
-                payments: numberWithCommas((interest_percent * total_mortgage / 100).toFixed(2))
-            }]
-        }]
-    }); // End Highchart - Pie
-} //End Calc Amortization
-//used if allowing calculation based on year OR month
-$('select[id=monthly-yearly]').change(function () {
-    //$("#term-months").val("");
-    //$("#term-years").val("");
-    if ($(this).val() == 'months') {
-        $('#years-field').hide();
-        $('#months-field').show();
-    } else {
-        $('#months-field').hide();
-        $('#years-field').show();
-    };
-});
+// function calculate_amortization(loan_amount, monthly_mortgage, monthly_interest_rate, length_of_mortgage) {
+//     var month = parseInt($('#month').val());
+//     var year = parseInt($('#year').val());
+//     var tableData = "<tr> \
+//               <th>Month</th> \
+//               <th>Principal</th> \
+//               <th>Interest</th> \
+//               <th>Payment</th> \
+//               <th>Balance</th> \
+//               </tr>";
+//     // Initializing the empty totals
+//     var total_mortgage = parseFloat(0);
+//     var total_principal = parseFloat(0);
+//     var total_interest = parseFloat(0);
+//     for (i = length_of_mortgage; i > 0; i--) {
+//         var monthly_interest = parseFloat(loan_amount * monthly_interest_rate).toFixed(2);
+//         if (isNaN(monthly_interest)) {
+//             $('#results-more').css('opacity', '0');
+//             $('#results-table').css('display', 'none');
+//         } else {
+//             if ($('#results-table').css('display', 'none')) {
+//                 $('#results-more').css('opacity', '1');
+//                 $('#results-more').html('<div class="btn-orange">Show Amortization Schedule</div>');
+//             }
+//         }
+//         var monthly_principal = parseFloat(monthly_mortgage - monthly_interest).toFixed(2);
+//         total_mortgage = parseFloat(total_mortgage) + parseFloat(monthly_mortgage) + parseFloat(protection);
+//         total_principal = parseFloat(total_principal) + parseFloat(monthly_principal);
+//         total_interest = parseFloat(total_interest) + parseFloat(monthly_interest);
+//         var monthStr = convert_month(month);
+//         var tablerow = "<tr> \
+//           <td>" + monthStr + " " + year + "</td> \
+//           <td class='principal'>" + monthly_principal + "</td> \
+//           <td class='interest'>" + monthly_interest + "</td> \
+//           <td>$" + (parseFloat(monthly_mortgage) + parseFloat(protection)).toFixed(2) + "</td> \
+//           <td class='mortgage'>" + parseFloat(loan_amount).toFixed(2) + "</td> \
+//           </tr>";
+//         tableData = tableData + tablerow;
+//         if (month == 12) {
+//             month = 1;
+//             year++;
+//         } else {
+//             month++;
+//         };
+//         loan_amount = parseFloat(loan_amount - monthly_principal).toFixed(2);
+//     };
+//     tablerow = "<tr> \
+//                 <td></td> \
+//                 <td><strong>Principal<br>$" + numberWithCommas(parseFloat(total_principal).toFixed(2)) + "</strong></td> \
+//                 <td><strong>Interest<br>$" + numberWithCommas(parseFloat(total_interest).toFixed(2)) + "</strong></td> \
+//                 <td><strong>Total Payments<br>$" + numberWithCommas(parseFloat(total_mortgage).toFixed(2)) + "</strong></td> \
+//                 <td></td> \
+//                 </tr>";
+//     tableData = tableData + tablerow;
+//     $('h2#amortization-header').html('Amortization Schedule');
+//     var totalinterest = parseFloat(total_interest).toFixed(2);
+//     //show total interest, with commas
+//     $('#total_interest').html('$' + numberWithCommas(totalinterest));
+//     //if the payment is not a number (error in input), do not display the $NaN
+//     if (isNaN(totalinterest)) {
+//         $('#total_interest').css('opacity', '0');
+//     } else {
+//         $('#total_interest').css('opacity', '1');
+//     }
+//     $('table#amortization').html(tableData);
+//
+//     //Build the Highchart
+//     var principal_percent = (total_principal / total_mortgage) * 100;
+//     var interest_percent = (total_interest / total_mortgage) * 100;
+//
+//     // Build the pie chart
+//     $('#pie-chart').highcharts({
+//         chart: {
+//             plotBackgroundColor: null,
+//             plotBorderWidth: null,
+//             plotShadow: false,
+//             type: 'pie'
+//         },
+//         title: {
+//             text: 'Breakdown of Payments',
+//             style: {
+//                 fontWeight: 'bold'
+//             }
+//         },
+//         tooltip: {
+//             headerFormat: '<b>Total {point.key} Paid:</b><br>',
+//             pointFormat: '<b>${point.payments}</b><br>Percent of Payments: {point.percentage:.1f}%',
+//             borderRadius: 10,
+//             style: {
+//                 padding: 10,
+//                 fontSize: '15px'
+//             }
+//         },
+//         credits: {
+//             enabled: false
+//         },
+//         plotOptions: {
+//             pie: {
+//                 allowPointSelect: true,
+//                 cursor: 'pointer',
+//                 dataLabels: {
+//                     enabled: false
+//                 },
+//                 showInLegend: true
+//             }
+//         },
+//         legend: {
+//             itemStyle: {
+//                 fontSize: '16px'
+//             }
+//         },
+//         series: [{
+//             name: "Payments",
+//             colorByPoint: true,
+//             data: [{
+//                 name: "Principal",
+//                 y: principal_percent,
+//                 payments: numberWithCommas(((principal_percent * total_mortgage) / 100).toFixed(2))
+//             }, {
+//                 name: "Interest",
+//                 y: interest_percent,
+//                 payments: numberWithCommas(((interest_percent * total_mortgage) / 100).toFixed(2))
+//             }]
+//         }]
+//     }); // End Highchart - Pie
+// } //End Calc Amortization
+// //used if allowing calculation based on year OR month
+// $('select[id=monthly-yearly]').change(function() {
+//     //$("#term-months").val("");
+//     //$("#term-years").val("");
+//     if ($(this).val() == 'months') {
+//         $('#years-field').hide();
+//         $('#months-field').show();
+//     } else {
+//         $('#months-field').hide();
+//         $('#years-field').show();
+//     };
+// });
 //show full amortization schedule on click
+
+
 $('#results-more').click(function () {
     $(this).css('display', 'none');
 

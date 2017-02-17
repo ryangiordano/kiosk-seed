@@ -32,7 +32,7 @@
 
                 <div class="content">
                     <div class="row">
-                        <div class="columns six">
+                        <div class="col-md-6">
                             <div class="calc-form">
                                 <h2>Loan Information</h2>
                                 <hr>
@@ -42,26 +42,26 @@
                                     <input id="year" type="hidden" value="" />
                                     <div class="input">
                                         <div class="row">
-                                            <div class="columns six">
+                                            <div class="col-md-6">
                                                 <label>Loan Amount:</label>
                                             </div>
-                                            <div class="columns two">
+                                            <div class="col-md-2">
                                                 <span class="add-on">$</span>
                                             </div>
-                                            <div class="columns four">
+                                            <div class="col-md-4">
                                                 <input id="amount" type="number" placeholder="Loan Amount">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="input">
                                         <div class="row">
-                                            <div class="columns six">
+                                            <div class="col-md-6">
                                                 <label>Annual Interest Rate:</label>
                                             </div>
-                                            <div class="columns two">
+                                            <div class="col-md-2">
                                                 <span class="add-on">%</span>
                                             </div>
-                                            <div class="columns four">
+                                            <div class="col-md-4">
                                                 <input id="interest" type="number" placeholder="Interest Rate">
                                             </div>
                                         </div>
@@ -69,26 +69,26 @@
                                     <input id="monthly-yearly" type="hidden" value="months" />
                                     <div class="input">
                                         <div class="row">
-                                            <div class="columns six">
+                                            <div class="col-md-6">
                                                 <label>Terms of the Loan:</label>
                                             </div>
-                                            <div class="columns two">
+                                            <div class="col-md-2">
                                                 <span class="add-on">Months</span>
 
                                             </div>
-                                            <div class="columns four">
+                                            <div class="col-md-4">
                                                 <input id="term-months" type="number" placeholder="Term">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="input" style="display:none">
                                         <div class="row">
-                                            <div class="columns six">
+                                            <div class="col-md-6">
                                                 <label>Include Payment Protection:</label>
                                             </div>
-                                            <div class="columns two">
+                                            <div class="col-md-2">
                                             </div>
-                                            <div class="columns four">
+                                            <div class="col-md-4">
                                                 <select id="protection">
                                                     <option value="Yes">Yes</option>
                                                     <option value="No" selected>No</option>
@@ -161,22 +161,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="columns six">
+                        <div class="col-md-6">
                             <div id="pie-chart" class="pie-chart animated fadeIn"></div>
-  <div id="results-more"></div>
+                            <div id="results-more"></div>
                         </div>
                     </div>
                     <div class="more-info">
                         <div class="row">
-                            <div class="columns twelve">
+                            <div class="col-md-12">
 
                                 <div id="results">
-
                                     <div class="auto" id="results-table">
                                         <h2 id="amortization-header"></h2>
                                         <hr>
-                                        <div id="column-chart" class="column-chart animated fadeIn"></div>
-                                        <table id="amortization"></table>
+                                        <div id="column-chart" class="column-chart animated fadeIn">
+                                        </div>
+                                        <table id="amortization">
+                                        </table>
                                         <a href="#top">
                                             <div class="btn-orange">
                                                 <h3>Back to Top</h3></div>
