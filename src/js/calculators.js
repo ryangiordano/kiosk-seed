@@ -613,6 +613,9 @@ Javascript Table of Contents
 //         $('#years-field').show();
 //     };
 // });
+
+
+
 //show full amortization schedule on click
 $('#results-more').click(function() {
     $(this).css('display', 'none');
