@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Civista Bank</title>
-    <link rel="stylesheet" href="../../css/jquery-ui.css" media="screen" title="no title">
-    <link rel="stylesheet" href="../../css/jquery-ui.theme.min.css" media="screen" title="no title">
-    <link rel="stylesheet" href="../../css/skeleton.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="../../css/animate.css" media="screen" title="no title" charset="utf-8">
-    <link rel="stylesheet" href="../../css/css.css" media="screen" title="no title" charset="utf-8">
+    <title>Kiosk Seed Project</title>
+    <link rel="stylesheet" href="../css/vendor/jquery-ui.css" media="screen" title="no title">
+    <link rel="stylesheet" href="../css/vendor/jquery-ui.theme.min.css" media="screen" title="no title">
+    <link rel="stylesheet" href="../css/vendor/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../css/vendor/animate.css" media="screen" title="no title" charset="utf-8">
+    <link rel="stylesheet" href="../css/styles.css" media="screen" title="no title" charset="utf-8">
 </head>
 
 <body>
@@ -16,22 +16,24 @@
     <div class="detail-page calculator">
         <header></header>
         <div class="background-grey-gradient">
-            <div class="container">
+            <div class="ipad-container">
                 <div class="row">
+                  <div class="col-md-12">
                     <div class="header">
                         <div class="title">
                             <h1>Mortgage Calculator</h1>
                             <div class="info">
-                              		<p>Use this mortgage calculator to estimate monthly payments on your next home loan. Simply enter the loan amount, term and interest rate to calculate your monthly mortgage payments. This calculator will help you determine how much house you can afford.</p>
+                                  <p>Use this mortgage calculator to estimate monthly payments on your next home loan. Simply enter the loan amount, term and interest rate to calculate your monthly mortgage payments. This calculator will help you determine how much house you can afford.</p>
                             </div>
                         </div>
                     </div>
+                  </div>
                 </div>
 
                 <div class="content">
 
                     <div class="row">
-                        <div class="columns six">
+                        <div class="col-md-6">
                             <div class="calc-form">
                                 <h2>Loan Information</h2>
                                 <hr>
@@ -41,26 +43,26 @@
                                     <input id="year" type="hidden" value="" />
                                     <div class="input">
                                         <div class="row">
-                                            <div class="columns six">
+                                            <div class="col-md-6">
                                                 <label>Loan Amount:</label>
                                             </div>
-                                            <div class="columns two">
+                                            <div class="col-md-2">
                                                 <span class="add-on">$</span>
                                             </div>
-                                            <div class="columns four">
+                                            <div class="col-md-4">
                                                 <input id="amount" type="number" placeholder="Loan Amount">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="input">
                                         <div class="row">
-                                            <div class="columns six">
+                                            <div class="col-md-6">
                                                 <label>Terms of the Loan:</label>
                                             </div>
-                                            <div class="columns two">
+                                            <div class="col-md-2">
                                                 <span class="add-on">Years</span>
                                             </div>
-                                            <div class="columns four">
+                                            <div class="col-md-4">
                                               <select id="term-years" type="text" placeholder="Term">
                                 								<option value="30">30</option>
                                 								<option value="20">20</option>
@@ -72,14 +74,14 @@
                                     </div>
                                     <div class="input">
                                         <div class="row">
-                                            <div class="columns six">
+                                            <div class="col-md-6">
                                                 <label>Annual Interest Rate:</label>
                                             </div>
-                                            <div class="columns two">
+                                            <div class="col-md-2">
                                                 <span class="add-on">%</span>
 
                                             </div>
-                                            <div class="columns four">
+                                            <div class="col-md-4">
                                                 <input id="interest" type="number" placeholder="Interest Rate">
                                             </div>
                                         </div>
@@ -97,14 +99,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="columns six">
+                        <div class="col-md-6">
                             <div id="pie-chart" class="pie-chart animated fadeIn"></div>
                             <div id="results-more"></div>
                         </div>
                     </div>
                     <div class="more-info">
                         <div class="row">
-                            <div class="columns twelve">
+                            <div class="col-md-12">
 
                                 <div id="results">
 
@@ -128,19 +130,58 @@
         </div>
     </div>
 </body>
-<script type="text/javascript" src="../../js/fastclick.js"></script>
-<script type="text/javascript" src="../../js/jquery-1.11.2.min.js"></script>
-<script type="text/javascript" src="../../js/TweenMax.min.js"></script>
-<script type="text/javascript" src="../../js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/vendor/fastclick.js"></script>
+<script type="text/javascript" src="../js/vendor/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../js/vendor/TweenMax.min.js"></script>
+<script type="text/javascript" src="../js/vendor/jquery-ui.min.js"></script>
 <!-- for the calculator -->
-<script type="text/javascript" src="../../js/highcharts.js"></script>
-<script type="text/javascript" src="../../js/data-highcharts.js"></script>
-<script type="text/javascript" src="../../js/calculators.js"></script>
+<script type="text/javascript" src="../js/vendor/highcharts.js"></script>
+<script type="text/javascript" src="../js/vendor/data-highcharts.js"></script>
 
-<script type="text/javascript" src="../../js/app.js"></script>
+
+<script type="text/javascript" src="../js/kiosk.js"></script>
+<script type="text/javascript" src="../js/calculators.js"></script>
+<script type="text/javascript" src="../js/app.js"></script>
 
 <script>
-    calculate_monthly_payment();
+let mortgageCalc = new FinancialCalculator({
+    elements: {
+        areaChart: '#area-chart',
+        amortization: '#amortization',
+        amortizationHeader: '#amortization-header',
+        columnChart: '#column-chart',
+        creditBalance: '#creditBalance',
+        creditRate:'#creditRate',
+        creditMonthlyAmount:'#creditMonthlyAmount',
+        dividendPrincipal: '#dividend-principal',
+        dividendRate: '#dividend-rate',
+        dividendTerm: '#dividend-term',
+        dividends: '#dividends',
+        interestAmount: '#interest',
+        interest: '#interest',
+        gap: '#gap',
+        loanAmount: '#amount',
+        month: '#month',
+        pieChart: '#pie-chart',
+        resultsMore: '#results-more',
+        resultsTable: '#results-table',
+        startDate: '#start-date',
+        termMonths: '#term-months',
+        termYears: '#term-years',
+        total: '#total',
+        totalInterest: '#total_interest',
+        year: '#year'
+    },
+    loanType: 'mortgage',
+    monthlyYearly: 'yearly',
+    highChartsOptions:{
+      colors:['#a0b940','#AB8BC4','#7DC1D8','#1b1b1b'],
+      font:'Ubuntu, Arial, sans-serif',
+      background:'transparent'
+    }
+
+});
+mortgageCalc.init();
 </script>
 
 </html>

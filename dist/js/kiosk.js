@@ -42,8 +42,8 @@ var Kiosk = function () {
             console.log("This is the Kiosk test static method");
         }
     }, {
-        key: "convert_month",
-        value: function convert_month(month) {
+        key: "convertMonth",
+        value: function convertMonth(month) {
             if (month == 1) {
                 month = "January";
             } else if (month == 2) {

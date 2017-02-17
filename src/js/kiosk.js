@@ -26,7 +26,7 @@ class Kiosk {
     static test() {
         console.log("This is the Kiosk test static method");
     }
-    static convert_month(month) {
+    static convertMonth(month) {
         if (month == 1) {
             month = "January";
         } else if (month == 2) {

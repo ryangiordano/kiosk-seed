@@ -19,6 +19,7 @@
         <div class="background-grey-gradient">
             <div class="container">
                 <div class="row">
+                  <div class="col-md-12">
                     <div class="header">
                         <div class="title">
                             <h1>Auto Loan Calculator</h1>
@@ -28,6 +29,8 @@
                             </div>
                         </div>
                     </div>
+                  </div>
+
                 </div>
 
                 <div class="content">
@@ -179,7 +182,7 @@
                                         <table id="amortization">
                                         </table>
                                         <a href="#top">
-                                            <div class="btn-orange">
+                                            <div class="btn">
                                                 <h3>Back to Top</h3></div>
                                         </a>
                                     </div>
@@ -200,16 +203,56 @@
 <!-- for the calculator -->
 <script type="text/javascript" src="../js/vendor/highcharts.js"></script>
 <script type="text/javascript" src="../js/vendor/data-highcharts.js"></script>
-<script type="text/javascript" src="../js/calculators.js"></script>
+
 
 <script type="text/javascript" src="../js/kiosk.js"></script>
+<script type="text/javascript" src="../js/calculators.js"></script>
 <script type="text/javascript" src="../js/app.js"></script>
 
 <script type="text/javascript">
 </script>
 
 <script>
-    calculate_monthly_payment();
+
+
+    let autoLoanCalc = new FinancialCalculator({
+        elements: {
+            areaChart: '#area-chart',
+            amortization: '#amortization',
+            amortizationHeader: '#amortization-header',
+            columnChart: '#column-chart',
+            creditBalance: '#creditBalance',
+            creditRate:'#creditRate',
+            creditMonthlyAmount:'#creditMonthlyAmount',
+            dividendPrincipal: '#dividend-principal',
+            dividendRate: '#dividend-rate',
+            dividendTerm: '#dividend-term',
+            dividends: '#dividends',
+            interestAmount: '#interest',
+            interest: '#interest',
+            gap: '#gap',
+            loanAmount: '#amount',
+            month: '#month',
+            pieChart: '#pie-chart',
+            resultsMore: '#results-more',
+            resultsTable: '#results-table',
+            startDate: '#start-date',
+            termMonths: '#term-months',
+            termYears: '#term-years',
+            total: '#total',
+            totalInterest: '#total_interest',
+            year: '#year'
+        },
+        loanType: 'auto',
+        monthlyYearly: 'months',
+        highChartsOptions:{
+          colors:['#a0b940','#AB8BC4','#7DC1D8','#1b1b1b'],
+          font:'Ubuntu, Arial, sans-serif',
+          background:'transparent'
+        }
+
+    });
+    autoLoanCalc.init();
 </script>
 
 </html>
