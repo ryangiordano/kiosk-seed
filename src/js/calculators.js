@@ -1,132 +1,65 @@
-let options = {
-    elements: {
-        areaChart: '#area-chart',
-        amortization: '#amortization',
-        amortizationHeader: '#amortization-header',
-        columnChart: '#column-chart',
-        creditBalance: '#creditBalance',
-        creditRate: '#creditRate',
-        creditMonthlyAmount: '#creditMonthlyAmount',
-        dividendPrincipal: '#dividend-principal',
-        dividendRate: '#dividend-rate',
-        dividendTerm: '#dividend-term',
-        dividends: '#dividends',
-        interestAmount: '#interest',
-        interest: '#interest',
-        gap: '#gap',
-        loanAmount: '#amount',
-        month: '#month',
-        pieChart: '#pie-chart',
-        resultsMore: '#results-more',
-        resultsTable: '#results-table',
-        startDate: '#start-date',
-        termMonths: '#term-months',
-        termYears: '#term-years',
-        total: '#total',
-        totalInterest: '#total_interest',
-        year: '#year'
-    },
-    loanType: 'auto',
-    monthlyYearly: 'months',
-    highChartsOptions:{
-      colors:['#a0b940','#AB8BC4','#7DC1D8','#1b1b1b'],
-      font:'Ubuntu, Arial, sans-serif',
-      background:'transparent'
-    }
-
-}
-
+// let options = {
+//     elements: {
+//         areaChart: '#area-chart',
+//         amortization: '#amortization',
+//         amortizationHeader: '#amortization-header',
+//         columnChart: '#column-chart',
+//         creditBalance: '#creditBalance',
+//         creditRate: '#creditRate',
+//         creditMonthlyAmount: '#creditMonthlyAmount',
+//         dividendPrincipal: '#dividend-principal',
+//         dividendRate: '#dividend-rate',
+//         dividendTerm: '#dividend-term',
+//         dividends: '#dividends',
+//         interestAmount: '#interest',
+//         interest: '#interest',
+//         gap: '#gap',
+//         loanAmount: '#amount'
+//         pieChart: '#pie-chart',
+//         resultsMore: '#results-more',
+//         resultsTable: '#results-table',
+//         startDate: '#start-date',
+//         termMonths: '#term-months',
+//         termYears: '#term-years',
+//         total: '#total',
+//         totalInterest: '#total_interest'
+//     },
+//     calcType: 'auto',
+//     monthlyYearly: 'months',
+//     highChartsOptions:{
+//       colors:['#a0b940','#AB8BC4','#7DC1D8','#1b1b1b'],
+//       font:'Ubuntu, Arial, sans-serif',
+//       background:'transparent'
+//     }
+//
+// }
 
 class FinancialCalculator {
     constructor(options) {
-
         for (let key in options) {
             if (options.hasOwnProperty(key)) {
                 this[key] = options[key];
             }
         }
-        this.setHighchartsOptions(this.highChartsOptions.colors,this.highChartsOptions.font,this.highChartsOptions.background);
+        this.setHighchartsOptions(this.highChartsOptions.colors, this.highChartsOptions.font, this.highChartsOptions.background);
+        //get current month and add to class scope
+        this.currentMonth = new Date().getMonth() + 1;
+        //get current year and add to class scope
+        this.currentYear = new Date().getFullYear();
     }
     init() {
         //we set event listeners and other default things here:
-        let el = this.elements;
-        //get current month and add to hidden input
-        let currentMonth = new Date().getMonth() + 1;
-        $(el.month).val(currentMonth);
-        //get current year and add to hidden input
-        let currentYear = new Date().getFullYear();
-        $(el.year).val(currentYear);
-        //Disallow Comma on Number Inputs
-        $("input[type=number]").keypress(function(evt) {
-            if (String.fromCharCode(evt.which) == ",") return false;
+        let els = this.elements;
+        this.initialSetup();
+        //When there is new data in each of these fields, calculate dividend
+        this.calcType && this.calcType.length > 0 ? this.initializeCalculator(this.calcType) : this.initializeCalculator('custom', {
+            amount: "1000",
+            interest: "2.5",
+            termMonths: "12"
         });
-        // Mortgage & Loan Calculator
-        //if the loan type is set, then set the default values. If it's set to custom, make a custom calculator.
-        if (this.loanType) {
-            this.setDefaultLoanValues(this.loanType);
-            this.calculateMonthlyPayment();
-        }// TODO: custom calc else if
-        //Back To Top Button
-        $("a[href='#top']").click(function() {
-            $('.content').animate({
-                scrollTop: ($('header').offset()).top
-            }, 1000);
-            return false;
-        });
-        //Hide Payment Protection Options If Not Selected
-        $(el.paymentProtection).change(function() {
-            if ($(el.paymentProtection).val() == 'Yes') {
-                $(el.protectionCoverage).show();
-                $('form.auto').css("padding-bottom", "10px");
-            } else {
-                $(el.protectionCoverage).hide();
-                $('form.auto').css("padding-bottom", "30px");
-            }
-        });
-        //When there is new data in each of these fields, the calculate dividend
-        let dividendEls = document.querySelectorAll(`${el.dividendPrincipal}, ${el.dividendPrincipal}, ${el.dividendTerm}`);
-        for(let dividendEl of dividendEls){
-          dividendEl.addEventListener('keyup',()=>{this.calculateDividend()})
-        }
-            this.calculateDividend();
-        //on change, calculate the monthly payment
-        let monthlyPaymentEls = document.querySelectorAll(`${el.startDate}, ${el.loanAmount}, ${el.interest}, ${el.termYears}, ${el.termMonths}, ${el.gap}, ${el.paymentProtection}, ${el.protectionCoverage}`);
-        for(let monthlyPaymentEl of monthlyPaymentEls){
-          monthlyPaymentEl.addEventListener('change',()=>{
-            this.calculateMonthlyPayment();
-
-          })
-        }
-
-
-        $(`${el.creditBalance}, ${el.creditRate}, ${el.creditMonthlyAmount}`).change(() => {
-            setTimeout(this.creditCalc, 1000);
-        });
-        document.querySelector(el.resultsMore).addEventListener('click',()=>{
-          this.showFullAmortizationSchedule();
-        })
-        // //used if allowing calculation based on year OR month
-        // $('select[id=monthly-yearly]').change(function() {
-        //     //$("#term-months").val("");
-        //     //$("#term-years").val("");
-        //     if ($(this).val() == 'months') {
-        //         $('#years-field').hide();
-        //         $('#months-field').show();
-        //     } else {
-        //         $('#months-field').hide();
-        //         $('#years-field').show();
-        //     };
-        // });
     }
-    //set default values
-    //takes in loan type string or flagged for custom.
-    //takes custom, an object:
-    // {
-    //   amount: "string",
-    //   interest: "string",
-    //   termMonths: "string"
-    // }
-    setDefaultLoanValues(loanType, custom) {
+    initializeCalculator(calcType, custom) {
+        let els = this.elements;
         if (typeof custom === "object") {
             this.populateLoanValues({
                 amount: custom.amount,
@@ -134,13 +67,16 @@ class FinancialCalculator {
                 termMonths: custom.termMonths
             });
         } else {
-            switch (loanType) {
+            switch (calcType) {
                 case "auto":
                     this.populateLoanValues({
                         amount: "9500",
                         interest: "4",
                         termMonths: "48"
                     });
+                    this.setEventListeners('change', [els.startDate, els.loanAmount, els.interest, els.termYears, els.termMonths, els.gap], this.calculateMonthlyPayment);
+                    this.setEventListeners('click', [els.resultsMore], this.showFullAmortizationSchedule);
+                    this.calculateMonthlyPayment();
                     break;
                 case "mortgage":
                     this.populateLoanValues({
@@ -148,6 +84,10 @@ class FinancialCalculator {
                         interest: "3.85",
                         termMonths: "30"
                     });
+                    console.log(els.loanAmount);
+                    this.setEventListeners('change', [els.startDate, els.loanAmount, els.interest, els.termYears, els.termMonths, els.gap], this.calculateMonthlyPayment);
+                    this.setEventListeners('click', [els.resultsMore], this.showFullAmortizationSchedule);
+                    this.calculateMonthlyPayment();
                     break;
                 case "personal":
                     this.populateLoanValues({
@@ -155,6 +95,9 @@ class FinancialCalculator {
                         interest: "8.5",
                         termMonths: "36"
                     });
+                    this.setEventListeners('change', [els.startDate, els.loanAmount, els.interest, els.termYears, els.termMonths, els.gap], this.calculateMonthlyPayment);
+                    this.setEventListeners('click', [els.resultsMore], this.showFullAmortizationSchedule);
+                    this.calculateMonthlyPayment();
                     break;
                 case "boat":
                     this.populateLoanValues({
@@ -162,6 +105,9 @@ class FinancialCalculator {
                         interest: "3.99",
                         termMonths: "60"
                     });
+                    this.setEventListeners('change', [els.startDate, els.loanAmount, els.interest, els.termYears, els.termMonths, els.gap], this.calculateMonthlyPayment);
+                    this.setEventListeners('click', [els.resultsMore], this.showFullAmortizationSchedule);
+                    this.calculateMonthlyPayment();
                     break;
                 case "credit":
                     this.populateCreditValues({
@@ -169,7 +115,20 @@ class FinancialCalculator {
                         rate: "9.25",
                         monthlyAmount: '30'
                     });
+                    this.setEventListeners('change', [els.creditBalance, els.creditRate, els.creditMonthlyAmount], this.calculateCredit);
+                    this.calculateCredit();
                     break;
+                case "savings":
+                    this.populateSavingsValues({
+                        principal: "1500",
+                        rate: "9.25",
+                        termMonths: '30'
+                    });
+                    this.setEventListeners('change', [this.elements.dividendPrincipal, this.elements.dividendRate, this.elements.dividendTerm], this.calculateDividend);
+                    this.calculateDividend();
+                    break;
+                default:
+                    console.error("No Financial Calculator Type");
             }
         }
     }
@@ -178,13 +137,18 @@ class FinancialCalculator {
         $(this.elements.interestAmount).val(options.interest);
         $(this.elements.termMonths).val(options.termMonths);
     }
-
+    populateSavingsValues(options) {
+        $(this.elements.dividendPrincipal).val(options.principal);
+        $(this.elements.dividendRate).val(options.rate);
+        $(this.elements.dividendTerm).val(options.termMonths);
+    }
     populateCreditValues(options) {
         $(this.elements.creditBalance).val(options.balance);
         $(this.elements.creditRate).val(options.rate);
         $(this.elements.creditMonthlyAmount).val(options.monthlyAmount);
     }
     calculateDividend() {
+        console.log("calculateDividend has run");
 
         let dividend_principal = parseFloat($(this.elements.dividendPrincipal).val());
         let initial_deposit = parseFloat($(this.elements.dividendPrincipal).val());
@@ -290,46 +254,42 @@ class FinancialCalculator {
     }
     calculateMonthlyPayment() {
         //set the monthly interest depending on the years.
+        console.log("payment is calculating ");
         $(this.elements.resultsMore).css('display', 'flex');
-        if (this.loanType === 'mortgage') {
+        if (this.calcType === 'mortgage') {
             if ($(this.elements.termYears).val() == 30) {
-                $(this.elements.interest).val('3.85');
+                $(this.elements.interestAmount).val('3.85');
             }
             if ($(this.elements.termYears).val() == 20) {
-                $(this.elements.interest).val('3.75');
+                $(this.elements.interestAmount).val('3.75');
             }
             if ($(this.elements.termYears).val() == 15) {
-                $(this.elements.interest).val('3.125');
+                $(this.elements.interestAmount).val('3.125');
             }
             if ($(this.elements.termYears).val() == 10) {
-                $(this.elements.interest).val('3.00');
+                $(this.elements.interestAmount).val('3.00');
             }
         }
         // setting these as local variables...easier to read vs huge parse float equations.
         let loanamount = $(this.elements.loanAmount).val().replace(/,/g, "");
         let loan_amount = parseFloat(loanamount);
 
-        if ($(this.elements.gap).val() == "Yes" && this.loanType == 'auto') {
+        if ($(this.elements.gap).val() == "Yes" && this.calcType == 'auto') {
             loan_amount = loan_amount + 375
         }
 
-        let interest_rate = parseFloat($(this.elements.interest).val()) / 100;
+        let interest_rate = parseFloat($(this.elements.interestAmount).val()) / 100;
         let monthly_interest_rate = interest_rate / 12;
         let length_of_mortgage = parseInt($(this.elements.termYears).val()) * 12;
-        if (this.monthlyYearly == 'months') {
-            length_of_mortgage = parseInt($(this.elements.termMonths).val());
 
-        }else{
-          length_of_mortgage = parseInt($(this.elements.termYears).val());
-        }
         // begin the formula for calculate the fixed monthly payment
         // REFERENCE: P = L[c(1 + c)n]/[(1 + c)n - 1]
         let protection;
-
         let top_val = monthly_interest_rate * Math.pow((1 + monthly_interest_rate), length_of_mortgage);
         let bot_val = Math.pow((1 + monthly_interest_rate), (length_of_mortgage)) - 1;
         let monthly_mortgage = parseFloat(loan_amount * (top_val / bot_val)).toFixed(2);
-        if (this.loanType == 'auto') {
+
+        if (this.calcType == 'auto') {
             if ($(this.elements.paymentProtection).val() == "Yes") {
                 protection = parseFloat($('#coverage:checked').val()).toFixed(2);
                 protection = protection * (loanamount / 1000);
@@ -340,7 +300,6 @@ class FinancialCalculator {
         console.log(length_of_mortgage);
         this.calculateAmortization(loan_amount, monthly_mortgage, monthly_interest_rate, length_of_mortgage);
         //show total payment, with commas
-
         $(this.elements.total).html(`$${this.numberWithCommas(parseFloat(monthly_mortgage))}`);
 
         //if the payment is not a number (error in input), do not display the $NaN
@@ -351,8 +310,8 @@ class FinancialCalculator {
         }
     }
     calculateAmortization(loan_amount, monthly_mortgage, monthly_interest_rate, length_of_mortgage) {
-        let month = parseInt($(this.elements.month).val());
-        let year = parseInt($(this.elements.year).val());
+        let month = parseInt(this.currentMonth);
+        let year = parseInt(this.currentYear);
         let tableData = "<tr> \
                   <th>Month</th> \
                   <th>Principal</th> \
@@ -367,7 +326,8 @@ class FinancialCalculator {
         let tablerow;
         console.log(length_of_mortgage);
         for (let i = length_of_mortgage; i > 0; i--) {
-
+          console.log(total_interest);
+                      console.log(total_interest+"???");
             let monthly_interest = parseFloat(loan_amount * monthly_interest_rate).toFixed(2);
             if (isNaN(monthly_interest)) {
                 $(this.elements.resultsMore).css('opacity', '0');
@@ -375,7 +335,7 @@ class FinancialCalculator {
             } else {
                 if ($(this.elements.resultsTable).css('display', 'none')) {
                     $(this.elements.resultsMore).css('opacity', '1');
-                    $(this.elements.resultsMore).html(`<div class="btn" style="background-color:#a0b940">Show Amortization Schedule</div>`);
+                    $(this.elements.resultsMore).html(`<div class="btn" style=background-color:${this.highChartsOptions.colors[0]}>Show Amortization Schedule</div>`);
                 }
             }
             let monthly_principal = parseFloat(monthly_mortgage - monthly_interest).toFixed(2);
@@ -385,6 +345,7 @@ class FinancialCalculator {
             total_principal = parseFloat(total_principal) + parseFloat(monthly_principal);
 
             total_interest = parseFloat(total_interest) + parseFloat(monthly_interest);
+
             let monthStr = Kiosk.convertMonth(month);
             tablerow = "<tr> \
               <td>" + monthStr + " " + year + "</td> \
@@ -425,7 +386,6 @@ class FinancialCalculator {
         //Build the Highchart
         let principal_percent = (total_principal / total_mortgage) * 100;
         let interest_percent = (total_interest / total_mortgage) * 100;
-        console.log("Building pie chart");
         // console.log(total_principal,total_mortgage);
         // Build the pie chart
         $(this.elements.pieChart).highcharts({
@@ -487,8 +447,9 @@ class FinancialCalculator {
     calculateCredit() {
         let amountOwed = $(this.elements.creditBalance).val();
         let remainingBalance = $(this.elements.creditBalance).val();
-        let monthlyRate = (creditRate.value / 100) / 12;
-        let monthlyPayment = creditMonthlyAmount.value;
+        let monthlyRate = ($(this.elements.creditRate).val() / 100) / 12;
+
+        let monthlyPayment = $(this.elements.creditMonthlyAmount).val();
         let payments = 0;
         let months = 0;
         let interestPaid = 0;
@@ -510,9 +471,9 @@ class FinancialCalculator {
             interestPaid = remainingBalance - (amountOwed - (monthlyPayment * payments));
         }
 
-        $('#credit-result').html(months + ' Months');
-        $('#credit-interest').html('$' + this.numberWithCommas(interestPaid.toFixed(2)));
-        $('#min-payment').html((amountOwed * .025).toFixed(2));
+        $(this.elements.creditResult).html(months + ' Months');
+        $(this.elements.creditInterest).html('$' + this.numberWithCommas(interestPaid.toFixed(2)));
+        $(this.elements.creditMinPayment).html((amountOwed * .025).toFixed(2));
 
         //Build the Highchart
         let total_paid = interestPaid + amountOwed;
@@ -580,7 +541,7 @@ class FinancialCalculator {
         $('.content').animate({
             scrollTop: ($('.output').offset()).top
         }, 1000);
-        var month = parseInt($(this.elements.month).val());
+        var month = parseInt($(this.currentMonth));
         Kiosk.convertMonth(month);
         var tickStart = 13 - month;
         var loanamount = $(this.elements.loanAmount).val().replace(/,/g, "");
@@ -655,7 +616,7 @@ class FinancialCalculator {
                     return positions;
                 },
                 labels: {
-                    formatter: ()=>{
+                    formatter: () => {
                         return this.value.replace(/\D/g, '');
                     },
                 }
@@ -687,13 +648,25 @@ class FinancialCalculator {
         $('.interest').prepend('$');
         $('.mortgage').prepend('$');
     }
-
-    numberWithCommas(x) {
-        return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+    initialSetup() {
+        //Disallow Comma on Number Inputs
+        $("input[type=number]").keypress(function(evt) {
+            if (String.fromCharCode(evt.which) == ",") return false;
+        });
+        //Back To Top Button
+        $("a[href='#top']").click(function() {
+            $('.content').animate({
+                scrollTop: ($('header').offset()).top
+            }, 1000);
+            return false;
+        });
     }
-    //colorsArray is an array of string hex colors.
-    //fontFamily is comma-spearated string of fonts,
-    //backgroundColor is a hex value or transparent
+    numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(?:\d{3})+(?!\d))/g, ",");
+        }
+        //colorsArray is an array of string hex colors.
+        //fontFamily is comma-spearated string of fonts,
+        //backgroundColor is a hex value or transparent
     setHighchartsOptions(colorsArray, fontFamily, backgroundColor) {
         Highcharts.setOptions({
             colors: colorsArray,
@@ -706,5 +679,11 @@ class FinancialCalculator {
             }
         });
     }
-
+    setEventListeners(listener, elArray, functionToFire) {
+            let elString = elArray.join();
+            let els = document.querySelectorAll(elString);
+            for (let el of els) {
+                el.addEventListener('click', functionToFire.bind(this));
+            }
+        }
 }
