@@ -89,9 +89,9 @@ var FinancialCalculator = function () {
                             interest: "4",
                             termMonths: "48"
                         });
-                        this.setEventListeners('change', [els.startDate, els.loanAmount, els.interest, els.termYears, els.termMonths, els.gap], this.calculateMonthlyPayment);
+                        this.setEventListeners('change', [els.loanAmount, els.interestAmount, els.termMonths, els.gap], this.calculatePayment);
                         this.setEventListeners('click', [els.resultsMore], this.showFullAmortizationSchedule);
-                        this.calculateMonthlyPayment();
+                        this.calculatePayment();
                         break;
                     case "mortgage":
                         this.populateLoanValues({
@@ -99,10 +99,9 @@ var FinancialCalculator = function () {
                             interest: "3.85",
                             termMonths: "30"
                         });
-                        console.log(els.loanAmount);
-                        this.setEventListeners('change', [els.startDate, els.loanAmount, els.interest, els.termYears, els.termMonths, els.gap], this.calculateMonthlyPayment);
+                        this.setEventListeners('change', [els.loanAmount, els.interestAmount, els.termYears, els.gap], this.calculatePayment);
                         this.setEventListeners('click', [els.resultsMore], this.showFullAmortizationSchedule);
-                        this.calculateMonthlyPayment();
+                        this.calculatePayment();
                         break;
                     case "personal":
                         this.populateLoanValues({
@@ -110,9 +109,9 @@ var FinancialCalculator = function () {
                             interest: "8.5",
                             termMonths: "36"
                         });
-                        this.setEventListeners('change', [els.startDate, els.loanAmount, els.interest, els.termYears, els.termMonths, els.gap], this.calculateMonthlyPayment);
+                        this.setEventListeners('change', [els.loanAmount, els.interestAmount, els.termYears, els.termMonths, els.gap], this.calculatePayment);
                         this.setEventListeners('click', [els.resultsMore], this.showFullAmortizationSchedule);
-                        this.calculateMonthlyPayment();
+                        this.calculatePayment();
                         break;
                     case "boat":
                         this.populateLoanValues({
@@ -120,9 +119,9 @@ var FinancialCalculator = function () {
                             interest: "3.99",
                             termMonths: "60"
                         });
-                        this.setEventListeners('change', [els.startDate, els.loanAmount, els.interest, els.termYears, els.termMonths, els.gap], this.calculateMonthlyPayment);
+                        this.setEventListeners('change', [els.startDate, els.loanAmount, els.interestAmount, els.termYears, els.termMonths, els.gap], this.calculatePayment);
                         this.setEventListeners('click', [els.resultsMore], this.showFullAmortizationSchedule);
-                        this.calculateMonthlyPayment();
+                        this.calculatePayment();
                         break;
                     case "credit":
                         this.populateCreditValues({
@@ -171,8 +170,6 @@ var FinancialCalculator = function () {
     }, {
         key: "calculateDividend",
         value: function calculateDividend() {
-            console.log("calculateDividend has run");
-
             var dividend_principal = parseFloat($(this.elements.dividendPrincipal).val());
             var initial_deposit = parseFloat($(this.elements.dividendPrincipal).val());
             var dividend_rate = parseFloat($(this.elements.dividendRate).val() / 100) / 1;
@@ -274,10 +271,9 @@ var FinancialCalculator = function () {
             }); // End Highchart - Area*/
         }
     }, {
-        key: "calculateMonthlyPayment",
-        value: function calculateMonthlyPayment() {
+        key: "calculatePayment",
+        value: function calculatePayment() {
             //set the monthly interest depending on the years.
-            console.log("payment is calculating ");
             $(this.elements.resultsMore).css('display', 'flex');
             if (this.calcType === 'mortgage') {
                 if ($(this.elements.termYears).val() == 30) {
@@ -303,7 +299,7 @@ var FinancialCalculator = function () {
 
             var interest_rate = parseFloat($(this.elements.interestAmount).val()) / 100;
             var monthly_interest_rate = interest_rate / 12;
-            var length_of_mortgage = parseInt($(this.elements.termYears).val()) * 12;
+            var length_of_mortgage = this.monthlyYearly === "yearly" ? parseInt($(this.elements.termYears).val()) * 12 : parseInt($(this.elements.termMonths).val());
 
             // begin the formula for calculate the fixed monthly payment
             // REFERENCE: P = L[c(1 + c)n]/[(1 + c)n - 1]
@@ -320,7 +316,6 @@ var FinancialCalculator = function () {
                     protection = 0;
                 }
             }
-            console.log(length_of_mortgage);
             this.calculateAmortization(loan_amount, monthly_mortgage, monthly_interest_rate, length_of_mortgage);
             //show total payment, with commas
             $(this.elements.total).html("$" + this.numberWithCommas(parseFloat(monthly_mortgage)));
@@ -349,10 +344,7 @@ var FinancialCalculator = function () {
             var total_principal = parseFloat(0);
             var total_interest = parseFloat(0);
             var tablerow = void 0;
-            console.log(length_of_mortgage);
             for (var i = length_of_mortgage; i > 0; i--) {
-                console.log(total_interest);
-                console.log(total_interest + "???");
                 var monthly_interest = parseFloat(loan_amount * monthly_interest_rate).toFixed(2);
                 if (isNaN(monthly_interest)) {
                     $(this.elements.resultsMore).css('opacity', '0');

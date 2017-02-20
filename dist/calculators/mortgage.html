@@ -39,8 +39,6 @@
                                 <hr>
                                 <form class="auto">
                                     <input id="loan-type" type="hidden" value="mortgage" />
-                                    <input id="month" type="hidden" value="" />
-                                    <input id="year" type="hidden" value="" />
                                     <div class="input">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -146,31 +144,19 @@
 <script>
 let mortgageCalc = new FinancialCalculator({
     elements: {
-        areaChart: '#area-chart',
         amortization: '#amortization',
         amortizationHeader: '#amortization-header',
         columnChart: '#column-chart',
-        creditBalance: '#creditBalance',
-        creditRate:'#creditRate',
-        creditMonthlyAmount:'#creditMonthlyAmount',
-        dividendPrincipal: '#dividend-principal',
-        dividendRate: '#dividend-rate',
-        dividendTerm: '#dividend-term',
-        dividends: '#dividends',
         interestAmount: '#interest',
-        interest: '#interest',
         gap: '#gap',
         loanAmount: '#amount',
         month: '#month',
         pieChart: '#pie-chart',
         resultsMore: '#results-more',
         resultsTable: '#results-table',
-        startDate: '#start-date',
-        termMonths: '#term-months',
         termYears: '#term-years',
         total: '#total',
         totalInterest: '#total_interest',
-        year: '#year'
     },
     calcType: 'mortgage',
     monthlyYearly: 'yearly',

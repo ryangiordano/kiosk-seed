@@ -78,12 +78,12 @@
                       								<option label="months" value="months">Months</option>
                       							</select>
                       						</div>-->
-                                    <input id="monthly-yearly" type="hidden" value="months" />
-                                    <!--<div class="input">
+                                    <!-- <input id="monthly-yearly" type="hidden" value="months" />
+                                    <div class="input">
                       			      	     	<label>Terms of the Loan (Years):</label>
                       							<input id="term-years" type="text" placeholder="Term">
                       							<span class="add-on">Years</span>
-                      						</div>-->
+                      						</div> -->
                                     <div class="input">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -157,34 +157,22 @@
 <script>
 let mortgageCalc = new FinancialCalculator({
     elements: {
-        areaChart: '#area-chart',
         amortization: '#amortization',
         amortizationHeader: '#amortization-header',
         columnChart: '#column-chart',
-        creditBalance: '#creditBalance',
-        creditRate:'#creditRate',
-        creditMonthlyAmount:'#creditMonthlyAmount',
-        dividendPrincipal: '#dividend-principal',
-        dividendRate: '#dividend-rate',
-        dividendTerm: '#dividend-term',
-        dividends: '#dividends',
         interestAmount: '#interest',
-        interest: '#interest',
         gap: '#gap',
         loanAmount: '#amount',
-        month: '#month',
         pieChart: '#pie-chart',
         resultsMore: '#results-more',
         resultsTable: '#results-table',
-        startDate: '#start-date',
         termMonths: '#term-months',
         termYears: '#term-years',
         total: '#total',
         totalInterest: '#total_interest',
-        year: '#year'
     },
     calcType: 'personal',
-    monthlyYearly: 'yearly',
+    monthlyYearly: 'monthly',
     highChartsOptions:{
       colors:['#a0b940','#AB8BC4','#7DC1D8','#1b1b1b'],
       font:'Ubuntu, Arial, sans-serif',

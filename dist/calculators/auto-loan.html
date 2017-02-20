@@ -217,32 +217,21 @@
 
     let autoLoanCalc = new FinancialCalculator({
         elements: {
-            areaChart: '#area-chart',
-            amortization: '#amortization',
+            amortization: '#amortization',//a table
             amortizationHeader: '#amortization-header',
             columnChart: '#column-chart',
-            creditBalance: '#creditBalance',
-            creditRate:'#creditRate',
-            creditMonthlyAmount:'#creditMonthlyAmount',
-            dividendPrincipal: '#dividend-principal',
-            dividendRate: '#dividend-rate',
-            dividendTerm: '#dividend-term',
-            dividends: '#dividends',
             interestAmount: '#interest',
-            interest: '#interest',
             gap: '#gap',
             loanAmount: '#amount',
             pieChart: '#pie-chart',
             resultsMore: '#results-more',
             resultsTable: '#results-table',
-            startDate: '#start-date',
             termMonths: '#term-months',
-            termYears: '#term-years',
             total: '#total',
             totalInterest: '#total_interest'
         },
         calcType: 'auto',
-        monthlyYearly: 'months',
+        monthlyYearly: 'monthly',
         highChartsOptions:{
           colors:['#a0b940','#AB8BC4','#7DC1D8','#1b1b1b'],
           font:'Ubuntu, Arial, sans-serif',
