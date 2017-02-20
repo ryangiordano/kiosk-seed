@@ -2,10 +2,6 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Kiosk = function () {
@@ -40,11 +36,6 @@ var Kiosk = function () {
     }, {
         key: "navigate",
         value: function navigate() {}
-    }, {
-        key: "test",
-        value: function test() {
-            console.log("This is the Kiosk test static method");
-        }
     }, {
         key: "convertMonth",
         value: function convertMonth(month) {
@@ -337,56 +328,3 @@ var Form = function Form() {
 var KioskPage = function KioskPage() {
     _classCallCheck(this, KioskPage);
 };
-
-var Animation = function () {
-    function Animation(options, animation, setup) {
-        _classCallCheck(this, Animation);
-
-        this.options = options;
-        this.animation = animation;
-        this.setup = setup;
-        this.tl = new TimelineMax();
-        this.init();
-    }
-
-    _createClass(Animation, [{
-        key: "init",
-        value: function init() {
-            if (this.options.requireSetup) {
-                this.setup(this.tl);
-            }
-            if (this.options.immediate) {
-                return this.runAnimation();
-            }
-            this.setEventListeners(this.options.triggerSelector);
-        }
-    }, {
-        key: "runAnimation",
-        value: function runAnimation(destination) {
-            return this.animation(this.tl, destination);
-        }
-    }, {
-        key: "setEventListeners",
-        value: function setEventListeners(triggerSelector) {
-            var that = this;
-            $(triggerSelector).on('click', function (e) {
-                e.preventDefault();
-                that.runAnimation($(this).attr('href'));
-            });
-        }
-    }]);
-
-    return Animation;
-}();
-
-var Slide = function (_Animation) {
-    _inherits(Slide, _Animation);
-
-    function Slide() {
-        _classCallCheck(this, Slide);
-
-        return _possibleConstructorReturn(this, (Slide.__proto__ || Object.getPrototypeOf(Slide)).call(this));
-    }
-
-    return Slide;
-}(Animation);

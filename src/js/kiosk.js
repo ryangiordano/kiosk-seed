@@ -23,9 +23,6 @@ class Kiosk {
     static navigate() {
 
     }
-    static test() {
-        console.log("This is the Kiosk test static method");
-    }
     static convertMonth(month) {
         if (month == 1) {
             month = "January";
@@ -278,43 +275,4 @@ class Form {
 }
 class KioskPage {
     //Take animations and assign them to events.  Attach listeners.
-}
-
-
-
-class Animation {
-    constructor(options, animation, setup) {
-        this.options = options;
-        this.animation = animation;
-        this.setup = setup;
-        this.tl = new TimelineMax();
-        this.init();
-    }
-    init() {
-        if (this.options.requireSetup) {
-            this.setup(this.tl);
-        }
-        if (this.options.immediate) {
-            return this.runAnimation();
-        }
-        this.setEventListeners(this.options.triggerSelector);
-    }
-    runAnimation(destination) {
-        return this.animation(this.tl, destination);
-    }
-    setEventListeners(triggerSelector) {
-        let that = this;
-        $(triggerSelector).on('click', function(e) {
-            e.preventDefault();
-            that.runAnimation($(this).attr('href'));
-        })
-    }
-
-}
-class Slide extends Animation{
-  constructor(){
-    super();
-
-
-  }
 }
