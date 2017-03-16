@@ -1,11 +1,14 @@
 class Animation {
     constructor(options, animation, setup) {
         for (let key in options) {
-          console.log(key);
             if (options.hasOwnProperty(key)) {
                 this[key] = options[key];
             }
         }
+        this.requireSetup = this.requireSetup || true;
+        this.axis = this.from === "top" || this.from === "bottom" ? "y" : "x";
+        this.direction = this.from ==="left" || this.from === "top" ? "-" : "";
+        this.target = document.querySelectorAll(this.target);
         this.animation = animation;
         this.setup = setup;
         this.tl = new TimelineMax();
@@ -15,7 +18,8 @@ class Animation {
         if (this.requireSetup) {
             this.setUpAnimation();
         }
-        if (this.immediate) {
+
+        if (!this.triggerSelector) {
             return this.runAnimation();
         }
         this.setEventListeners(this.triggerSelector);
@@ -27,7 +31,6 @@ class Animation {
         return this.setup(this.tl);
     }
     setEventListeners(triggerSelector) {
-        console.log("setting event listeners");
         let that = this;
         $(triggerSelector).on('click', function(e) {
             e.preventDefault();
@@ -36,6 +39,7 @@ class Animation {
     }
 
 }
+
 class Slide extends Animation {
     constructor(options, animation, setup) {
         super(options);
@@ -44,20 +48,28 @@ class Slide extends Animation {
         }
     }
     runAnimation(destination) {
-        this.tl.staggerTo(redBoxes, 1, {
-            opacity: 1,
-            y: 0,
-            onComplete: Kiosk.test,
-            onCompleteParams: [destination]
-        }, .3)
+      let axis = this.axis, plusMinus;
+      let animateObject = {};
+      animateObject['opacity'] = this.fadeIn ? 1: 0;
+      animateObject[axis] = 0;
+        this.tl.staggerTo(redBoxes, 1,animateObject, .3)
     }
     setUpAnimation() {
-        let axis, plusMinus;
-        this.from === "top" || this.from === "bottom" ? axis = "y";
-        this.to === ""
-        this.tl.set(redBoxes, {
-            opacity: this.fadeIn ? 0 : 1,
-            y:
-        })
+        let axis = this.axis, plusMinus;
+        let setObject = {};
+        setObject['opacity'] = this.fadeIn ? 0: 1;
+        setObject[axis] = `${this.direction}100`;
+        console.log(setObject);
+        this.tl.set(redBoxes, setObject);
     }
+}
+
+class SlideDown extends Slide{
+  constructor(options){
+    super(options);
+    this.from = "top";
+    console.log(this.from);
+    this.axis = this.from === "top" || this.from === "bottom" ? "y" : "x";
+    this.direction = this.from ==="left" || this.from === "top" ? "-" : "";
+  }
 }

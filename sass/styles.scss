@@ -1,6 +1,6 @@
 @charset "utf-8"; //variables
 //brand colors
-$darkGrey: #3B3B3B;
+$darkGrey: #626366;
 $green: #A6C64C;
 $darkGreen: #73A35B;
 $lightBlue: #7DC1D8;
@@ -511,4 +511,55 @@ input:invalid {
         transform: scale(1);
         top: 0;
     }
+}
+
+//11. Connection Page
+.connection{
+  height:100%;
+  width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  h1{
+    font-size:45px;
+    margin-bottom:10px;
+  }
+  p{
+    line-height:20px;
+    margin-bottom:15px;
+  }
+}
+
+
+// 12. Placeholder
+.placeholder{
+ width:100%;
+ height:100%;
+ background-color: white;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ h1{
+   color: $darkGrey;
+   font-size:25px;
+   font-family: 'uBuntu';
+   font-weight:700;
+   margin-bottom:20px;
+ }
+ hr{
+   background-color: $darkGrey;
+ }
+ .logo{
+   height:200px;
+ }
+ li{
+   display:inline-block;
+   margin:10px 10px;
+ }
+ a{
+   font-size: 18px;
+   color: $darkGrey;
+   font-weight:700;
+ }
 }

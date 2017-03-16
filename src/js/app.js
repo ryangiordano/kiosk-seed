@@ -1,17 +1,7 @@
 /* Website Produced by Codigo |  gocodigo.com */
-const MIT = new Kiosk({project_name:"MIT Community Credit Union"});
-MIT.init();
+const KioskInstance = new Kiosk({project_name:"Codigo Kiosk"});
+KioskInstance.init();
 
 $(function() {
     FastClick.attach(document.body);
 });
-
-
-
-$("#submit-button").click(function() {
-    $("#form").submit();
-    return false;
-});
-let calculator = new BasicCalculator();
-
-calculator.init();

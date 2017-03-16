@@ -2,65 +2,51 @@
 //display any errors when form loads
    ini_set('display_errors',1);
    error_reporting(E_ALL);
-
 //pull variables from html form input
-   $name = $_POST["name"];
    $email = $_POST["email"];
-   $pdf = $_POST["pdf"];
-   $pdfLink = $_POST["pdf-link"];
-   if (isset($_POST["subscribe"])){
-    $subscribe = "Yes";
-    }else{
-     $subscribe = "No";
-   }
+   $pdf = $_POST["brochure-name"];
+   $pdfLink = $_POST["brochure-link"];
+   require $_SERVER['DOCUMENT_ROOT'] . '/libraries/class.phpmailer.php';
+   require $_SERVER['DOCUMENT_ROOT'] . '/libraries/class.smtp.php';
 //set email variables for person requesting brochure
-   $email_subject = "Information Requested from Civista Bank";
+   $email_subject = "Information Requested from -------";
    $message = "<p style='font-family:Arial, sans-serif'>Hello,</p>
    <p style='font-family:Arial, sans-serif'>Here is the link to download or view the information you requested: <strong><a href='$pdfLink'>$pdf</a></strong> </p>
    <p style='font-family:Arial, sans-serif'>Simply click the link to view the PDF, or you may also print or download the file for your records.</a></p>
-   <p style='font-family:Arial, sans-serif'>To learn more about our products and services, please <a href='https://www.civistabank.com/'>visit our website.</a></p>
+   <p style='font-family:Arial, sans-serif'>To learn more about our products and services, please <a href='---------'>visit our website.</a></p>
    <p style='font-family:Arial, sans-serif'>Thanks for giving us the opportunity to serve you!</p>
-   <p style='font-family:Arial, sans-serif'>&mdash;Your friends at Civista Bank</p>";
+   <p style='font-family:Arial, sans-serif'>&mdash;Your friends at ---------------</p>
+   <img src='cid:logo' height='100px' width='100px' style='display:block' alt='-----' title='-----'>";
 
-   $email_from = 'info@civistabank.com';// Who the email is from
+   $email_from = '------';// Who the email is from
    $email_message = $message;
    $email_to = $email; // Who the email is to // From form input
-   $headers = 'From: Civista Bank <info@civistabank.com>'. "\r\n" .
-    'Reply-To: info@civistabank.com' . "\r\n" .
-    'X-Mailer: PHP/' . phpversion();
+
 //emails will display html styling along with text // formats email headers
-   $semi_rand = md5(time());
-   $mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
-   $headers .= "\nMIME-Version: 1.0\n" .
-   "Content-Type: multipart/mixed;\n" .
-   " boundary=\"{$mime_boundary}\"";
-
-   $email_message .= "This is a multi-part message in MIME format.\n\n" .
-   "--{$mime_boundary}\n" .
-   "Content-Type:text/html; charset=\"iso-8859-1\"\n" .
-   "Content-Transfer-Encoding: 7bit\n\n" .
-   $email_message .= "\n\n";
-
-   $headers2 .= "\nMIME-Version: 1.0\n" .
-   "Content-Type: multipart/mixed;\n" .
-   " boundary=\"{$mime_boundary}\"";
-
-   $body .= "This is a multi-part message in MIME format.\n\n" .
-   "--{$mime_boundary}\n" .
-   "Content-Type:text/html; charset=\"iso-8859-1\"\n" .
-   "Content-Transfer-Encoding: 7bit\n\n" .
-   $body .= "\n\n";
-
+   // To send HTML mail, the Content-type header must be set
+   $headers  = 'MIME-Version: 1.0' . "\r\n";
+   $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+   $headers .= 'From: -----------'. "\r\n" .
+    'Reply-To: --------------' . "\r\n" .
+    'X-Mailer: PHP/' . phpversion();
 
 //check it over and send
-   $ok = mail($email_to, $email_subject, $email_message, $headers);
+    $mail = new PHPMailer;
+    $mail->setFrom($email_from);
+    $mail->addAddress($email_to);
+    $mail->addReplyTo("--------");
+    $mail->isHTML(true);
+    $mail->AddEmbeddedImage('img/png-logo.png','logo');
+
+    $mail->Subject = $email_subject;
+    $mail->Body = $message;
 
 
-//display success or fail message page
-if($ok) {
+// //display success or fail message page
+if(!$mail->send()) {
  // mail ($to, $subject, $body, $headers2);
- header("Location: ./index.html?status=success");
-} else {
 header("Location: ./index.html?status=fail");
+} else {
+   header("Location: ./index.html?status=success");
 }
 ?>

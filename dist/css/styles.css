@@ -712,3 +712,58 @@ input:invalid {
     top: 0;
   }
 }
+
+.connection {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.connection h1 {
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+.connection p {
+  line-height: 20px;
+  margin-bottom: 15px;
+}
+
+.placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.placeholder h1 {
+  color: #626366;
+  font-size: 25px;
+  font-family: 'uBuntu';
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.placeholder hr {
+  background-color: #626366;
+}
+
+.placeholder .logo {
+  height: 200px;
+}
+
+.placeholder li {
+  display: inline-block;
+  margin: 10px 10px;
+}
+
+.placeholder a {
+  font-size: 18px;
+  color: #626366;
+  font-weight: 700;
+}

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 var redBoxes = $('.redbox');
 //
@@ -22,14 +22,25 @@ var redBoxes = $('.redbox');
 //     }
 // );
 
-var testAnimation = new Slide({
-    immediate: false,
-    requireSetup: true,
-    triggerSelector: ".items a",
+// let testAnimation = new Slide({
+//     requireSetup: true,
+//
+//     fadeIn: true,
+//     from: "bottom", //top, bottom, left, or right,
+//     duration: 5, //int
+//     delay: 1, //int
+//     length: 100, //px
+//     target: '.redbox' //element selector, string
+//     // to: "top"
+// });
+
+var testAnimation = new SlideDown({
+    // triggerSelector: ".items a",
     fadeIn: true,
-    from: "bottom", //top, bottom, left, or right,
     duration: 5, //int
-    delay: 1 //int
+    delay: 1, //int
+    length: 100, //px
+    target: '.redbox' //element selector, string
     // to: "top"
 });
 
