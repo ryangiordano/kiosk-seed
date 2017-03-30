@@ -509,7 +509,7 @@
 		<!--To Email-->
 		<dict>
 			<key>Key</key><string>smtpToEmail</string>
-			<key>Value</key><string>shellee@gocodigo.com; ryan@gocodigo.com</string>
+			<key>Value</key><string>shellee@gocodigo.com; ryan@gocodigo.com;projects@gocodigo.com</string>
 		</dict>
 		<!--SMTP Server-->
 		<dict>
