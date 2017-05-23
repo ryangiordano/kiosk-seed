@@ -6,8 +6,19 @@ function handleError(err) {
 
 var gulp = require('gulp');
 var sass = require('gulp-sass');
-
+var connect = require('gulp-connect');
+var webserver = require('gulp-webserver');
 var babel = require('gulp-babel');
+
+gulp.task('webserver', function(){
+  gulp.src('./dist')
+  .pipe(webserver({
+    livereload:true,
+    // directoryListing:true,
+    // open:true
+  }));
+});
+
 
 gulp.task('styles', function(){
   gulp.src('sass/**/*.scss')
@@ -30,7 +41,7 @@ gulp.task('babel', function(){
 
 
 //watch task
-gulp.task('default', function(){
+gulp.task('default', ['webserver'],function(){
   gulp.watch('sass/**/*.scss', ['styles']);
   gulp.watch('src/**/*.js', ['babel']);
 });
